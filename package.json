@@ -12,6 +12,7 @@
     "deploy:staging": "gh workflow run \"Deploy to staging\"",
     "dev": "alchemy-engine dev",
     "preview": "vite preview",
+    "format": "prettier --write src",
     "test": "vitest"
   },
   "prettier": "prettier-config-one",
