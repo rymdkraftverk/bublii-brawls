@@ -17,13 +17,15 @@ type Position = {
   y: number
 }
 
+type Radius = number
+
 type Type = 'snowPatch'
 
 export const state = {
   gold: 10,
   settingsVisible: false,
   positions: {} as Record<EntityId, Position>,
-  radii: {} as Record<EntityId, Position>,
+  radii: {} as Record<EntityId, Radius>,
   types: {} as Record<EntityId, Type>,
   typeToIds: {} as Record<Type, EntityId>,
 }
