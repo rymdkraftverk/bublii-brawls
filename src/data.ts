@@ -27,7 +27,9 @@ export const state = {
   positions: {} as Record<EntityId, Position>,
   radii: {} as Record<EntityId, Radius>,
   types: {} as Record<EntityId, Type>,
-  typeToIds: {} as Record<Type, EntityId[]>,
+  typeToIds: {
+    snowPatch: [] as EntityId[]
+  }
 }
 export type State = typeof state
 
