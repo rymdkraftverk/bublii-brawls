@@ -1,8 +1,10 @@
 import { graphics } from 'alchemy-engine'
 import type { Container } from 'pixi.js'
+import { getNextId, state } from '~/data'
 
 const RADIUS = 5
 const DIAMETER = RADIUS * 2
+const TYPE = 'snowPatch'
 
 export const letItSnow = (
   container: Container,
@@ -11,6 +13,12 @@ export const letItSnow = (
 ) => {
   for (let x = RADIUS; x < width; x += DIAMETER) {
     for (let y = RADIUS; y < height; y += DIAMETER) {
+      const id = getNextId()
+      state.positions[id] = { x, y }
+      state.radii[id] = RADIUS
+      state.types[id] = TYPE
+      state.typeToIds[TYPE] = id
+
       const snow = graphics(container)
       // TODO: -1 just for visual comform
       snow
