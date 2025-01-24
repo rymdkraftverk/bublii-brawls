@@ -24,7 +24,7 @@ export default async function game(scene: Scene) {
 
   const screenShake = useScreenShake(container)
   const background = graphics(container)
-  background.rect(0, 0, app.screen.width, app.screen.height).fill({ color: '#ffffff', alpha: 1 })
+  background.rect(0, 0, app.screen.width, app.screen.height).fill({ color: 'chocolate', alpha: 1 })
   background.position.set(0, 0)
 
   const c = createContainer(container)
