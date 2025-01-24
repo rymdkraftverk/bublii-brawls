@@ -8,6 +8,7 @@ import {
 } from 'alchemy-engine'
 import { type Scene } from '~/type'
 import pause from './pause'
+import controls from './controls'
 
 export default async function game(scene: Scene) {
   const {
