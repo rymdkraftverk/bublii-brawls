@@ -4,3 +4,4 @@ dist
 .eslintcache
 .stylelintcache
 tsconfig.tsbuildinfo
+.direnv
