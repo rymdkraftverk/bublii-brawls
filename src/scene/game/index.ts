@@ -89,5 +89,5 @@ export default async function game(scene: Scene) {
 
   pause(scene)
 
-  controls(scene)
+  controls(scene, 0)
 }
