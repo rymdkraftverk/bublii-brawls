@@ -82,4 +82,6 @@ export default async function game(scene: Scene) {
   sound.coin.play()
 
   pause(scene)
+
+  controls(scene)
 }
