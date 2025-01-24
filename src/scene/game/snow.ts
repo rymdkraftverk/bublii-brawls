@@ -17,7 +17,7 @@ export const letItSnow = (
       state.positions[id] = { x, y }
       state.radii[id] = RADIUS
       state.types[id] = TYPE
-      state.typeToIds[TYPE] = id
+      state.typeToIds[TYPE].push(id)
 
       const snow = graphics(container)
       // TODO: -1 just for visual comform
