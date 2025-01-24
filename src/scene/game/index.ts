@@ -10,6 +10,8 @@ import { type Scene } from '~/type'
 import pause from './pause'
 import controls from './controls'
 import { letItSnow } from './snow'
+import { type EntityId } from '~/data'
+import { type Sprite } from 'pixi.js'
 
 export default async function game(scene: Scene) {
   const {
@@ -25,6 +27,7 @@ export default async function game(scene: Scene) {
     app,
   } = scene
 
+  const sprites : Map<EntityId, Sprite> = new Map();
   // hacky convenience
   // @ts-expect-error TS2339
   window.scene = scene
@@ -72,6 +75,22 @@ export default async function game(scene: Scene) {
     10,
   )
 
+  const controllerIds = [0,1,2,3]
+  // const controllerIds : Array<EntityId> = []
+
+  for (const controllerId of controllerIds) {
+    createPlayer(controllerId, scene, sprites)
+
+    controls(scene, controllerId)
+  }
+
+
+  repeatEvery(1, (_time, _delta) => {
+    for (const [id, position] of state.positions.entries()) {
+      sprites.get(id)!.position = position
+    }
+  })
+
   repeatEvery(1, (_time, delta) => {
     if (isKeyDown(['a', 'ArrowLeft'])) {
       s.position.x -= 1 * delta
@@ -96,9 +115,29 @@ export default async function game(scene: Scene) {
   music.blue_brawls.play()
   pause(scene)
 
+  /*
   controls(scene, 0)
   // Use this for more players
   controls(scene, 1)
   // controls(scene, 2)
   // controls(scene, 3)
+  */
+}
+
+function createPlayer(controllerId : EntityId, scene : Scene, sprites : Map<EntityId, Sprite>) {
+  const state = scene.state
+  const x = 200 + (controllerId - 2) * 100
+  const y = 200 + (controllerId - 2) * 100
+
+  const s = sprite(scene.container)
+  // const s = spritePool.get()
+  s.texture = scene.textures['blue-1']
+  s.position.set(x, y)
+
+  state.positions.set(controllerId, { x, y })
+  state.radii[controllerId] = 40
+  state.types[controllerId] = 'player'
+  state.typeToIds.player.push(controllerId)
+  // state.sprites[controllerId] = s
+  sprites.set(controllerId, s)
 }
