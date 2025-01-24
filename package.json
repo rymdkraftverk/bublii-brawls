@@ -3,14 +3,9 @@
   "version": "0.0.0",
   "description": "",
   "keywords": [],
-  "license": "MIT",
   "author": "",
   "type": "module",
   "main": "dist/index.js",
-  "bin": "dist/index.js",
-  "files": [
-    "dist/"
-  ],
   "scripts": {
     "build": "vite build",
     "deploy:production": "gh workflow run \"Deploy to production\"",
