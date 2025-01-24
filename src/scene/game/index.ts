@@ -19,22 +19,17 @@ export default async function game(scene: Scene) {
     sound,
     timer,
     useScreenShake,
+    app,
   } = scene
 
   const screenShake = useScreenShake(container)
   const background = graphics(container)
-  background.rect(10, 10, 100, 100).fill({ color: '#cccccc', alpha: 1 })
-  background.position.set(100, 100)
+  background.rect(0, 0, app.screen.width, app.screen.height).fill({ color: '#ffffff', alpha: 1 })
+  background.position.set(0, 0)
 
   const c = createContainer(container)
   c.label = 'container'
   c.position.set(200, 200)
-
-  const g = graphics(c)
-  g.rect(0, 0, 100, 100).fill({ color: 0xbb22dd, alpha: 1 })
-  g.label = 'big pink'
-  g.scale.set(2)
-  c.pivot.set(c.width / 2, c.height / 2)
 
   const _text = htmlText(c, { fontSize: 24, fill: 0xffffff }, 'number 24')
   _text.label = 'number 24'
