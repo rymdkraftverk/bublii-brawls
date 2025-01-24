@@ -24,6 +24,10 @@ export default async function game(scene: Scene) {
     app,
   } = scene
 
+  // hacky convenience
+  // @ts-expect-error TS2339
+  window.scene = scene
+
   const screenShake = useScreenShake(container)
   const background = graphics(container)
   background
