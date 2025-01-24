@@ -6,6 +6,8 @@ export default defineConfig({
   // Needed for itch.io
   base: './',
   build: {
+    // TODO: Add to template
+    target: 'esnext',
     outDir: '../dist',
     cssCodeSplit: false,
     emptyOutDir: true,
