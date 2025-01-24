@@ -18,7 +18,7 @@ export default async function game(scene: Scene) {
     input: { isKeyDown, debouncedKey },
     state,
     timer: { repeatEvery },
-    sound,
+    sound: _sound,
     music,
     timer,
     useScreenShake,

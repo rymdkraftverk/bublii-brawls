@@ -2,7 +2,7 @@ import type { Scene } from '~/type'
 import { getGamepads } from './gamepad'
 
 export default function controls(scene: Scene, gamepadIndex: number) {
-  scene.timer.repeatEvery(1, (time, delta) => {
+  scene.timer.repeatEvery(1, (_time, _delta) => {
     const gamepads = getGamepads()
 
     const activeGamepad = gamepads[gamepadIndex]

@@ -13,6 +13,7 @@
     "dev": "alchemy-engine dev",
     "preview": "vite preview",
     "format": "prettier --write src",
+    "check": "tsc --noEmit",
     "test": "vitest"
   },
   "prettier": "prettier-config-one",
