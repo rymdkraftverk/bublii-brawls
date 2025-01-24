@@ -1,6 +1,7 @@
 {
   "extends": "tsconfig-one/tsconfig.json",
   "compilerOptions": {
+    "lib": ["DOM", "ESNext"],
     "outDir": "dist",
     "paths": { "~/*": ["./*"] },
     "baseUrl": "./src",
