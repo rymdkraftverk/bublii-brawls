@@ -20,7 +20,7 @@ const font = '10pt "Press Start 2P"'
 createGame({
   app,
   state,
-  scene: 'mainMenu',
+  scene: 'game',
   scenes,
   keys,
   sounds,
