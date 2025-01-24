@@ -95,4 +95,8 @@ export default async function game(scene: Scene) {
   pause(scene)
 
   controls(scene, 0)
+  // Use this for more players
+  // controls(scene, 1)
+  // controls(scene, 2)
+  // controls(scene, 3)
 }

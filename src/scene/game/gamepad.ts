@@ -9,10 +9,8 @@
 // })
 
 type Axes = {
-  left: boolean
-  right: boolean
-  up: boolean
-  down: boolean
+  horizontal: number
+  vertical: number
 }
 
 type Buttons = {
@@ -54,19 +52,9 @@ export function getGamepads(): ReturnValue {
         buttons[index] = false
       }
     }
-    let axes: Axes = { left: false, right: false, up: false, down: false }
-    if (g.axes[0] === -1) {
-      axes.left = true
-    }
-    if (g.axes[0] === 1) {
-      axes.right = true
-    }
-    if (g.axes[1] === -1) {
-      axes.up = true
-    }
-    if (g.axes[1] === 1) {
-      axes.down = true
-    }
+    let axes: Axes = { horizontal: 0, vertical: 0 }
+    axes.horizontal = g.axes[0] ?? 0
+    axes.vertical = g.axes[1] ?? 0
 
     return { axes, buttons, index: g.index, id: g.id }
   }) as ReturnValue
