@@ -18,6 +18,7 @@ export default async function game(scene: Scene) {
     state,
     timer: { repeatEvery },
     sound,
+    music,
     timer,
     useScreenShake,
     app,
@@ -41,7 +42,7 @@ export default async function game(scene: Scene) {
     return sprite(container)
   })
   const s = spritePool.get()
-  s.texture = textures['./square-1']
+  s.texture = textures['light/circle-1']
   s.label = 'small blue'
   s.position.set(200, 200)
 
@@ -83,6 +84,8 @@ export default async function game(scene: Scene) {
     state.gold++
   })
   sound.coin.play()
+  music.blue_brawls.loop()
+  music.blue_brawls.play()
 
   pause(scene)
 

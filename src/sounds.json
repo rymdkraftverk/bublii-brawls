@@ -1,8 +1,9 @@
 {
   "sound": {
-    "coin": "./coin.mp3"
+    "coin": "coin.mp3"
   },
   "music": {
-    "coin2": "./coin2.mp3"
+    "coin2": "coin2.mp3",
+    "blue_brawls": "blue_brawls.mp3"
   }
 }
