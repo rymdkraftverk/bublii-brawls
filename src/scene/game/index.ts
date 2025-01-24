@@ -9,9 +9,9 @@ import {
 import { type Scene } from '~/type'
 import pause from './pause'
 import controls from './controls'
-import { letItSnow } from './snow'
 import { type EntityId } from '~/data'
 import { type Sprite } from 'pixi.js'
+import * as snow from './snow'
 
 export default async function game(scene: Scene) {
   const {
@@ -40,7 +40,7 @@ export default async function game(scene: Scene) {
   background.position.set(0, 0)
   background.zIndex = -100
 
-  letItSnow(container, app.screen.width, app.screen.height)
+  snow.letIt(app.screen.width, app.screen.height, container, repeatEvery)
 
   const c = createContainer(container)
   c.label = 'container'

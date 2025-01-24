@@ -22,6 +22,8 @@ type Radius = number
 
 type Type = 'snowPatch' | 'player'
 
+export type SnowMass = 0 | 1 | 2 | 3 | 4 | 5
+
 export const state = {
   gold: 10,
   settingsVisible: false,
@@ -33,6 +35,7 @@ export const state = {
     player: [] as EntityId[],
   },
   sprites: {} as Record<EntityId, Sprite>,
+  snowMasses: {} as Record<EntityId, SnowMass>,
 }
 export type State = typeof state
 
