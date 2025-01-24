@@ -37,5 +37,5 @@ export const TextStyle = {
   },
 } as const
 
-let nextId = 1;
+let nextId = 1
 export const getNextId = () => nextId++
