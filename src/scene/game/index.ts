@@ -47,13 +47,13 @@ export default async function game(scene: Scene) {
     return sprite(container)
   })
   const s = spritePool.get()
-  s.texture = textures['circle-1']
+  s.texture = textures['blue-1']
   s.label = 'small blue'
   s.position.set(200, 200)
 
   sync(_text, 'text', state, 'gold')
 
-  const s2 = sprite(container, textures['square-1'])
+  const s2 = sprite(container, textures['blue-1'])
   s2.anchor.set(1)
   s2.label = 'other name'
   s2.position.set(350, 250)
