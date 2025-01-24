@@ -40,4 +40,4 @@ export const TextStyle = {
 } as const
 
 let nextId = 1
-export const getNextId = () => nextId++
+export const getNextId = (): EntityId => nextId++
