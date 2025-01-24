@@ -9,6 +9,7 @@ import {
 import { type Scene } from '~/type'
 import pause from './pause'
 import controls from './controls'
+import { letItSnow } from './snow'
 
 export default async function game(scene: Scene) {
   const {
@@ -35,6 +36,8 @@ export default async function game(scene: Scene) {
     .fill({ color: 'chocolate', alpha: 1 })
   background.position.set(0, 0)
   background.zIndex = -100
+
+  letItSnow(container, app.screen.width, app.screen.height)
 
   const c = createContainer(container)
   c.label = 'container'
