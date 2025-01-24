@@ -68,7 +68,7 @@ const render = (snow: Graphics) => {
       // .rect(x - RADIUS, y - RADIUS, DIAMETER, DIAMETER)
       .fill({ color: 'white', alpha })
 
-    console.log({ x, y, snowPatch, alpha })
+    // console.log({ x, y, snowPatch, alpha })
   }
 }
 
