@@ -34,6 +34,7 @@ export default async function game(scene: Scene) {
     .rect(0, 0, app.screen.width, app.screen.height)
     .fill({ color: 'chocolate', alpha: 1 })
   background.position.set(0, 0)
+  background.zIndex = -100
 
   const c = createContainer(container)
   c.label = 'container'
