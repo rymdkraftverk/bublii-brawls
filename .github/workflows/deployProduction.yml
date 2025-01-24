@@ -5,6 +5,6 @@ jobs:
   deploy:
     uses: sajmoni/alchemy/.github/workflows/deploy.yml@main
     with:
-      game_name: foo/bar:web
+      game_name: rymdkraftverk/big-blue-brawls:web
     secrets:
       BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
