@@ -27,7 +27,7 @@ export default async function game(scene: Scene) {
     app,
   } = scene
 
-  const sprites : Map<EntityId, Sprite> = new Map();
+  const sprites: Map<EntityId, Sprite> = new Map()
   // hacky convenience
   // @ts-expect-error TS2339
   window.scene = scene
@@ -75,7 +75,7 @@ export default async function game(scene: Scene) {
     10,
   )
 
-  const controllerIds = [0,1,2,3]
+  const controllerIds = [0, 1, 2, 3]
   // const controllerIds : Array<EntityId> = []
 
   for (const controllerId of controllerIds) {
@@ -84,10 +84,18 @@ export default async function game(scene: Scene) {
     controls(scene, controllerId)
   }
 
-
-  repeatEvery(1, (_time, _delta) => {
+  repeatEvery(1, (_time, delta) => {
     for (const [id, position] of state.positions.entries()) {
       sprites.get(id)!.position = position
+    }
+
+    for (const [id, velocity] of state.velocities.entries()) {
+      const position = state.positions.get(id)!
+      const newPosition = {
+        x: position.x + velocity.x * delta,
+        y: position.y + velocity.y * delta,
+      }
+      state.positions.set(id, newPosition)
     }
   })
 
@@ -124,7 +132,11 @@ export default async function game(scene: Scene) {
   */
 }
 
-function createPlayer(controllerId : EntityId, scene : Scene, sprites : Map<EntityId, Sprite>) {
+function createPlayer(
+  controllerId: EntityId,
+  scene: Scene,
+  sprites: Map<EntityId, Sprite>,
+) {
   const state = scene.state
   const x = 200 + (controllerId - 2) * 100
   const y = 200 + (controllerId - 2) * 100
@@ -137,6 +149,8 @@ function createPlayer(controllerId : EntityId, scene : Scene, sprites : Map<Enti
   state.positions.set(controllerId, { x, y })
   state.radii[controllerId] = 40
   state.types[controllerId] = 'player'
+  state.velocities.set(controllerId, { x: 0, y: 0 })
+  state.masses.set(controllerId, 10)
   state.typeToIds.player.push(controllerId)
   // state.sprites[controllerId] = s
   sprites.set(controllerId, s)

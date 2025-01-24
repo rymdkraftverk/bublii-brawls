@@ -8,18 +8,12 @@ export default function controls(scene: Scene, gamepadIndex: number) {
     const activeGamepad = gamepads[gamepadIndex]
 
     if (activeGamepad) {
-      // scene.state.positions[gamepadIndex]!.x += activeGamepad.axes.horizontal * delta
-      // scene.state.positions[gamepadIndex]!.y += activeGamepad.axes.vertical * delta
-      const {x,y} = scene.state.positions.get(gamepadIndex)!
-      scene.state.positions.set(
-        gamepadIndex,
-        {
-          x: x + activeGamepad.axes.horizontal * delta,
-          y: y + activeGamepad.axes.vertical * delta
-        })
-
-      console.log('horizontal', activeGamepad.axes.horizontal)
-      console.log('vertical', activeGamepad.axes.vertical)
+      const { x, y } = scene.state.velocities.get(gamepadIndex)!
+      const mass = scene.state.masses.get(gamepadIndex)!
+      scene.state.velocities.set(gamepadIndex, {
+        x: x + (activeGamepad.axes.horizontal * delta) / mass,
+        y: y + (activeGamepad.axes.vertical * delta) / mass,
+      })
     }
   })
 }

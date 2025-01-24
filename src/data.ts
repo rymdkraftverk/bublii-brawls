@@ -2,7 +2,7 @@ import { arrowKeys } from 'alchemy-engine'
 
 import game from './scene/game'
 import mainMenu from './scene/mainMenu'
-import {Sprite} from 'pixi.js'
+import { Sprite } from 'pixi.js'
 
 export const scenes = {
   game,
@@ -18,7 +18,14 @@ type Position = {
   y: number
 }
 
+type Velocity = {
+  x: number
+  y: number
+}
+
 type Radius = number
+
+type Mass = number
 
 type Type = 'snowPatch' | 'player'
 
@@ -29,6 +36,8 @@ export const state = {
   settingsVisible: false,
   positions: new Map() as Map<EntityId, Position>,
   radii: {} as Record<EntityId, Radius>,
+  velocities: new Map() as Map<EntityId, Velocity>,
+  masses: new Map() as Map<EntityId, Mass>,
   types: {} as Record<EntityId, Type>,
   typeToIds: {
     snowPatch: [] as EntityId[],
