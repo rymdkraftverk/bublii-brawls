@@ -18,7 +18,7 @@ export default function controls(scene: Scene, gamepadIndex: number) {
       const aim = Math.atan2(
         activeGamepad.axesRight.vertical,
         activeGamepad.axesRight.horizontal,
-      );
+      )
       scene.state.aims.set(gamepadIndex, aim)
     }
   })

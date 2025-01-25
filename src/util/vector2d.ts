@@ -8,12 +8,12 @@ export function add(
 }
 
 // subtract(v1, v2) = v2 - v1
-export function subtract(v1 : Vector2d, v2 : Vector2d) : Vector2d {
+export function subtract(v1: Vector2d, v2: Vector2d): Vector2d {
   return add(scale(-1, v1), v2)
 }
 
-export function scale(factor : number, {x, y} : Vector2d) : Vector2d {
-  return { x: factor * x, y: factor * y}
+export function scale(factor: number, { x, y }: Vector2d): Vector2d {
+  return { x: factor * x, y: factor * y }
 }
 
 export function length({ x, y }: Vector2d): number {

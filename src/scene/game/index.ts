@@ -160,7 +160,9 @@ export default async function game(scene: Scene) {
         const m2 = scene.state.masses.get(p2Id)
 
         if (!p1 || !p2 || !v1 || !v2 || !m1 || !m2) {
-          console.log('position, velocity or mass is missing when players collide')
+          console.log(
+            'position, velocity or mass is missing when players collide',
+          )
           return
         }
         if (m1 == 0 || m2 == 0) {
@@ -171,9 +173,11 @@ export default async function game(scene: Scene) {
         // I took these calculations from my asteroids game, don't ask me to
         // explain it
         const direction = V.normalize(V.subtract(p2, p1))
-        const a = (2 / (1/ m1 + 1/m2)) * V.dotProduct(direction, V.add(v1, V.scale(-1, v2)))
-        const newV1 = V.subtract(V.scale(a/m1, direction), v1)
-        const newV2 = V.add(V.scale(a/m2, direction), v2)
+        const a =
+          (2 / (1 / m1 + 1 / m2)) *
+          V.dotProduct(direction, V.add(v1, V.scale(-1, v2)))
+        const newV1 = V.subtract(V.scale(a / m1, direction), v1)
+        const newV2 = V.add(V.scale(a / m2, direction), v2)
 
         scene.state.velocities.set(p1Id, newV1)
         scene.state.velocities.set(p2Id, newV2)
@@ -184,10 +188,7 @@ export default async function game(scene: Scene) {
   mobs(scene)
 }
 
-const delaySnowBallFromPlayer = async (
-  scene: Scene,
-  playerIndex: number,
-) => {
+const delaySnowBallFromPlayer = async (scene: Scene, playerIndex: number) => {
   const firstPlayer = state.typeToIds['player'].at(playerIndex)!
   const angle = state.aims.get(playerIndex) ?? Math.PI * 2
   snowBall.launch(scene, firstPlayer, angle)
