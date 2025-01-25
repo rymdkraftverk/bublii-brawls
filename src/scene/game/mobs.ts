@@ -122,6 +122,9 @@ export default async function mobs(scene: Scene) {
 
     const poolObject = mobPool.get()
     const { con, character, weapon, hazardSprite } = poolObject
+    con.visible = true
+    character.visible = true
+    weapon.visible = true
     gfxMap.set(mobId, poolObject)
     weapon.texture = scene.textures[weaponTextureMap[wave.type]]
     weapon.position = weaponPositionMap[wave.type]
@@ -329,12 +332,12 @@ export function purgeMob(mobId: EntityId, scene: Scene) {
   if (mobPool) {
     const obj = gfxMap.get(mobId)!
     mobPool.release(obj)
-    obj.con.visible = false
     obj.character.visible = false
     obj.weapon.visible = false
     obj.hazardSprite.visible = false
 
     const hazardId = mobToHazardMap.get(mobId)
+    gfxMap.delete(mobId)
     // if (){}
     // scene.state.hazardToMobType
   }
