@@ -29,6 +29,7 @@ export default async function mobs(scene: Scene) {
 
   const mobPosition = { x: scene.app.screen.width / 2, y: -20 }
   scene.state.positions.set(mob1, mobPosition)
+  scene.state.radii.set(mob1, 50)
 
   // TODO: Map
   const { con, character, weapon, projectile } = mobSprites.get()

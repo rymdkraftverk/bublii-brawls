@@ -7,7 +7,7 @@ import {
 import { type Scene, type TextureName } from '~/type'
 import pause from './pause'
 import controls from './controls'
-import { sprites, state, type EntityId } from '~/data'
+import { sprites, state, type EntityId, purge } from '~/data'
 import { type Sprite } from 'pixi.js'
 import * as snow from './snow'
 import * as snowBall from './snowBall'
@@ -182,6 +182,14 @@ export default async function game(scene: Scene) {
         setRadius(player, newRadius)
       },
     },
+    {
+      type1: 'snowBall',
+      type2: 'mob',
+      onCollision: (snowBallId, mobId) => {
+        purge(scene.state, snowBallId)
+        purge(scene.state, mobId)
+      }
+    }
   ])
 
   mobs(scene)

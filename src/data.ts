@@ -46,6 +46,28 @@ export type State = {
   aims: Map<EntityId, Radian>
 }
 
+export function purge(state : State, id : EntityId) {
+  const sprite = sprites.get(id)
+  sprites.delete(id)
+
+  if (sprite) {
+    sprite.visible = false
+  }
+
+  state.positions.delete(id)
+  state.radii.delete(id)
+  state.velocities.delete(id)
+  state.facings.delete(id)
+  state.masses.delete(id)
+  state.typeToIds.snowPatch = state.typeToIds.snowPatch.filter(x => x != id)
+  state.typeToIds.player = state.typeToIds.player.filter(x => x != id)
+  state.typeToIds.mob = state.typeToIds.mob.filter(x => x != id)
+  state.typeToIds.hazard = state.typeToIds.hazard.filter(x => x != id)
+  state.typeToIds.snowBall = state.typeToIds.snowBall.filter(x => x != id)
+  state.snowMasses.delete(id)
+  state.aims.delete(id)
+}
+
 export const sprites: Map<EntityId, Sprite> = new Map()
 
 export const state: State = {
