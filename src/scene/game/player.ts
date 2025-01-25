@@ -65,6 +65,8 @@ const bublé = (scene: Scene, playerId: EntityId) => {
   s.scale = 0.1
   s.play()
 
+  scene.sound['summer-day'].play()
+
   state.bublii.set(playerId, true)
 }
 
