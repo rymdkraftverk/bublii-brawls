@@ -71,5 +71,6 @@ export const TextStyle = {
   },
 } as const
 
+// 4 because the first four are reserved for players
 let nextId = 4
 export const getNextId = (): EntityId => nextId++
