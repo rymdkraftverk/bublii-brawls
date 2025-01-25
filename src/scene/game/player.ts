@@ -7,14 +7,18 @@ const DENSITY = 1
 const MIN_MASS = 100
 // const MAX_MASS = 1000
 
-export const increaseMass = (entityId: EntityId, massIncrease: Mass, scene: Scene) => {
+export const increaseMass = (
+  entityId: EntityId,
+  massIncrease: Mass,
+  scene: Scene,
+) => {
   const oldMass = scene.state.masses.get(entityId) ?? 0
 
   // avoid going to zero mass
   const newMass = Math.max(oldMass + massIncrease, 1)
   scene.state.masses.set(entityId, newMass)
 
-  const newRadius = ((newMass / DENSITY) ** 0.5) / Math.PI
+  const newRadius = (newMass / DENSITY) ** 0.5 / Math.PI
   const spriteScale = newRadius * SPRITE_SCALE_FACTOR
   scene.state.radii.set(entityId, newRadius)
 
@@ -29,7 +33,11 @@ export const increaseMass = (entityId: EntityId, massIncrease: Mass, scene: Scen
   unBublé(scene, entityId)
 }
 
-export const heal = (playerId: EntityId, snowballId: EntityId, scene: Scene) => {
+export const heal = (
+  playerId: EntityId,
+  snowballId: EntityId,
+  scene: Scene,
+) => {
   const snowBallMass = state.masses.get(snowballId)!
   increaseMass(playerId, snowBallMass, scene)
 }

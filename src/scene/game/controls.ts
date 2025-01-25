@@ -14,7 +14,9 @@ export default function controls(scene: Scene, gamepadIndex: number) {
     const { x, y } = scene.state.velocities.get(gamepadIndex)!
     const mass = scene.state.masses.get(gamepadIndex)!
     scene.state.velocities.set(gamepadIndex, {
-      x: x + (activeGamepad.axes.horizontal * delta * PLAYER_ACCELERATION) / mass,
+      x:
+        x +
+        (activeGamepad.axes.horizontal * delta * PLAYER_ACCELERATION) / mass,
       y: y + (activeGamepad.axes.vertical * delta * PLAYER_ACCELERATION) / mass,
     })
 

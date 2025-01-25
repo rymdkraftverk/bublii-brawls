@@ -55,4 +55,3 @@ export const launch = (scene: Scene, from: EntityId, angle: Radian) => {
   increaseMass(id, snowBallMass, scene)
   increaseMass(from, -1 * snowBallMass, scene)
 }
-
