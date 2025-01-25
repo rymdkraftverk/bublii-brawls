@@ -308,13 +308,13 @@ export default async function mobs(scene: Scene) {
         scene.state.velocities.set(mobId, velocity)
 
         if (direction.x < 0) {
-          if (con.scale.x > 0) {
+          if (con.scale.x > 0 && scene.state.facings.get(mobId) === 'right') {
             scene.state.facings.set(mobId, 'left')
             con.scale.x *= -1
           }
         }
         if (direction.x > 0) {
-          if (con.scale.x < 0) {
+          if (con.scale.x < 0 && scene.state.facings.get(mobId) === 'left') {
             scene.state.facings.set(mobId, 'right')
             con.scale.x *= -1
           }
