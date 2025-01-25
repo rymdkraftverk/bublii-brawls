@@ -4,7 +4,7 @@ import type { Scene } from '~/type'
 
 // CONFIG
 const SPEED = 3
-const PLAYER_MASS_REQUIREMENT = 1
+const PLAYER_MASS_REQUIREMENT = 5
 
 const SNOWBALL_FACTOR = .1
 const PLAYER_SHRINK_FACTOR = 1 - SNOWBALL_FACTOR

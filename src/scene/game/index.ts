@@ -113,7 +113,10 @@ export default async function game(scene: Scene) {
 
   // WIP
   delaySnowBallFromPlayer(scene, 1, 80)
-  delaySnowBallFromPlayer(scene, 2, 40)
+
+  for (let i = 1; i < 20; i++) {
+    delaySnowBallFromPlayer(scene, 2, 20 * i)
+  }
 
   // sound.coin.play()
   music.blue_brawls.loop()
