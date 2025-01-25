@@ -52,10 +52,7 @@ export const launch = (scene: Scene, from: EntityId, angle: Radian) => {
 const birthSnowBall = (
   playerRadius: number,
   snowBallFactor: number,
-): {
-  shrunkPlayerRadius: number
-  snowBallRadius: number
-} => {
+) => {
   const totalArea = Math.PI * playerRadius * playerRadius
 
   const areaSnowBall = totalArea * snowBallFactor
@@ -68,4 +65,16 @@ const birthSnowBall = (
     shrunkPlayerRadius: radiusPlayer,
     snowBallRadius: radiusSnowBall,
   }
+}
+
+export const absorbSnowball = (
+  playerRadius: number,
+  snowBallRadius: number,
+) => {
+  const areaPlayer = Math.PI * Math.pow(playerRadius, 2);
+  const areaSnowball = Math.PI * Math.pow(snowBallRadius, 2);
+  const combinedArea = areaPlayer + areaSnowball;
+
+  const grownPlayerRadius = Math.sqrt(combinedArea / Math.PI);
+  return grownPlayerRadius
 }

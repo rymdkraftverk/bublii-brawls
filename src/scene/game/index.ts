@@ -15,7 +15,7 @@ import { applyPlayerFriction } from './system/playerFriction'
 import mobs from './mobs'
 import * as V from '~/util/vector2d'
 import debug from './debug'
-import { setRadius } from './player'
+import { heal, setRadius } from './player'
 import { deNormalizeRange } from 'tiny-toolkit'
 
 export default async function game(scene: Scene) {
@@ -190,6 +190,7 @@ export default async function game(scene: Scene) {
       onCollision: (snowBallId, playerId) => {
         const launcherId = state.snowBallLaunchers.get(snowBallId)!
         if (launcherId === playerId) return
+        heal(playerId, snowBallId)
         purge(scene.state, snowBallId)
       },
     },
