@@ -155,20 +155,16 @@ async function startWave(
 
   await scene.timer.delay(60)
 
-  const hazard = getNextId()
-  scene.state.typeToIds.hazard.push(hazard)
-  const radius = hazardRadiusMap[wave.type]
-  scene.state.radii.set(hazard, radius)
-
   speechBubble.destroy()
 
-  // Set an initial position
-  scene.state.positions.set(hazard, {
-    y: mobPosition.y,
-    x: mobPosition.x,
-  })
-
   if (wave.type === MobType.FLAMETHROWER) {
+    const hazard = getNextId()
+    scene.state.typeToIds.hazard.push(hazard)
+    scene.state.radii.set(hazard, hazardRadiusMap[wave.type])
+    scene.state.positions.set(hazard, {
+      y: mobPosition.y,
+      x: mobPosition.x,
+    })
     hazardSprite.visible = true
 
     scene.timer.repeatEvery(1, () => {
@@ -199,6 +195,15 @@ async function startWave(
     hazardSprite.loop = false
     hazardSprite.play()
     hazardSprite.onComplete = () => {
+      const hazard = getNextId()
+      scene.state.typeToIds.hazard.push(hazard)
+      scene.state.radii.set(hazard, hazardRadiusMap[wave.type])
+      const _mobPosition = scene.state.positions.get(mobId)!
+      scene.state.positions.set(hazard, {
+        y: _mobPosition.y,
+        x: _mobPosition.x,
+      })
+
       const explosionTextures: TextureName[] = [
         'explosion_0-1',
         'explosion_0-2',
@@ -209,7 +214,8 @@ async function startWave(
         'explosion_0-7',
       ]
       hazardSprite.textures = explosionTextures.map((x) => scene.textures[x])
-      hazardSprite.scale = 2
+      hazardSprite.anchor = 0.5
+      hazardSprite.scale = 3
       hazardSprite.animationSpeed = 0.1
       hazardSprite.loop = false
       hazardSprite.play()
