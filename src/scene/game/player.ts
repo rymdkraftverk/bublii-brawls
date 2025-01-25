@@ -1,5 +1,12 @@
 import type { AnimatedSprite } from 'pixi.js'
-import { sprites, state, type EntityId, type Mass, textures } from '~/data'
+import {
+  sprites,
+  state,
+  type EntityId,
+  type Mass,
+  textures,
+  type SnowMass,
+} from '~/data'
 import { type Scene } from '~/type'
 
 // CONFIG
@@ -7,6 +14,9 @@ const SPRITE_SCALE_FACTOR = 0.055
 const DENSITY = 1
 const MIN_MASS = 500
 // const MAX_MASS = 1000
+//
+
+const SNOW_GROWTH_FACTOR = 5
 
 export const increaseMass = (
   entityId: EntityId,
@@ -63,4 +73,8 @@ const unBublé = (scene: Scene, playerId: EntityId) => {
     s.play()
     state.bublii.set(playerId, false)
   }
+}
+
+export const feed = (playerId: EntityId, snowMass: SnowMass, scene: Scene) => {
+  increaseMass(playerId, snowMass * SNOW_GROWTH_FACTOR, scene)
 }

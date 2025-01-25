@@ -14,7 +14,7 @@ import { applyPlayerFriction } from './system/playerFriction'
 import mobs from './mobs'
 import * as V from '~/util/vector2d'
 import debug from './debug'
-import { heal, increaseMass } from './player'
+import { feed, heal, increaseMass } from './player'
 import { deNormalizeRange, grid } from 'tiny-toolkit'
 
 export default async function game(scene: Scene) {
@@ -106,7 +106,7 @@ export default async function game(scene: Scene) {
 
         if (snowPatchMass && snowPatchMass > 0) {
           const snowMass = snow.munch(snowPatchId)
-          increaseMass(playerId, snowMass, scene)
+          feed(playerId, snowMass, scene)
         }
       },
     },
