@@ -26,7 +26,7 @@ export default function debug(scene: Scene) {
     debugGraphics.clear()
     debugType('mob')
     debugType('hazard')
-    debugType('snowBall')
+    // debugType('snowBall')
     // debugType('snowPatch')
   })
 }
