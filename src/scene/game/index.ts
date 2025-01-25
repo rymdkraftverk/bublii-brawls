@@ -4,7 +4,7 @@ import {
   container as createContainer,
   createObjectPool,
 } from 'alchemy-engine'
-import { type Scene } from '~/type'
+import { type Scene, type TextureName } from '~/type'
 import pause from './pause'
 import controls from './controls'
 import { sprites, state, type EntityId } from '~/data'
@@ -208,7 +208,13 @@ function createPlayer(
 
   s.anchor = 0.5
   // const s = spritePool.get()
-  s.texture = scene.textures['blue-1']
+  const textureMap: Record<number, TextureName> = {
+    [0]: 'player_blue_0-1',
+    [1]: 'player_green_0-1',
+    [2]: 'player_purple_0-1',
+    [3]: 'player_red_0-1',
+  }
+  s.texture = scene.textures[textureMap[controllerId]!]
   s.position.set(x, y)
 
   state.positions.set(controllerId, { x, y })
