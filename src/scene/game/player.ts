@@ -10,7 +10,6 @@ import {
 import { type Scene } from '~/type'
 
 // CONFIG
-const SPRITE_SCALE_FACTOR = 0.055
 const DENSITY = 1
 const MIN_MASS = 500
 const MAX_MASS = 50000
