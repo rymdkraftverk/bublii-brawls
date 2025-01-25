@@ -1,7 +1,7 @@
 import { graphics } from 'alchemy-engine'
 import type { TimerInstance } from 'alchemy-engine/dist/src/runtime/internal/timer'
 import { Container, Graphics } from 'pixi.js'
-import { getNextId, state, type SnowMass } from '~/data'
+import { getNextId, state, type EntityId, type SnowMass } from '~/data'
 
 type RepeatEvery = TimerInstance['repeatEvery']
 
@@ -76,4 +76,10 @@ const getNextSnowMass = (snowMass: SnowMass): SnowMass => {
   if (snowMass === 3) return 4
   if (snowMass === 4) return 5
   return 5
+}
+
+export const munch = (id: EntityId) => {
+  const snowMass = state.snowMasses.get(id)
+  state.snowMasses.set(id, 0)
+  return snowMass ?? 0
 }
