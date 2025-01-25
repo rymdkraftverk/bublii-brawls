@@ -1,6 +1,9 @@
 import { graphics } from 'alchemy-engine'
+import type { TimerInstance } from 'alchemy-engine/dist/src/runtime/internal/timer'
 import { Container, Graphics } from 'pixi.js'
 import { getNextId, state, type SnowMass } from '~/data'
+
+type RepeatEvery = TimerInstance['repeatEvery']
 
 const RADIUS = 5
 const DIAMETER = RADIUS * 2
@@ -10,10 +13,7 @@ export const letIt = (
   width: number,
   height: number,
   container: Container,
-  repeatEvery: (
-    interval: number,
-    callback: (time: number, deltaTime: number) => void,
-  ) => () => void,
+  repeatEvery: RepeatEvery,
 ) => {
   init(width, height)
   startRender(container, repeatEvery)
@@ -33,13 +33,7 @@ const init = (width: number, height: number) => {
   }
 }
 
-export const startRender = (
-  container: Container,
-  repeatEvery: (
-    interval: number,
-    callback: (time: number, deltaTime: number) => void,
-  ) => () => void,
-) => {
+export const startRender = (container: Container, repeatEvery: RepeatEvery) => {
   const snow = graphics(container)
   snow.zIndex = -99
 
