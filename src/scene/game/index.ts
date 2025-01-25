@@ -1,16 +1,14 @@
 import {
-  graphics,
   container as createContainer,
   animatedSprite,
   sprite,
 } from 'alchemy-engine'
-import { type Scene, type TextureName } from '~/type'
+import { type Scene, } from '~/type'
 import pause from './pause'
 import controls from './controls'
-import { sprites, state, type EntityId, purge, textures } from '~/data'
+import { sprites, type EntityId, purge, textures } from '~/data'
 import { type Sprite } from 'pixi.js'
 import * as snow from './snow'
-import * as snowBall from './snowBall'
 import collisions from './collisions'
 import { applyPlayerFriction } from './system/playerFriction'
 import mobs from './mobs'
