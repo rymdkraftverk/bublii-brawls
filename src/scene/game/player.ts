@@ -17,16 +17,12 @@ const MAX_MASS = 50000
 
 const SNOW_GROWTH_FACTOR = 5
 
-export const increaseMass = (
+export const setMass = (
   entityId: EntityId,
-  massIncrease: Mass,
-  scene: Scene,
+  mass: Mass,
+  scene: Scene
 ) => {
-
-  const oldMass = scene.state.masses.get(entityId) ?? 0
-
-  // avoid going to zero mass
-  const newMass = Math.min(Math.max(oldMass + massIncrease, MIN_MASS), MAX_MASS)
+  const newMass = Math.min(Math.max(mass, MIN_MASS), MAX_MASS)
   scene.state.masses.set(entityId, newMass)
 
   if (scene.state.types.get(entityId) == 'player') {
@@ -46,6 +42,18 @@ export const increaseMass = (
 
   const playerSprite = sprites.get(entityId)!
   playerSprite.scale = spriteScale
+}
+
+
+export const increaseMass = (
+  entityId: EntityId,
+  massIncrease: Mass,
+  scene: Scene,
+) => {
+  const oldMass = scene.state.masses.get(entityId) ?? 0
+  const newMass = oldMass + massIncrease
+
+  setMass(entityId, newMass, scene)
 }
 
 export const heal = (
