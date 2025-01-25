@@ -41,7 +41,7 @@ const startRender = (container: Container, repeatEvery: RepeatEvery) => {
 
   render(snow)
   // Grow snow
-  repeatEvery(100, () => {
+  repeatEvery(1000, () => {
     growSnow()
   })
 

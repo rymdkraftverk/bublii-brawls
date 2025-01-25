@@ -67,6 +67,7 @@ export const heal = (
 
 const bublé = (scene: Scene, playerId: EntityId) => {
   const s = sprites.get(playerId)! as AnimatedSprite
+  s.loop = true
   s.textures = [
     scene.textures['buble_head-1'],
     scene.textures['buble_head_open-1'],
