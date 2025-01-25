@@ -28,13 +28,15 @@ export const increaseMass = (
   const newMass = Math.min(Math.max(oldMass + massIncrease, MIN_MASS), MAX_MASS)
   scene.state.masses.set(entityId, newMass)
 
-  if (scene.state.types.get(entityId) == 'player')  {
-    if (newMass < START_MASS) {
+  if (scene.state.types.get(entityId) == 'player') {
+    const isBublé = state.bublii.get(entityId) ?? false
+
+    if (!isBublé && newMass < START_MASS) {
       bublé(scene, entityId)
       return
+    } else if (isBublé && newMass > START_MASS) {
+      unBublé(scene, entityId)
     }
-
-    unBublé(scene, entityId)
   }
 
   const newRadius = (newMass / DENSITY) ** 0.5 / Math.PI
@@ -67,13 +69,10 @@ const bublé = (scene: Scene, playerId: EntityId) => {
 }
 
 const unBublé = (scene: Scene, playerId: EntityId) => {
-  const isBublé = state.bublii.get(playerId) ?? false
-  if (isBublé) {
-    const s = sprites.get(playerId)! as AnimatedSprite
-    s.textures = textures.get(playerId)!.map((x) => scene.textures[x])
-    s.play()
-    state.bublii.set(playerId, false)
-  }
+  const s = sprites.get(playerId)! as AnimatedSprite
+  s.textures = textures.get(playerId)!.map((x) => scene.textures[x])
+  s.play()
+  state.bublii.set(playerId, false)
 }
 
 export const feed = (playerId: EntityId, snowMass: SnowMass, scene: Scene) => {
