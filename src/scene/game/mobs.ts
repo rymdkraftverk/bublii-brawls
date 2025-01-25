@@ -245,6 +245,8 @@ export default async function mobs(scene: Scene) {
           rightOfTargetDistance,
         )
 
+        const { con } = gfxMap.get(mobId)!
+
         if (targetDistance < 30) {
           scene.state.velocities.set(mobId, { x: 0, y: 0 })
 
@@ -254,9 +256,15 @@ export default async function mobs(scene: Scene) {
               V.subtract(mobPosition, targetPosition),
             ) > 0
           ) {
-            scene.state.facings.set(mobId, 'right')
+            if (scene.state.facings.get(mobId) === 'left' && con.scale.x < 0) {
+              scene.state.facings.set(mobId, 'right')
+              con.scale.x *= -1
+            }
           } else {
-            scene.state.facings.set(mobId, 'left')
+            if (scene.state.facings.get(mobId) === 'right' && con.scale.x > 0) {
+              scene.state.facings.set(mobId, 'left')
+              con.scale.x *= -1
+            }
           }
 
           return
@@ -273,7 +281,6 @@ export default async function mobs(scene: Scene) {
         // delta here seems to always be 1
         const velocity = scale(MAXIMUM_SPEED * delta, direction)
         scene.state.velocities.set(mobId, velocity)
-        const { con } = gfxMap.get(mobId)!
 
         if (direction.x < 0) {
           if (con.scale.x > 0) {
