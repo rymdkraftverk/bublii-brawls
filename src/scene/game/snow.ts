@@ -58,8 +58,9 @@ const render = (snow: Graphics) => {
     const alpha = computeAlpha(snowMass)
 
     snow
-      .rect(x - RADIUS, y - RADIUS, DIAMETER - 1, DIAMETER - 1)
-      // .rect(x - RADIUS, y - RADIUS, DIAMETER, DIAMETER)
+      .rect(x - RADIUS, y - RADIUS, DIAMETER, DIAMETER)
+      // WARN debug feature
+      .stroke({ color: 'black', alpha, width: 1 })
       .fill({ color: 'white', alpha })
 
     // console.log({ x, y, snowPatch, alpha })
