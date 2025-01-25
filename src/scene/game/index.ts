@@ -15,6 +15,7 @@ import collisions from './collisions'
 import { applyPlayerFriction } from './system/playerFriction'
 import mobs from './mobs'
 import * as V from '~/util/vector2d'
+import debug from './debug'
 
 export default async function game(scene: Scene) {
   const {
@@ -179,6 +180,8 @@ export default async function game(scene: Scene) {
   ])
 
   mobs(scene)
+  // TODO: Remove this before release
+  debug(scene)
 }
 
 const launchSnowBallFromPlayer = async (scene: Scene, playerIndex: number) => {
@@ -192,22 +195,6 @@ function createPlayer(
   scene: Scene,
   sprites: Map<EntityId, Sprite>,
 ) {
-  // ====== START
-  // TODO: Remove this before release
-  const debugGraphics = graphics(scene.container)
-  debugGraphics.zIndex = 99999
-  scene.timer.repeatEvery(1, () => {
-    debugGraphics.clear()
-    for (const playerId of [0, 1, 2, 3]) {
-      const playerPosition = scene.state.positions.get(playerId)!
-      const playerRadius = scene.state.radii.get(playerId)!
-      debugGraphics
-        .circle(playerPosition.x, playerPosition.y, playerRadius)
-        .stroke({ width: 1, color: 'black' })
-    }
-  })
-  // ==== END
-
   const state = scene.state
   const x = 200 + (controllerId - 2) * 100
   const y = 200 + (controllerId - 2) * 100
