@@ -14,6 +14,7 @@ import { getDistance, getRandomInt } from 'tiny-toolkit'
 import { getNextId, purge, TextStyle, type EntityId } from '~/data'
 import type { Scene, TextureName } from '~/type'
 import { normalize, scale, subtract } from '~/util/vector2d'
+import * as V from '~/util/vector2d'
 
 const MAXIMUM_SPEED = 3
 const TNT_COUNTDOWN_TIME = 120
@@ -180,24 +181,31 @@ async function startWave(
   const unsubscribe = scene.timer.repeatEvery(5, (_time, delta) => {
     // targetPosition should be to the left or to the right of the target
     const targetPosition = scene.state.positions.get(targetId)!
-    const _mobPosition = scene.state.positions.get(mobId)!
+    const mobPosition = scene.state.positions.get(mobId)!
 
     const leftOfTarget = { ...targetPosition, x: targetPosition.x - 100 }
     const rightOfTarget = { ...targetPosition, x: targetPosition.x + 100 }
 
-    const leftOfTargetDistance = getDistance(_mobPosition, leftOfTarget)
-    const rightOfTargetDistance = getDistance(_mobPosition, rightOfTarget)
+    const leftOfTargetDistance = getDistance(mobPosition, leftOfTarget)
+    const rightOfTargetDistance = getDistance(mobPosition, rightOfTarget)
 
     const targetDistance = Math.min(leftOfTargetDistance, rightOfTargetDistance)
 
     if (targetDistance < 30) {
       scene.state.velocities.set(mobId, { x: 0, y: 0 })
+
+      if(V.dotProduct({x:1, y:0}, V.subtract(mobPosition, targetPosition)) > 0) {
+        scene.state.facings.set(mobId, 'right')
+      } else {
+        scene.state.facings.set(mobId, 'left')
+      }
+
       return
     }
 
     const direction = normalize(
       subtract(
-        _mobPosition,
+        mobPosition,
         leftOfTargetDistance < rightOfTargetDistance ? leftOfTarget : (
           rightOfTarget
         ),
