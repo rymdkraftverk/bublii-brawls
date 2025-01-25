@@ -12,7 +12,7 @@ import { getNextId, TextStyle } from '~/data'
 import type { Scene } from '~/type'
 import { normalize, scale, subtract } from '~/util/vector2d'
 
-const MAXIMUM_SPEED = 4
+const MAXIMUM_SPEED = 3
 
 export default async function mobs(scene: Scene) {
   await scene.timer.delay(30)
@@ -84,6 +84,21 @@ export default async function mobs(scene: Scene) {
 
   await scene.timer.delay(60)
 
+  const hazard = getNextId()
+  scene.state.typeToIds.hazard.push(hazard)
+  const FLAMETHROWER_RADIUS = 15
+  scene.state.radii.set(hazard, FLAMETHROWER_RADIUS)
+
+  scene.timer.repeatEvery(1, () => {
+    const mobFacing = scene.state.facings.get(mob1) ?? 'left'
+    const mobPosition = scene.state.positions.get(mob1)!
+
+    scene.state.positions.set(hazard, {
+      y: mobPosition.y + 5,
+      x: mobFacing === 'left' ? mobPosition.x - 60 : mobPosition.x + 60,
+    })
+  })
+
   projectile.visible = true
 
   speechBubble.destroy()
@@ -103,11 +118,13 @@ export default async function mobs(scene: Scene) {
 
     if (direction.x < 0) {
       if (con.scale.x > 0) {
+        scene.state.facings.set(mob1, 'left')
         con.scale.x *= -1
       }
     }
     if (direction.x > 0) {
       if (con.scale.x < 0) {
+        scene.state.facings.set(mob1, 'right')
         con.scale.x *= -1
       }
     }
