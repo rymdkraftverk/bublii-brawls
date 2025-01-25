@@ -149,6 +149,7 @@ export default async function mobs(scene: Scene) {
     if (wave.type === MobType.FLAMETHROWER) {
       const hazard = getNextId()
       scene.state.typeToIds.hazard.push(hazard)
+      mobToHazardMap.set(mobId, hazard)
       scene.state.hazardToMobType.set(hazard, wave.type)
       hazardSprite.textures = projectileTextureMap[wave.type].map(
         (x) => scene.textures[x],
@@ -253,36 +254,30 @@ export default async function mobs(scene: Scene) {
     render()
   })
 
-  scene.timer.repeatEvery(60, _ => {
+  scene.timer.repeatEvery(60, (_) => {
     const mobIds = scene.state.typeToIds.mob
     mobIds.forEach((mobId) => {
       const mobPosition = scene.state.positions.get(mobId)!
 
-      const { playerId } =
-        scene
-          .state
-          .typeToIds
-          .player
-          .filter(pId => {
-            return !scene.state.bublii.get(pId)
-          })
-          .map(pId => {
-            const playerPosition = scene.state.positions.get(pId)!
-            const distance = V.length(V.subtract(mobPosition, playerPosition))
+      const { playerId } = scene.state.typeToIds.player
+        .filter((pId) => {
+          return !scene.state.bublii.get(pId)
+        })
+        .map((pId) => {
+          const playerPosition = scene.state.positions.get(pId)!
+          const distance = V.length(V.subtract(mobPosition, playerPosition))
 
-            return { playerId: pId, distance: distance }
-          })
-          .reduce(
-            (previousValue, otherCandidate) => {
-              if (otherCandidate.distance < previousValue.distance) {
-                return otherCandidate
-              }
+          return { playerId: pId, distance: distance }
+        })
+        .reduce((previousValue, otherCandidate) => {
+          if (otherCandidate.distance < previousValue.distance) {
+            return otherCandidate
+          }
 
-              return previousValue
-            }
-          )
+          return previousValue
+        })
 
-        targetMap.set(mobId, playerId)
+      targetMap.set(mobId, playerId)
     })
   })
 
@@ -372,9 +367,7 @@ export function purgeMob(mobId: EntityId, scene: Scene) {
     obj.weapon.visible = false
     obj.hazardSprite.visible = false
 
-    const hazardId = mobToHazardMap.get(mobId)
+    purge(scene.state, mobToHazardMap.get(mobId)!)
     gfxMap.delete(mobId)
-    // if (){}
-    // scene.state.hazardToMobType
   }
 }
