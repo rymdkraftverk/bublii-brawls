@@ -163,7 +163,7 @@ export default async function game(scene: Scene) {
         const direction = V.normalize(V.subtract(p2, p1))
         const a =
           (2 / (1 / m1 + 1 / m2)) *
-          V.dotProduct(direction, V.add(v1, V.scale(-1, v2)))
+          V.dotProduct(direction, V.subtract(v2, v1))
         const newV1 = V.subtract(V.scale(a / m1, direction), v1)
         const newV2 = V.add(V.scale(a / m2, direction), v2)
 
