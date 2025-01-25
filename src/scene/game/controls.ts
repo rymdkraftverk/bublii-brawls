@@ -35,7 +35,7 @@ export default function controls(scene: Scene, gamepadIndex: number) {
 }
 
 async function turnOffCooldownInOneSecond(scene: Scene, gamepadIndex: number) {
-  await scene.timer.delay(60)
+  await scene.timer.delay(snowBall.COOLDOWN)
 
   scene.state.throwSnowBallIsOnCooldown.set(gamepadIndex, false)
 }

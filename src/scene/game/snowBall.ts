@@ -12,6 +12,8 @@ const SNOWBALL_AREA_FACTOR = 0.3
 
 const SPRITE_SCALE_FACTOR = 0.07
 
+export const COOLDOWN = 20
+
 const TYPE = 'snowBall'
 
 export const launch = (scene: Scene, from: EntityId, angle: Radian) => {
