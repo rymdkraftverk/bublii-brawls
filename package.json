@@ -33,6 +33,7 @@
     "alchemy-engine": "0.1.6",
     "pixi.js": "8.7.2",
     "tiny-toolkit": "0.3.0",
+    "vcr-2d": "0.0.2",
     "vite": "6.0.11"
   }
 }
