@@ -6,7 +6,6 @@ const SPRITE_SCALE_FACTOR = 0.055
 export const setRadius = (playerId: EntityId, radius: Radius) => {
   const cappedRadius = Math.max(radius, 5)
 
-  // const radius = Math.sqrt(mass)
   const spriteScale = cappedRadius * SPRITE_SCALE_FACTOR
   const mass = cappedRadius
 
