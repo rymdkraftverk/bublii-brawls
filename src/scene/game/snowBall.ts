@@ -14,7 +14,9 @@ const TYPE = 'snowBall'
 
 export const launch = (scene: Scene, from: EntityId, angle: Radian) => {
   const playerMass = state.masses.get(from)!
-  if (playerMass < START_MASS) return
+  const snowBallMass = playerMass * SNOWBALL_AREA_FACTOR
+  const playerMassAfterSnowBall = playerMass - snowBallMass
+  if (playerMassAfterSnowBall < START_MASS) return
 
   // create snowball
   const id = getNextId()
@@ -46,7 +48,7 @@ export const launch = (scene: Scene, from: EntityId, angle: Radian) => {
   state.snowBallLaunchers.set(id, from)
   state.types.set(id, TYPE)
 
-  const snowBallMass = playerMass * SNOWBALL_AREA_FACTOR
+  // const snowBallMass = playerMass * SNOWBALL_AREA_FACTOR
   increaseMass(id, snowBallMass, scene)
   increaseMass(from, -1 * snowBallMass, scene)
 }

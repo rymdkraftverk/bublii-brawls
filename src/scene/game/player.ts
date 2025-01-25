@@ -28,7 +28,7 @@ export const increaseMass = (
   const newMass = Math.min(Math.max(oldMass + massIncrease, MIN_MASS), MAX_MASS)
   scene.state.masses.set(entityId, newMass)
 
-  if (newMass < MIN_MASS) {
+  if (newMass < START_MASS) {
     bublé(scene, entityId)
     return
   }
