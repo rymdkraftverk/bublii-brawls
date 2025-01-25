@@ -43,6 +43,5 @@ export const launch = (scene: Scene, from: EntityId, angle: Radian) => {
   // shrink player
 
   const shrunkPlayerRadius = playerRadius * PLAYER_SHRINK_FACTOR
-  console.log({ playerRadius, shrunkPlayerRadius })
   setRadius(from, shrunkPlayerRadius)
 }
