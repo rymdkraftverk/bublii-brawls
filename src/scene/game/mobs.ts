@@ -5,14 +5,42 @@ import {
   graphics,
   sprite,
   text,
+  type Position,
 } from 'alchemy-engine'
 import ParkMiller from 'park-miller'
 import { getRandomInt } from 'tiny-toolkit'
-import { getNextId, TextStyle } from '~/data'
-import type { Scene } from '~/type'
+import { getNextId, TextStyle, type EntityId } from '~/data'
+import type { Scene, TextureName } from '~/type'
 import { normalize, scale, subtract } from '~/util/vector2d'
 
 const MAXIMUM_SPEED = 3
+
+// This breaks if imported in different file, WTF
+export enum MobType {
+  FLAMETHROWER = 'flamethrower',
+  TNT = 'tnt',
+  MOLOTOV = 'molotov',
+}
+
+const weaponTextureMap: Record<MobType, TextureName> = {
+  [MobType.FLAMETHROWER]: 'flamethrower_0-1',
+  [MobType.TNT]: 'tnt_0-1',
+  [MobType.MOLOTOV]: 'molotov_0-1',
+}
+
+const weaponPositionMap: Record<MobType, Position> = {
+  [MobType.FLAMETHROWER]: { x: -13, y: -15 },
+  [MobType.TNT]: {
+    x: 0,
+    y: 0,
+  },
+  [MobType.MOLOTOV]: {
+    x: 0,
+    y: 0,
+  },
+}
+
+const waves = [{ type: MobType.FLAMETHROWER }]
 
 export default async function mobs(scene: Scene) {
   await scene.timer.delay(30)
@@ -24,6 +52,12 @@ export default async function mobs(scene: Scene) {
     return { con, character, weapon, projectile }
   })
 
+  const wave = waves[0]
+
+  if (!wave) {
+    throw new Error('No wave data!!')
+  }
+
   const mob1 = getNextId()
   scene.state.typeToIds.mob.push(mob1)
 
@@ -31,7 +65,6 @@ export default async function mobs(scene: Scene) {
   scene.state.positions.set(mob1, mobPosition)
   scene.state.radii.set(mob1, 50)
 
-  // TODO: Map
   const { con, character, weapon, projectile } = mobSprites.get()
   character.textures = [
     scene.textures['lizard_green_0-1'],
@@ -42,8 +75,8 @@ export default async function mobs(scene: Scene) {
   character.scale = 0.5
   character.anchor = 0.5
 
-  weapon.texture = scene.textures['flamethrower_0-1']
-  weapon.position = { x: -13, y: -15 }
+  weapon.texture = scene.textures[weaponTextureMap[wave.type]]
+  weapon.position = weaponPositionMap[wave.type]
   weapon.scale = 0.5
 
   projectile.textures = [
@@ -130,3 +163,5 @@ export default async function mobs(scene: Scene) {
     }
   })
 }
+
+export function purgeMob(mobId: EntityId) {}

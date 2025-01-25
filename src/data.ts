@@ -112,9 +112,3 @@ export const TextStyle = {
 // 4 because the first four are reserved for players
 let nextId = 4
 export const getNextId = (): EntityId => nextId++
-
-export enum MobType {
-  FLAMETHROWER = 'flamethrower',
-  TNT = 'tnt',
-  MOLOTOV = 'molotov',
-}
