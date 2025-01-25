@@ -32,9 +32,9 @@ createGame({
   panel: [
     {
       type: 'string',
-      label: 'gold',
-      getValue: (state) => {
-        return state.gold.toString()
+      label: 'test',
+      getValue: () => {
+        return '42'
       },
     },
   ],
