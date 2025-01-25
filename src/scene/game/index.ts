@@ -57,8 +57,6 @@ export default async function game(scene: Scene) {
   s.label = 'small blue'
   s.position.set(200, 200)
 
-  sync(_text, 'text', state, 'gold')
-
   const s2 = sprite(container, textures['blue-1'])
   s2.anchor.set(1)
   s2.label = 'other name'
