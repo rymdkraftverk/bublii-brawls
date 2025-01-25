@@ -28,21 +28,42 @@ const weaponTextureMap: Record<MobType, TextureName> = {
   [MobType.MOLOTOV]: 'molotov_0-1',
 }
 
+const projectileTextureMap: Record<MobType, TextureName[]> = {
+  [MobType.FLAMETHROWER]: [
+    'flamethrower_flame_0-1',
+    'flamethrower_flame_0-2',
+    'flamethrower_flame_0-3',
+  ],
+  [MobType.TNT]: ['tnt_0-1'],
+  [MobType.MOLOTOV]: ['molotov_0-1'],
+}
+
 const weaponPositionMap: Record<MobType, Position> = {
   [MobType.FLAMETHROWER]: { x: -13, y: -15 },
   [MobType.TNT]: {
-    x: 0,
-    y: 0,
+    x: -4,
+    y: -12,
   },
   [MobType.MOLOTOV]: {
-    x: 0,
-    y: 0,
+    x: -18,
+    y: -19,
   },
 }
 
-const waves = [{ type: MobType.FLAMETHROWER }]
+type Wave = { type: MobType }
+const waves: Wave[] = [{ type: MobType.TNT }]
 
 export default async function mobs(scene: Scene) {
+  const wave = waves[0]
+
+  if (!wave) {
+    throw new Error('No wave data!!')
+  }
+
+  await startWave(scene, wave)
+}
+
+async function startWave(scene: Scene, wave: Wave) {
   await scene.timer.delay(30)
   const mobSprites = createObjectPool(30, () => {
     const con = container(scene.container)
@@ -51,12 +72,6 @@ export default async function mobs(scene: Scene) {
     const projectile = animatedSprite(con)
     return { con, character, weapon, projectile }
   })
-
-  const wave = waves[0]
-
-  if (!wave) {
-    throw new Error('No wave data!!')
-  }
 
   const mob1 = getNextId()
   scene.state.typeToIds.mob.push(mob1)
