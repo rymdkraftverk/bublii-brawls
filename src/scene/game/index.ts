@@ -17,7 +17,7 @@ import mobs from './mobs'
 import * as V from '~/util/vector2d'
 import debug from './debug'
 import { heal, setRadius } from './player'
-import { deNormalizeRange } from 'tiny-toolkit'
+import { deNormalizeRange, grid } from 'tiny-toolkit'
 
 export default async function game(scene: Scene) {
   const {
@@ -61,7 +61,11 @@ export default async function game(scene: Scene) {
 
   textures.set(0, ['player_blue_0-1', 'player_blue_0-2', 'player_blue_0-3'])
   textures.set(1, ['player_green_0-1', 'player_green_0-2', 'player_green_0-3'])
-  textures.set(2, ['player_purple_0-1', 'player_purple_0-2', 'player_purple_0-3'])
+  textures.set(2, [
+    'player_purple_0-1',
+    'player_purple_0-2',
+    'player_purple_0-3',
+  ])
   textures.set(3, ['player_red_0-1', 'player_red_0-2', 'player_red_0-3'])
 
   const controllerIds = [0, 1, 2, 3]
@@ -207,14 +211,21 @@ export default async function game(scene: Scene) {
   debug(scene)
 }
 
+const getStartPosition = grid({
+  x: 70,
+  y: 70,
+  marginX: 500,
+  marginY: 350,
+  breakAt: 2,
+})
+
 function createPlayer(
   controllerId: EntityId,
   scene: Scene,
   sprites: Map<EntityId, Sprite>,
 ) {
   const state = scene.state
-  const x = 200 + (controllerId - 2) * 100
-  const y = 200 + (controllerId - 2) * 100
+  const { x, y } = getStartPosition(controllerId)
 
   const s = animatedSprite(scene.container)
 
