@@ -2,25 +2,19 @@ import { sprite } from 'alchemy-engine'
 import { toDegrees } from 'tiny-toolkit'
 import { getNextId, sprites, state, type EntityId, type Radian } from '~/data'
 import type { Scene } from '~/type'
-import { increaseMass } from './player'
+import { increaseMass, START_MASS } from './player'
 
 // CONFIG
 const SPEED = 3
-const PLAYER_RADIUS_REQUIREMENT = 10
-
 const SNOWBALL_AREA_FACTOR = 0.3
-
-// const SPRITE_SCALE_FACTOR = 0.07
 
 export const COOLDOWN = 20
 
 const TYPE = 'snowBall'
 
 export const launch = (scene: Scene, from: EntityId, angle: Radian) => {
-  const playerRadius = state.radii.get(from)!
-  if (playerRadius < PLAYER_RADIUS_REQUIREMENT) return
-
   const playerMass = state.masses.get(from)!
+  if (playerMass < START_MASS) return
 
   // create snowball
   const id = getNextId()

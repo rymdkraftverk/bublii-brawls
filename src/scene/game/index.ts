@@ -14,7 +14,7 @@ import { applyPlayerFriction } from './system/playerFriction'
 import mobs from './mobs'
 import * as V from '~/util/vector2d'
 import debug from './debug'
-import { feed, heal, increaseMass } from './player'
+import { feed, heal, increaseMass, START_MASS } from './player'
 import { deNormalizeRange, grid } from 'tiny-toolkit'
 
 export default async function game(scene: Scene) {
@@ -249,7 +249,7 @@ function createPlayer(
   // state.sprites[controllerId] = s
   sprites.set(controllerId, s)
 
-  increaseMass(controllerId, 1000, scene)
+  increaseMass(controllerId, START_MASS, scene)
 
   // TODO: Facing
   // scene.timer.repeatEvery(2, () => {
