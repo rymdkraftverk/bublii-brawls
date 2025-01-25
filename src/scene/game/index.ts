@@ -189,7 +189,7 @@ export default async function game(scene: Scene) {
     {
       type1: 'snowBall',
       type2: 'mob',
-      onCollision: (snowBallId, mobId) => {
+      onCollision: (snowBallId, _mobId) => {
         purge(scene.state, snowBallId)
         // purge(scene.state, mobId)
       },

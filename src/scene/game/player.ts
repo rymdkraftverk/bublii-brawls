@@ -27,4 +27,4 @@ export const heal = (playerId: EntityId, snowballId: EntityId) => {
 }
 
 const clamp = (value: number, min: number, max: number) =>
-  Math.min(Math.max(value, min), max);
+  Math.min(Math.max(value, min), max)
