@@ -84,6 +84,6 @@ function getScaleFactor(scene: Scene, entityId: EntityId) {
     case 'snowBall':
       return 0.07
     default:
-      throw('unexpected entity type without scale factor')
+      throw 'unexpected entity type without scale factor'
   }
 }
