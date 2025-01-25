@@ -1,4 +1,5 @@
-import { sprites, state, type EntityId, type Mass } from '~/data'
+import type { AnimatedSprite } from 'pixi.js'
+import { sprites, state, type EntityId, type Mass, textures} from '~/data'
 import { type Scene } from '~/type'
 
 // CONFIG
@@ -41,9 +42,6 @@ export const heal = (
   const snowBallMass = state.masses.get(snowballId)!
   increaseMass(playerId, snowBallMass, scene)
 }
-
-const clamp = (value: number, min: number, max: number) =>
-  Math.min(Math.max(value, min), max)
 
 const bublé = (scene: Scene, playerId: EntityId) => {
   const s = sprites.get(playerId)! as AnimatedSprite
