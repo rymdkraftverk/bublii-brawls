@@ -5,6 +5,7 @@ import mainMenu from './scene/mainMenu'
 import { Sprite } from 'pixi.js'
 import * as V from '~/util/vector2d'
 import type { TextureName } from './type'
+import type { MobType } from './scene/game/mobs'
 
 export const scenes = {
   game,
@@ -40,6 +41,7 @@ export type State = {
   radii: Map<EntityId, Radius>
   velocities: Map<EntityId, Velocity>
   facings: Map<EntityId, Facing>
+  hazardToMobType: Map<EntityId, MobType>
   masses: Map<EntityId, Mass>
   typeToIds: {
     snowPatch: EntityId[]
@@ -88,7 +90,9 @@ export const state: State = {
   conditions: new Map(),
   radii: new Map(),
   velocities: new Map(),
-  facings: new Map<EntityId, Facing>(),
+  facings: new Map(),
+  // Currently unused
+  hazardToMobType: new Map(),
   masses: new Map(),
   typeToIds: {
     snowPatch: [],
