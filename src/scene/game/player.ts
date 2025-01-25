@@ -77,6 +77,10 @@ const unBublé = (scene: Scene, playerId: EntityId) => {
 }
 
 export const feed = (playerId: EntityId, snowMass: SnowMass, scene: Scene) => {
+  if (state.conditions.get(playerId) === 'popping-the-bubble') {
+    return
+  }
+
   increaseMass(playerId, snowMass * SNOW_GROWTH_FACTOR, scene)
 }
 
