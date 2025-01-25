@@ -2,6 +2,7 @@ import {
   graphics,
   container as createContainer,
   animatedSprite,
+  sprite,
 } from 'alchemy-engine'
 import { type Scene, type TextureName } from '~/type'
 import pause from './pause'
@@ -35,14 +36,16 @@ export default async function game(scene: Scene) {
   window.scene = scene
 
   const screenShake = useScreenShake(container)
-  const background = graphics(container)
-  background
-    .rect(0, 0, app.screen.width, app.screen.height)
-    .fill({ color: 'chocolate', alpha: 1 })
-  background.position.set(0, 0)
-  background.zIndex = -100
+  const bg2 = sprite(container, scene.textures['background-1'])
+  bg2.zIndex = -9999
+  bg2.scale = 0.5
 
-  snow.letIt(app.screen.width, app.screen.height, container, repeatEvery)
+  snow.letIt(
+    app.screen.width - 30,
+    app.screen.height - 30,
+    container,
+    repeatEvery,
+  )
 
   const c = createContainer(container)
   c.label = 'container'

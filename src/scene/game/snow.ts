@@ -6,6 +6,8 @@ import { getNextId, state, type EntityId, type SnowMass } from '~/data'
 type RepeatEvery = TimerInstance['repeatEvery']
 
 const RADIUS = 4 // CONFIG
+const START_X = 10
+const START_Y = 10
 const DIAMETER = RADIUS * 2
 const TYPE = 'snowPatch'
 
@@ -20,8 +22,8 @@ export const letIt = (
 }
 
 const init = (width: number, height: number) => {
-  for (let x = RADIUS; x < width; x += DIAMETER) {
-    for (let y = RADIUS; y < height; y += DIAMETER) {
+  for (let x = RADIUS + START_X * RADIUS; x < width; x += DIAMETER) {
+    for (let y = RADIUS + START_Y * RADIUS; y < height; y += DIAMETER) {
       const id = getNextId()
       state.positions.set(id, { x, y })
 
