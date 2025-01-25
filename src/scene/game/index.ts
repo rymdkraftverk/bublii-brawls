@@ -12,6 +12,7 @@ import { type Sprite } from 'pixi.js'
 import * as snow from './snow'
 import * as snowBall from './snowBall'
 import collisions from './collisions'
+import { applyPlayerFriction } from './system/playerFriction'
 
 export default async function game(scene: Scene) {
   const {
@@ -70,7 +71,6 @@ export default async function game(scene: Scene) {
   )
 
   const controllerIds = [0, 1, 2, 3]
-  // const controllerIds : Array<EntityId> = []
 
   for (const controllerId of controllerIds) {
     createPlayer(controllerId, scene, sprites)
@@ -93,6 +93,8 @@ export default async function game(scene: Scene) {
       state.positions.set(id, newPosition)
     }
   })
+
+  applyPlayerFriction(scene)
 
   repeatEvery(1, (_time, delta) => {
     if (isKeyDown(['a', 'ArrowLeft'])) {
