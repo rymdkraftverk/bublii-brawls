@@ -25,15 +25,8 @@ export const increaseMass = (
   const oldMass = scene.state.masses.get(entityId) ?? 0
 
   // avoid going to zero mass
-  const newMass = Math.min(Math.max(oldMass + massIncrease, 1), MAX_MASS)
+  const newMass = Math.min(Math.max(oldMass + massIncrease, MIN_MASS), MAX_MASS)
   scene.state.masses.set(entityId, newMass)
-
-  const newRadius = (newMass / DENSITY) ** 0.5 / Math.PI
-  const spriteScale = newRadius * getScaleFactor(scene, entityId)
-  scene.state.radii.set(entityId, newRadius)
-
-  const playerSprite = sprites.get(entityId)!
-  playerSprite.scale = spriteScale
 
   if (newMass < MIN_MASS) {
     bublé(scene, entityId)
@@ -41,6 +34,13 @@ export const increaseMass = (
   }
 
   unBublé(scene, entityId)
+
+  const newRadius = (newMass / DENSITY) ** 0.5 / Math.PI
+  const spriteScale = newRadius * getScaleFactor(scene, entityId)
+  scene.state.radii.set(entityId, newRadius)
+
+  const playerSprite = sprites.get(entityId)!
+  playerSprite.scale = spriteScale
 }
 
 export const heal = (
