@@ -82,7 +82,7 @@ export default async function mobs(scene: Scene) {
     .stroke({ width: 1, color: '#000000' })
   text(speechBubble, { ...TextStyle.MAIN, fill: '0x000000' }, 'Burn bitches!')
 
-  await scene.timer.delay(100)
+  await scene.timer.delay(60)
 
   projectile.visible = true
 
