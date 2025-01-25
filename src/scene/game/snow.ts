@@ -60,11 +60,7 @@ const render = (snow: Graphics) => {
 
     snow
       .rect(x - RADIUS, y - RADIUS, DIAMETER, DIAMETER)
-      // WARN debug feature
-      .stroke({ color: 'black', alpha, width: 1 })
       .fill({ color: 'white', alpha })
-
-    // console.log({ x, y, snowPatch, alpha })
   }
 }
 
