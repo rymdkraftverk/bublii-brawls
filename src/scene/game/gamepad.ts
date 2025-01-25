@@ -65,8 +65,8 @@ export function getGamepads(): ReturnValue {
     axesRight.horizontal = g.axes[2] ?? 0
     axesRight.vertical = g.axes[3] ?? 0
 
-    let leftTrigger: Trigger = g.axes[4] ?? (g.buttons[6] ? 1 : 0) ?? 0
-    let rightTrigger: Trigger = g.axes[5] ?? (g.buttons[7] ? 1 : 0) ?? 0
+    let leftTrigger: Trigger = g.axes[4] ?? (buttons[6] ? 1 : 0) ?? 0
+    let rightTrigger: Trigger = g.axes[5] ?? (buttons[7] ? 1 : 0) ?? 0
 
     return {
       axes,
