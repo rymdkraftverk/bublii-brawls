@@ -1,8 +1,6 @@
 import {
-  sprite,
   graphics,
   container as createContainer,
-  createObjectPool,
   animatedSprite,
 } from 'alchemy-engine'
 import { type Scene, type TextureName } from '~/type'
@@ -21,14 +19,12 @@ import { setRadius } from './player'
 
 export default async function game(scene: Scene) {
   const {
-    textures,
     container,
-    input: { isKeyDown, debouncedKey },
+    input: { debouncedKey },
     state,
     timer: { repeatEvery },
     sound: _sound,
     music,
-    timer,
     useScreenShake,
     app,
   } = scene
@@ -50,14 +46,6 @@ export default async function game(scene: Scene) {
   const c = createContainer(container)
   c.label = 'container'
   c.position.set(200, 200)
-
-  const spritePool = createObjectPool(10, () => {
-    return sprite(container)
-  })
-  const s = spritePool.get()
-  s.texture = textures['blue-1']
-  s.label = 'small blue'
-  s.position.set(200, 200)
 
   debouncedKey(
     'Space',
@@ -92,21 +80,6 @@ export default async function game(scene: Scene) {
   })
 
   applyPlayerFriction(scene)
-
-  repeatEvery(1, (_time, delta) => {
-    if (isKeyDown(['a', 'ArrowLeft'])) {
-      s.position.x -= 1 * delta
-    }
-    if (isKeyDown(['w', 'ArrowUp'])) {
-      s.position.y -= 1 * delta
-    }
-    if (isKeyDown(['s', 'ArrowDown'])) {
-      s.position.y += 1 * delta
-    }
-    if (isKeyDown(['d', 'ArrowRight'])) {
-      s.position.x += 1 * delta
-    }
-  })
 
   // WIP
   launchSnowBallFromPlayer(scene, 1)
@@ -189,8 +162,8 @@ export default async function game(scene: Scene) {
       onCollision: (snowBallId, mobId) => {
         purge(scene.state, snowBallId)
         purge(scene.state, mobId)
-      }
-    }
+      },
+    },
   ])
 
   mobs(scene)
