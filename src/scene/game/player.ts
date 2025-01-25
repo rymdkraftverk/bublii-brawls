@@ -1,42 +1,37 @@
-import { sprites, state, textures, type EntityId, type Radius } from '~/data'
-import { absorbSnowball } from './snowBall'
-import type { Scene } from '~/type'
-import type { AnimatedSprite } from 'pixi.js'
+import { sprites, state, type EntityId, type Mass } from '~/data'
+import { type Scene } from '~/type'
 
 // CONFIG
 const SPRITE_SCALE_FACTOR = 0.055
-const MIN_RADIUS = 10
-const MAX_RADIUS = 100
+const DENSITY = 1
+const MIN_MASS = 100
+// const MAX_MASS = 1000
 
-export const setRadius = (scene: Scene, playerId: EntityId, radius: Radius) => {
-  const clampedRadius = clamp(radius, MIN_RADIUS, MAX_RADIUS)
+export const increaseMass = (entityId: EntityId, massIncrease: Mass, scene: Scene) => {
+  const oldMass = scene.state.masses.get(entityId) ?? 0
 
-  if (clampedRadius <= MIN_RADIUS) {
-    bublé(scene, playerId)
+  // avoid going to zero mass
+  const newMass = Math.max(oldMass + massIncrease, 1)
+  scene.state.masses.set(entityId, newMass)
+
+  const newRadius = ((newMass / DENSITY) ** 0.5) / Math.PI
+  const spriteScale = newRadius * SPRITE_SCALE_FACTOR
+  scene.state.radii.set(entityId, newRadius)
+
+  const playerSprite = sprites.get(entityId)!
+  playerSprite.scale = spriteScale
+
+  if (newMass < MIN_MASS) {
+    bublé(scene, entityId)
     return
   }
 
-  unBublé(scene, playerId)
-
-  const spriteScale = clampedRadius * SPRITE_SCALE_FACTOR
-  const mass = clampedRadius
-
-  state.masses.set(playerId, mass)
-  state.radii.set(playerId, clampedRadius)
-  const playerSprite = sprites.get(playerId)!
-  playerSprite.scale = spriteScale
+  unBublé(scene, entityId)
 }
 
-export const heal = (
-  scene: Scene,
-  playerId: EntityId,
-  snowballId: EntityId,
-) => {
-  const playerRadius = state.radii.get(playerId)!
-  const snowballRadius = state.radii.get(snowballId)!
-
-  const grownPlayerRadius = absorbSnowball(playerRadius, snowballRadius)
-  setRadius(scene, playerId, grownPlayerRadius)
+export const heal = (playerId: EntityId, snowballId: EntityId, scene: Scene) => {
+  const snowBallMass = state.masses.get(snowballId)!
+  increaseMass(playerId, snowBallMass, scene)
 }
 
 const clamp = (value: number, min: number, max: number) =>

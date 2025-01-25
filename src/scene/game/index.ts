@@ -14,7 +14,7 @@ import { applyPlayerFriction } from './system/playerFriction'
 import mobs from './mobs'
 import * as V from '~/util/vector2d'
 import debug from './debug'
-import { heal, setRadius } from './player'
+import { heal, increaseMass } from './player'
 import { deNormalizeRange, grid } from 'tiny-toolkit'
 
 export default async function game(scene: Scene) {
@@ -106,10 +106,7 @@ export default async function game(scene: Scene) {
 
         if (snowPatchMass && snowPatchMass > 0) {
           const snowMass = snow.munch(snowPatchId)
-          const playerRadius = state.radii.get(playerId)!
-          const grownPlayerRadius = playerRadius + snowMass / 100
-
-          setRadius(scene, playerId, grownPlayerRadius)
+          increaseMass(playerId, snowMass, scene)
         }
       },
     },
@@ -154,11 +151,9 @@ export default async function game(scene: Scene) {
       type2: 'player',
       onCollision: async (_hazard, player) => {
         // TODO: Dynamic
-        const fireDamage = 1
+        const fireDamage = 100
 
-        const newRadius = scene.state.radii.get(player)! - fireDamage
-
-        setRadius(scene, player, newRadius)
+        increaseMass(player, -1 * fireDamage, scene)
         const condition = scene.state.conditions.get(player)
 
         if (condition === 'normal') {
@@ -198,7 +193,7 @@ export default async function game(scene: Scene) {
       onCollision: (snowBallId, playerId) => {
         const launcherId = state.snowBallLaunchers.get(snowBallId)!
         if (launcherId === playerId) return
-        heal(scene, playerId, snowBallId)
+        heal(playerId, snowBallId, scene)
         purge(scene.state, snowBallId)
       },
     },
@@ -241,7 +236,7 @@ function createPlayer(
   // state.sprites[controllerId] = s
   sprites.set(controllerId, s)
 
-  setRadius(scene, controllerId, 10)
+  increaseMass(controllerId, 1000, scene)
 
   // TODO: Facing
   // scene.timer.repeatEvery(2, () => {

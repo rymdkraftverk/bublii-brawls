@@ -2,6 +2,8 @@ import type { Scene } from '~/type'
 import { getGamepads } from './gamepad'
 import * as snowBall from './snowBall'
 
+const PLAYER_ACCELERATION = 100
+
 export default function controls(scene: Scene, gamepadIndex: number) {
   scene.timer.repeatEvery(1, (_time, delta) => {
     const gamepads = getGamepads()
@@ -12,8 +14,8 @@ export default function controls(scene: Scene, gamepadIndex: number) {
     const { x, y } = scene.state.velocities.get(gamepadIndex)!
     const mass = scene.state.masses.get(gamepadIndex)!
     scene.state.velocities.set(gamepadIndex, {
-      x: x + (activeGamepad.axes.horizontal * delta) / mass,
-      y: y + (activeGamepad.axes.vertical * delta) / mass,
+      x: x + (activeGamepad.axes.horizontal * delta * PLAYER_ACCELERATION) / mass,
+      y: y + (activeGamepad.axes.vertical * delta * PLAYER_ACCELERATION) / mass,
     })
 
     const aim = Math.atan2(
