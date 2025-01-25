@@ -27,8 +27,6 @@ type Radius = number
 
 type Mass = number
 
-type Type = 'snowPatch' | 'player'
-
 export type SnowMass = 0 | 1 | 2 | 3 | 4 | 5
 
 export type State = {
@@ -60,6 +58,8 @@ export const state: State = {
   },
   snowMasses: new Map(),
 }
+
+export type Type = keyof typeof state.typeToIds
 
 export const TextStyle = {
   MAIN: {

@@ -11,6 +11,7 @@ import { sprites, state, type EntityId } from '~/data'
 import { type Sprite } from 'pixi.js'
 import * as snow from './snow'
 import * as snowBall from './snowBall'
+import collisions from './collisions'
 
 export default async function game(scene: Scene) {
   const {
@@ -123,6 +124,13 @@ export default async function game(scene: Scene) {
   // controls(scene, 2)
   // controls(scene, 3)
   */
+  collisions(scene, [
+    {
+      type1: 'player',
+      type2: 'snowPatch',
+      onCollision: (player, snowPatch) => {},
+    },
+  ])
 }
 
 const delaySnowBallFromPlayer = async (scene: Scene, playerIndex: number) => {
