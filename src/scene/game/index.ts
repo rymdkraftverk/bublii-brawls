@@ -257,8 +257,11 @@ export default async function game(scene: Scene) {
     {
       entityType: 'player',
       onTransgression: (playerId, direction) => {
+        const oldPosition = scene.state.positions.get(playerId)!
         const oldVelocity = scene.state.velocities.get(playerId)!
+        const radius = scene.state.radii.get(playerId)!
         let newVelocity = oldVelocity
+        let newPosition = oldPosition
 
         const north = { x: 0, y: -1 }
         const east = { x: 1, y: 0 }
@@ -269,26 +272,31 @@ export default async function game(scene: Scene) {
           case 'North':
             if (V.dotProduct(oldVelocity, north) > 0) {
               newVelocity = { x: oldVelocity.x, y: -0.2 * oldVelocity.y }
+              newPosition = { x: oldPosition.x, y: 0 + radius + 1}
             }
             break
           case 'East':
             if (V.dotProduct(oldVelocity, east) > 0) {
               newVelocity = { x: -0.2 * oldVelocity.x, y: oldVelocity.y }
+              newPosition = { x: scene.app.screen.width - radius - 1, y: oldPosition.y }
             }
             break
           case 'South':
             if (V.dotProduct(oldVelocity, south) > 0) {
               newVelocity = { x: oldVelocity.x, y: -0.2 * oldVelocity.y }
+              newPosition = { x: oldPosition.x, y: scene.app.screen.height - radius - 1}
             }
             break
           case 'West':
             if (V.dotProduct(oldVelocity, west) > 0) {
               newVelocity = { x: -0.2 * oldVelocity.x, y: oldVelocity.y }
+              newPosition = { x: 0 + radius + 1, y: oldPosition.y }
             }
             break
         }
 
         scene.state.velocities.set(playerId, newVelocity)
+        scene.state.positions.set(playerId, newPosition)
       },
     },
     {
