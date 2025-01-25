@@ -8,8 +8,14 @@ export default function debug(scene: Scene) {
 
   function debugType(type: Type) {
     for (const id of scene.state.typeToIds[type]) {
-      const position = scene.state.positions.get(id)!
-      const radius = scene.state.radii.get(id)!
+      const position = scene.state.positions.get(id)
+      const radius = scene.state.radii.get(id)
+
+      if (!position || !radius) {
+        console.warn(`Trying to debug "${type}" without position or radius`)
+        return
+      }
+
       debugGraphics
         .circle(position.x, position.y, radius)
         .stroke({ width: 1, color: 'black' })
@@ -19,6 +25,6 @@ export default function debug(scene: Scene) {
   scene.timer.repeatEvery(1, () => {
     debugGraphics.clear()
     debugType('player')
-    debugType('mob')
+    debugType('hazard')
   })
 }
