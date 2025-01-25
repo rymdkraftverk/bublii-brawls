@@ -26,11 +26,14 @@ export type Mass = number
 
 export type SnowMass = 0 | 1 | 2 | 3 | 4 | 5
 
+export type Facing = 'left' | 'right'
+
 export type State = {
   settingsVisible: boolean
   positions: Map<EntityId, Position>
   radii: Map<EntityId, Radius>
   velocities: Map<EntityId, Velocity>
+  facings: Map<EntityId, Facing>
   masses: Map<EntityId, Mass>
   types: Map<EntityId, Type>
   typeToIds: {
