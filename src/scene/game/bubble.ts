@@ -1,8 +1,9 @@
+import { getDistance } from 'tiny-toolkit'
+import { normalize, scale, subtract } from '~/util/vector2d'
 import { state, type EntityId } from '~/data'
 import type { Scene } from '~/type'
 
-const SPEED_X = 3
-const SPEED_Y = 3
+const MAXIMUM_SPEED = 3
 
 export const pop = (scene: Scene, entityId: EntityId) => {
     const condition = state.conditions.get(entityId)
@@ -10,32 +11,29 @@ export const pop = (scene: Scene, entityId: EntityId) => {
         return;
     }
 
-    const targetX = scene.app.screen.width / 2;
-    const targetY = scene.app.screen.height / 2;
-
-    const velocity = { x: SPEED_X, y: SPEED_Y }
+    const entityPosition = scene.state.positions.get(entityId)!
+    const targetPosition = { x: scene.app.screen.width / 2, y: scene.app.screen.height / 2 }
 
     state.conditions.set(entityId, 'popping-the-bubble')
-    state.velocities.set(entityId, velocity)
-    scene.timer.repeatEvery(1, () => {
-        const position = state.positions.get(entityId)
-        if (!position) {
-            return;
-        }
+    const direction = normalize(
+        subtract(
+            entityPosition,
+            targetPosition
+        ),
+    )
 
-        let update = false
-        if (velocity.x > 0 && position.x >= targetX) {
-            velocity.x = 0
-            update = true
-        }
+    const velocity = scale(MAXIMUM_SPEED, direction)
+    scene.state.velocities.set(entityId, velocity)
 
-        if (velocity.y > 0 && position.y >= targetY) {
-            velocity.y = 0
-            update = true
-        }
+    const unsubscribe = scene.timer.repeatEvery(1, () => {
+        const currentPosition = state.positions.get(entityId)!
+        const targetDistance = getDistance(currentPosition, targetPosition)
 
-        if (update) {
-            state.velocities.set(entityId, velocity)
+        if (Math.abs(targetDistance) < 2) {
+            scene.state.velocities.set(entityId, { x: 0, y: 0 })
+            unsubscribe()
+            return
         }
     })
+
 } 
