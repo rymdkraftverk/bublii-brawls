@@ -42,7 +42,6 @@ export type State = {
     snowPatch: EntityId[]
     player: EntityId[]
   }
-  sprites: Map<EntityId, Sprite>
   snowMasses: Map<EntityId, SnowMass>
 }
 
@@ -57,7 +56,6 @@ export const state: State = {
     snowPatch: [],
     player: [],
   },
-  sprites: new Map(),
   snowMasses: new Map(),
 }
 

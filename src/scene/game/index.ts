@@ -78,7 +78,7 @@ export default async function game(scene: Scene) {
   }
 
   repeatEvery(1, (_time, delta) => {
-    for (const [id, entitySprite] of state.sprites.entries()) {
+    for (const [id, entitySprite] of sprites.entries()) {
       const position = state.positions.get(id)!
       entitySprite.position = position
     }
