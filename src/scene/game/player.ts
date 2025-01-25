@@ -17,11 +17,7 @@ const MAX_MASS = 50000
 
 const SNOW_GROWTH_FACTOR = 5
 
-export const setMass = (
-  entityId: EntityId,
-  mass: Mass,
-  scene: Scene
-) => {
+export const setMass = (entityId: EntityId, mass: Mass, scene: Scene) => {
   const newMass = Math.min(Math.max(mass, MIN_MASS), MAX_MASS)
   scene.state.masses.set(entityId, newMass)
 
@@ -43,7 +39,6 @@ export const setMass = (
   const playerSprite = sprites.get(entityId)!
   playerSprite.scale = spriteScale
 }
-
 
 export const increaseMass = (
   entityId: EntityId,

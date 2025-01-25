@@ -254,7 +254,7 @@ export default async function mobs(scene: Scene) {
     render()
   })
 
-  scene.timer.repeatEvery(60, (_) => {
+  scene.timer.repeatEvery(30, (_) => {
     const mobIds = scene.state.typeToIds.mob
     mobIds.forEach((mobId) => {
       const mobPosition = scene.state.positions.get(mobId)!
@@ -291,8 +291,8 @@ export default async function mobs(scene: Scene) {
         const mobPosition = scene.state.positions.get(mobId)!
 
         // targetPosition should be to the left or to the right of the target
-        const leftOfTarget = { ...targetPosition, x: targetPosition.x - 100 }
-        const rightOfTarget = { ...targetPosition, x: targetPosition.x + 100 }
+        const leftOfTarget = { ...targetPosition, x: targetPosition.x - 40 }
+        const rightOfTarget = { ...targetPosition, x: targetPosition.x + 40 }
 
         const leftOfTargetDistance = getDistance(mobPosition, leftOfTarget)
         const rightOfTargetDistance = getDistance(mobPosition, rightOfTarget)

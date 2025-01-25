@@ -12,9 +12,9 @@ export function applyPlayerFriction(scene: Scene) {
 
       if (!oldVelocity) return
       if (!playerMass) return
-        
+
       if (state.conditions.get(playerId) == 'popping-the-bubble') {
-        return;
+        return
       }
 
       const forceAmplitude = (-1 * frictionCoefficient * delta) / playerMass

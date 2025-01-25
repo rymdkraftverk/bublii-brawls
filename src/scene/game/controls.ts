@@ -12,7 +12,7 @@ export default function controls(scene: Scene, gamepadIndex: number) {
 
     const activeGamepad = gamepads[gamepadIndex]
     if (!activeGamepad) return
-      
+
     if (state.conditions.get(gamepadIndex) == 'popping-the-bubble') {
       return
     }
@@ -22,8 +22,12 @@ export default function controls(scene: Scene, gamepadIndex: number) {
     scene.state.velocities.set(gamepadIndex, {
       x:
         x +
-        (activeGamepad.axes.horizontal * delta * PLAYER_ACCELERATION) / mass ** 0.5,
-      y: y + (activeGamepad.axes.vertical * delta * PLAYER_ACCELERATION) / mass ** 0.5,
+        (activeGamepad.axes.horizontal * delta * PLAYER_ACCELERATION) /
+          mass ** 0.5,
+      y:
+        y +
+        (activeGamepad.axes.vertical * delta * PLAYER_ACCELERATION) /
+          mass ** 0.5,
     })
 
     const aim = Math.atan2(
@@ -41,7 +45,7 @@ export default function controls(scene: Scene, gamepadIndex: number) {
         turnOffCooldownInOneSecond(scene, gamepadIndex)
       }
     }
-    
+
     if (activeGamepad.buttons[0]) {
       bubble.pop(scene, gamepadIndex)
     }
