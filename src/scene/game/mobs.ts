@@ -60,7 +60,17 @@ const hazardRadiusMap: Record<MobType, number> = {
 }
 
 type Wave = { type: MobType }
-const waves: Wave[] = [{ type: MobType.TNT }]
+const waves: Wave[] = [{ type: MobType.FLAMETHROWER }]
+
+const gfxMap = new Map<
+  EntityId,
+  {
+    con: Container
+    character: AnimatedSprite
+    weapon: Sprite
+    hazardSprite: AnimatedSprite
+  }
+>()
 
 export default async function mobs(scene: Scene) {
   const wave = waves[0]
