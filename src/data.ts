@@ -23,6 +23,8 @@ type Velocity = {
   y: number
 }
 
+export type Radian = number // expected to be between 0 and Math.PI * 2
+
 type Radius = number
 
 type Mass = number

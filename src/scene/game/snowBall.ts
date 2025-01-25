@@ -1,5 +1,5 @@
 import { sprite } from 'alchemy-engine'
-import { getNextId, sprites, state, type EntityId } from '~/data'
+import { getNextId, sprites, state, type EntityId, type Radian } from '~/data'
 import type { Scene } from '~/type'
 
 // CONFIG
@@ -9,7 +9,7 @@ const PLAYER_MASS_REQUIREMENT = 5
 const SNOWBALL_FACTOR = 0.1
 const PLAYER_SHRINK_FACTOR = 1 - SNOWBALL_FACTOR
 
-export const launch = (scene: Scene, from: EntityId, angleRadian: number) => {
+export const launch = (scene: Scene, from: EntityId, angle: Radian) => {
   const playerMass = state.masses.get(from)!
   if (playerMass < PLAYER_MASS_REQUIREMENT) return
 
@@ -17,8 +17,8 @@ export const launch = (scene: Scene, from: EntityId, angleRadian: number) => {
   const id = getNextId()
 
   const velocity = {
-    x: SPEED * Math.cos(angleRadian),
-    y: SPEED * Math.sin(angleRadian),
+    x: SPEED * Math.cos(angle),
+    y: SPEED * Math.sin(angle),
   }
 
   const snowBallMass = playerMass * SNOWBALL_FACTOR
