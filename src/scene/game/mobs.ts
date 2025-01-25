@@ -3,6 +3,7 @@ import {
   container,
   createObjectPool,
   sprite,
+  type ObjectPool,
   type Position,
 } from 'alchemy-engine'
 import ParkMiller from 'park-miller'
@@ -70,6 +71,13 @@ const gfxMap = new Map<
   }
 >()
 
+let mobPool: ObjectPool<{
+  con: Container
+  character: AnimatedSprite
+  weapon: Sprite
+  hazardSprite: AnimatedSprite
+}>
+
 const targetMap = new Map<EntityId, number>()
 
 export default async function mobs(scene: Scene) {
@@ -82,7 +90,9 @@ export default async function mobs(scene: Scene) {
 
   const createObject = () => {
     const con = container(scene.container)
+    con.visible = true
     const character = animatedSprite(con)
+    character.visible = true
     character.textures = [
       scene.textures['lizard_green_0-1'],
       scene.textures['lizard_green_0-2'],
@@ -92,11 +102,13 @@ export default async function mobs(scene: Scene) {
     character.scale = 0.5
     character.anchor = 0.5
     const weapon = sprite(con)
+    weapon.visible = true
     const hazardSprite = animatedSprite(con)
+    hazardSprite.visible = true
     return { con, character, weapon, hazardSprite }
   }
 
-  const mobPool = createObjectPool(30, createObject)
+  mobPool = createObjectPool(30, createObject)
 
   await scene.timer.delay(30)
 
@@ -124,7 +136,11 @@ export default async function mobs(scene: Scene) {
     hazardSprite.anchor.y = 0.5
 
     await scene.timer.repeatUntil(90, () => {
-      const position = scene.state.positions.get(mobId)!
+      const position = scene.state.positions.get(mobId)
+      if (!position) {
+        // Mob was purged
+        return
+      }
       position.y += 1
     })
 
@@ -143,7 +159,12 @@ export default async function mobs(scene: Scene) {
 
       scene.timer.repeatEvery(1, () => {
         const mobFacing = scene.state.facings.get(mobId) ?? 'left'
-        const mobPosition = scene.state.positions.get(mobId)!
+        const mobPosition = scene.state.positions.get(mobId)
+
+        if (!mobPosition) {
+          // Mob was purged
+          return
+        }
 
         scene.state.positions.set(hazard, {
           y: mobPosition.y + 5,
@@ -299,4 +320,13 @@ export default async function mobs(scene: Scene) {
   })
 }
 
-export function purgeMob(_mobId: EntityId) {}
+export function purgeMob(mobId: EntityId) {
+  if (mobPool) {
+    const obj = gfxMap.get(mobId)!
+    mobPool.release(obj)
+    obj.con.visible = false
+    obj.character.visible = false
+    obj.weapon.visible = false
+    obj.hazardSprite.visible = false
+  }
+}

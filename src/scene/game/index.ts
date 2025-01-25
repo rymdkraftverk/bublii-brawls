@@ -12,7 +12,7 @@ import * as snow from './snow'
 import collisions from './collisions'
 import { borderPatrol } from './system/borderPatrol'
 import { applyPlayerFriction } from './system/playerFriction'
-import mobs from './mobs'
+import mobs, { purgeMob } from './mobs'
 import * as V from '~/util/vector2d'
 import debug from './debug'
 import { feed, heal, increaseMass, START_MASS } from './player'
@@ -208,9 +208,10 @@ export default async function game(scene: Scene) {
     {
       type1: 'snowBall',
       type2: 'mob',
-      onCollision: (snowBallId, _mobId) => {
+      onCollision: (snowBallId, mobId) => {
         purge(scene.state, snowBallId)
-        // purge(scene.state, mobId)
+        purge(scene.state, mobId)
+        purgeMob(mobId)
       },
     },
     {
@@ -261,8 +262,8 @@ export default async function game(scene: Scene) {
         }
 
         scene.state.velocities.set(playerId, newVelocity)
-      }
-    }
+      },
+    },
   ])
 
   mobs(scene)
