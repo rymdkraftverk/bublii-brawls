@@ -148,10 +148,14 @@ async function startWave(
     y: con.position.y - 50,
   }
   const g = graphics(speechBubble)
-  g.roundRect(-10, -10, 180, 30)
+  g.roundRect(-10, -10, 350, 30)
     .fill({ color: '#ffffff' })
     .stroke({ width: 1, color: '#000000' })
-  text(speechBubble, { ...TextStyle.MAIN, fill: '0x000000' }, 'Burn bitches!')
+  text(
+    speechBubble,
+    { ...TextStyle.MAIN, fill: '0x000000' },
+    'I have huge blue brawls',
+  )
 
   await scene.timer.delay(60)
 
