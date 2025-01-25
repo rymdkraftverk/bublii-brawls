@@ -55,8 +55,8 @@ export type State = {
   snowMasses: Map<EntityId, SnowMass>
   aims: Map<EntityId, Radian>
   snowBallLaunchers: Map<SnowBallId, PlayerId>
-  throwSnowBallIsOnCooldown: Map<EntityId, Boolean>
-  bublii: Map<EntityId, Boolean>
+  throwSnowBallIsOnCooldown: Map<EntityId, boolean>
+  bublii: Map<EntityId, boolean>
 }
 
 export function purge(state: State, id: EntityId) {

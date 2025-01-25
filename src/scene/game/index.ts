@@ -142,6 +142,16 @@ export default async function game(scene: Scene) {
       type1: 'player',
       type2: 'player',
       onCollision: (p1Id, p2Id) => {
+        let isBublé = state.bublii.get(p1Id) ?? false
+        if (isBublé) {
+          return
+        }
+
+        isBublé = state.bublii.get(p2Id) ?? false
+        if (isBublé) {
+          return
+        }
+
         const p1 = scene.state.positions.get(p1Id)
         const p2 = scene.state.positions.get(p2Id)
 
@@ -190,6 +200,11 @@ export default async function game(scene: Scene) {
       type1: 'hazard',
       type2: 'player',
       onCollision: async (_hazard, player) => {
+        let isBublé = state.bublii.get(player) ?? false
+        if (isBublé) {
+          return
+        }
+
         const fireDamage = 500
 
         increaseMass(player, -1 * fireDamage, scene)
