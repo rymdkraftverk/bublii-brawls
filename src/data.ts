@@ -32,7 +32,7 @@ export type SnowMass = 0 | 1 | 2 | 3 | 4 | 5
 
 export type Facing = 'left' | 'right'
 
-export type Condition = 'normal' | 'taking-damage'
+export type Condition = 'normal' | 'taking-damage' | 'popping-the-bubble'
 
 export type State = {
   settingsVisible: boolean

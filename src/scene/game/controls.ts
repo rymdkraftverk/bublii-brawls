@@ -1,6 +1,8 @@
 import type { Scene } from '~/type'
 import { getGamepads } from './gamepad'
 import * as snowBall from './snowBall'
+import * as bubble from './bubble'
+import { state } from '~/data'
 
 const PLAYER_ACCELERATION = 100
 
@@ -10,6 +12,10 @@ export default function controls(scene: Scene, gamepadIndex: number) {
 
     const activeGamepad = gamepads[gamepadIndex]
     if (!activeGamepad) return
+      
+    if (state.conditions.get(gamepadIndex) == 'popping-the-bubble') {
+      return
+    }
 
     const { x, y } = scene.state.velocities.get(gamepadIndex)!
     const mass = scene.state.masses.get(gamepadIndex)!
@@ -34,6 +40,10 @@ export default function controls(scene: Scene, gamepadIndex: number) {
         scene.state.throwSnowBallIsOnCooldown.set(gamepadIndex, true)
         turnOffCooldownInOneSecond(scene, gamepadIndex)
       }
+    }
+    
+    if (activeGamepad.buttons[0]) {
+      bubble.pop(scene, gamepadIndex)
     }
   })
 }

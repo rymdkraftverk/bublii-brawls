@@ -1,3 +1,4 @@
+import { state } from '~/data'
 import type { Scene } from '~/type'
 import * as V from '~/util/vector2d'
 
@@ -11,6 +12,10 @@ export function applyPlayerFriction(scene: Scene) {
 
       if (!oldVelocity) return
       if (!playerMass) return
+        
+      if (state.conditions.get(playerId) == 'popping-the-bubble') {
+        return;
+      }
 
       const forceAmplitude = (-1 * frictionCoefficient * delta) / playerMass
       const frictionForce = V.scale(forceAmplitude, V.normalize(oldVelocity))
