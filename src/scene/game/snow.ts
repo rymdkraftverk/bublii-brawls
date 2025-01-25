@@ -5,7 +5,7 @@ import { getNextId, state, type EntityId, type SnowMass } from '~/data'
 
 type RepeatEvery = TimerInstance['repeatEvery']
 
-const RADIUS = 5
+const RADIUS = 5 // CONFIG
 const DIAMETER = RADIUS * 2
 const TYPE = 'snowPatch'
 
