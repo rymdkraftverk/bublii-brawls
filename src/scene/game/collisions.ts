@@ -36,7 +36,9 @@ export default function collisions(
           const radius2 = scene.state.radii.get(id2)
 
           if (!position2 || !radius2) {
-            throw new Error('Collision detection failed !!!!11oneone')
+            throw new Error(
+              `Collision detection failed for type "${type2}" (was gonna check with "${type1}")`,
+            )
           }
 
           const distance = getDistance(position1, position2)
