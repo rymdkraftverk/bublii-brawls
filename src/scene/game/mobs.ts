@@ -5,9 +5,11 @@ import {
   graphics,
   sprite,
   text,
+  type ObjectPool,
   type Position,
 } from 'alchemy-engine'
 import ParkMiller from 'park-miller'
+import type { AnimatedSprite, Container, Sprite } from 'pixi.js'
 import { getDistance, getRandomInt } from 'tiny-toolkit'
 import { getNextId, TextStyle, type EntityId } from '~/data'
 import type { Scene, TextureName } from '~/type'
@@ -67,23 +69,34 @@ export default async function mobs(scene: Scene) {
     throw new Error('No wave data!!')
   }
 
+  const createObject = () => {
+    const con = container(scene.container)
+    const character = animatedSprite(con)
+    const weapon = sprite(con)
+    const hazardSprite = animatedSprite(con)
+    return { con, character, weapon, hazardSprite }
+  }
+
+  const mobPool = createObjectPool(30, createObject)
+
   await scene.timer.delay(30)
-  startWave(scene, wave)
+  startWave(scene, wave, mobPool)
   // TODO: Enable for more waves
   // scene.timer.repeatEvery(300, () => {
   //   startWave(scene, wave)
   // })
 }
 
-async function startWave(scene: Scene, wave: Wave) {
-  const mobSprites = createObjectPool(30, () => {
-    const con = container(scene.container)
-    const character = animatedSprite(con)
-    const weapon = sprite(con)
-    const hazardSprite = animatedSprite(con)
-    return { con, character, weapon, hazardSprite }
-  })
-
+async function startWave(
+  scene: Scene,
+  wave: Wave,
+  mobPool: ObjectPool<{
+    con: Container
+    character: AnimatedSprite
+    weapon: Sprite
+    hazardSprite: AnimatedSprite
+  }>,
+) {
   const mobId = getNextId()
   scene.state.typeToIds.mob.push(mobId)
 
@@ -91,7 +104,7 @@ async function startWave(scene: Scene, wave: Wave) {
   scene.state.positions.set(mobId, mobPosition)
   scene.state.radii.set(mobId, 50)
 
-  const { con, character, weapon, hazardSprite } = mobSprites.get()
+  const { con, character, weapon, hazardSprite } = mobPool.get()
   character.textures = [
     scene.textures['lizard_green_0-1'],
     scene.textures['lizard_green_0-2'],
