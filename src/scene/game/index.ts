@@ -7,9 +7,10 @@ import {
 import { type Scene } from '~/type'
 import pause from './pause'
 import controls from './controls'
-import { sprites, type EntityId } from '~/data'
+import { sprites, state, type EntityId } from '~/data'
 import { type Sprite } from 'pixi.js'
 import * as snow from './snow'
+import * as snowBall from './snowBall'
 
 export default async function game(scene: Scene) {
   const {
@@ -107,6 +108,9 @@ export default async function game(scene: Scene) {
     }
   })
 
+  // WIP
+  delaySnowBallFromPlayer(scene, 1)
+
   // sound.coin.play()
   music.blue_brawls.loop()
   music.blue_brawls.play()
@@ -119,6 +123,12 @@ export default async function game(scene: Scene) {
   // controls(scene, 2)
   // controls(scene, 3)
   */
+}
+
+const delaySnowBallFromPlayer = async (scene: Scene, playerIndex: number) => {
+  await scene.timer.delay(50)
+  const firstPlayer = state.typeToIds['player'].at(playerIndex)!
+  snowBall.launch(scene, firstPlayer, Math.PI * 2)
 }
 
 function createPlayer(
