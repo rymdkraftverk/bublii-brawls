@@ -16,6 +16,7 @@ import mobs from './mobs'
 import * as V from '~/util/vector2d'
 import debug from './debug'
 import { setRadius } from './player'
+import { deNormalizeRange } from 'tiny-toolkit'
 
 export default async function game(scene: Scene) {
   const {
@@ -147,13 +148,30 @@ export default async function game(scene: Scene) {
     {
       type1: 'hazard',
       type2: 'player',
-      onCollision: (_hazard, player) => {
+      onCollision: async (_hazard, player) => {
         // TODO: Dynamic
         const fireDamage = 1
 
         const newRadius = scene.state.radii.get(player)! - fireDamage
 
         setRadius(player, newRadius)
+
+        const playerSprite = sprites.get(player)!
+
+        const animation = scene.animate.sine({
+          onUpdate: (value) => {
+            const getR = deNormalizeRange(150, 255)
+            // This is blue
+            // const tint = { r: getR(value), g: 255, b: 255 }
+            const tint = { r: getR(value), g: 0, b: 0 }
+            playerSprite.tint = tint
+          },
+          duration: 30,
+        })
+
+        await scene.timer.delay(120)
+        animation.cancel()
+        playerSprite.tint = 0xffffff
       },
     },
     {

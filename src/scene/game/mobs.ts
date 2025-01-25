@@ -105,7 +105,6 @@ export default async function mobs(scene: Scene) {
   speechBubble.destroy()
 
   const random = new ParkMiller(getRandomInt())
-  // Is max here inclusive?
   const targetId = random.integerInRange(0, 3)
 
   // Move towards
