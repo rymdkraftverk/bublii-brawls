@@ -4,7 +4,7 @@ import { absorbSnowball } from './snowBall'
 // CONFIG
 const SPRITE_SCALE_FACTOR = 0.055
 const MIN_RADIUS = 5
-const MAX_RADIUS = 30
+const MAX_RADIUS = 100
 
 export const setRadius = (playerId: EntityId, radius: Radius) => {
   const clampedRadius = clamp(radius, MIN_RADIUS, MAX_RADIUS)
