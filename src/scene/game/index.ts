@@ -152,23 +152,29 @@ export default async function game(scene: Scene) {
         const newRadius = scene.state.radii.get(player)! - fireDamage
 
         setRadius(player, newRadius)
+        const condition = scene.state.conditions.get(player)
 
-        const playerSprite = sprites.get(player)!
+        if (condition === 'normal') {
+          scene.state.conditions.set(player, 'taking-damage')
 
-        const animation = scene.animate.sine({
-          onUpdate: (value) => {
-            const getR = deNormalizeRange(150, 255)
-            // This is blue
-            // const tint = { r: getR(value), g: 255, b: 255 }
-            const tint = { r: getR(value), g: 0, b: 0 }
-            playerSprite.tint = tint
-          },
-          duration: 30,
-        })
+          const playerSprite = sprites.get(player)!
 
-        await scene.timer.delay(120)
-        animation.cancel()
-        playerSprite.tint = 0xffffff
+          const animation = scene.animate.sine({
+            onUpdate: (value) => {
+              const getR = deNormalizeRange(150, 255)
+              // This is blue
+              // const tint = { r: getR(value), g: 255, b: 255 }
+              const tint = { r: getR(value), g: 0, b: 0 }
+              playerSprite.tint = tint
+            },
+            duration: 30,
+          })
+
+          await scene.timer.delay(60)
+          animation.cancel()
+          playerSprite.tint = 0xffffff
+          scene.state.conditions.set(player, 'normal')
+        }
       },
     },
     {
@@ -222,6 +228,7 @@ function createPlayer(
 
   state.positions.set(controllerId, { x, y })
   state.velocities.set(controllerId, { x: 0, y: 0 })
+  state.conditions.set(controllerId, 'normal')
   state.typeToIds.player.push(controllerId)
   // state.sprites[controllerId] = s
   sprites.set(controllerId, s)

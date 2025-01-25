@@ -30,9 +30,12 @@ export type SnowMass = 0 | 1 | 2 | 3 | 4 | 5
 
 export type Facing = 'left' | 'right'
 
+export type Condition = 'normal' | 'taking-damage'
+
 export type State = {
   settingsVisible: boolean
   positions: Map<EntityId, Position>
+  conditions: Map<EntityId, Condition>
   radii: Map<EntityId, Radius>
   velocities: Map<EntityId, Velocity>
   facings: Map<EntityId, Facing>
@@ -78,6 +81,7 @@ export const sprites: Map<EntityId, Sprite> = new Map()
 export const state: State = {
   settingsVisible: false,
   positions: new Map(),
+  conditions: new Map(),
   radii: new Map(),
   velocities: new Map(),
   facings: new Map<EntityId, Facing>(),
