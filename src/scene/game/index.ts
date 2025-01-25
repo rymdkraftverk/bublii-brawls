@@ -262,8 +262,14 @@ export default async function game(scene: Scene) {
         }
 
         scene.state.velocities.set(playerId, newVelocity)
-      },
+      }
     },
+    {
+      entityType: 'snowBall',
+      onTransgression: (snowBallId, _direction) => {
+        purge(scene.state, snowBallId)
+      }
+    }
   ])
 
   mobs(scene)
