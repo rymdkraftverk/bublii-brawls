@@ -85,14 +85,6 @@ export default async function game(scene: Scene) {
 
   applyPlayerFriction(scene)
 
-  // WIP
-  /*
-  launchSnowBallFromPlayer(scene, 1)
-  repeatEvery(100, (_time, _delta) => {
-    launchSnowBallFromPlayer(scene, 0)
-  })
-  */
-
   // sound.coin.play()
   music.blue_brawls.loop()
   music.blue_brawls.play()
@@ -202,12 +194,6 @@ export default async function game(scene: Scene) {
   mobs(scene)
   // TODO: Remove this before release
   debug(scene)
-}
-
-const launchSnowBallFromPlayer = async (scene: Scene, playerIndex: number) => {
-  const firstPlayer = state.typeToIds['player'].at(playerIndex)!
-  const angle = state.aims.get(playerIndex) ?? Math.PI * 2
-  snowBall.launch(scene, firstPlayer, angle)
 }
 
 function createPlayer(
