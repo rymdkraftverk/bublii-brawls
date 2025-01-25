@@ -49,7 +49,7 @@ export type State = {
   snowBallLaunchers: Map<SnowBallId, PlayerId>
 }
 
-export function purge(state : State, id : EntityId) {
+export function purge(state: State, id: EntityId) {
   const sprite = sprites.get(id)
   sprites.delete(id)
 
@@ -62,11 +62,11 @@ export function purge(state : State, id : EntityId) {
   state.velocities.delete(id)
   state.facings.delete(id)
   state.masses.delete(id)
-  state.typeToIds.snowPatch = state.typeToIds.snowPatch.filter(x => x != id)
-  state.typeToIds.player = state.typeToIds.player.filter(x => x != id)
-  state.typeToIds.mob = state.typeToIds.mob.filter(x => x != id)
-  state.typeToIds.hazard = state.typeToIds.hazard.filter(x => x != id)
-  state.typeToIds.snowBall = state.typeToIds.snowBall.filter(x => x != id)
+  state.typeToIds.snowPatch = state.typeToIds.snowPatch.filter((x) => x != id)
+  state.typeToIds.player = state.typeToIds.player.filter((x) => x != id)
+  state.typeToIds.mob = state.typeToIds.mob.filter((x) => x != id)
+  state.typeToIds.hazard = state.typeToIds.hazard.filter((x) => x != id)
+  state.typeToIds.snowBall = state.typeToIds.snowBall.filter((x) => x != id)
   state.snowMasses.delete(id)
   state.aims.delete(id)
 }
@@ -105,3 +105,9 @@ export const TextStyle = {
 // 4 because the first four are reserved for players
 let nextId = 4
 export const getNextId = (): EntityId => nextId++
+
+export enum MobType {
+  FLAMETHROWER = 'flamethrower',
+  TNT = 'tnt',
+  MOLOTOV = 'molotov',
+}
