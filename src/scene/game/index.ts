@@ -149,7 +149,10 @@ export default async function game(scene: Scene) {
         const radius2 = scene.state.radii.get(p2Id)!
         const midPoint = V.scale(0.5, V.add(p1, p2))
         const newPosition1 = V.add(midPoint, V.scale(radius1, direction))
-        const newPosition2 = V.add(midPoint, V.scale(radius2, V.scale(-1, direction)))
+        const newPosition2 = V.add(
+          midPoint,
+          V.scale(radius2, V.scale(-1, direction)),
+        )
 
         scene.state.positions.set(p1Id, newPosition1)
         scene.state.positions.set(p2Id, newPosition2)
