@@ -33,7 +33,7 @@ const init = (width: number, height: number) => {
   }
 }
 
-export const startRender = (container: Container, repeatEvery: RepeatEvery) => {
+const startRender = (container: Container, repeatEvery: RepeatEvery) => {
   const snow = graphics(container)
   snow.zIndex = -99
 
