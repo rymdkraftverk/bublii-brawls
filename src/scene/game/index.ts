@@ -54,14 +54,6 @@ export default async function game(scene: Scene) {
   s.label = 'small blue'
   s.position.set(200, 200)
 
-  const s2 = sprite(container, textures['blue-1'])
-  s2.anchor.set(1)
-  s2.label = 'other name'
-  s2.position.set(350, 250)
-  timer.repeatEvery(10, () => {
-    s2.x += 1
-  })
-
   debouncedKey(
     'Space',
     () => {
