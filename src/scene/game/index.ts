@@ -162,13 +162,24 @@ export default async function game(scene: Scene) {
         // explain it
         const direction = V.normalize(V.subtract(p2, p1))
         const a =
-          (2 / (1 / m1 + 1 / m2)) *
-          V.dotProduct(direction, V.subtract(v2, v1))
+          (2 / (1 / m1 + 1 / m2)) * V.dotProduct(direction, V.subtract(v2, v1))
         const newV1 = V.subtract(V.scale(a / m1, direction), v1)
         const newV2 = V.add(V.scale(a / m2, direction), v2)
 
         scene.state.velocities.set(p1Id, newV1)
         scene.state.velocities.set(p2Id, newV2)
+      },
+    },
+    {
+      type1: 'hazard',
+      type2: 'player',
+      onCollision: (_hazard, player) => {
+        // TODO: Dynamic
+        const fireDamage = 1
+
+        const newRadius = scene.state.radii.get(player)! - fireDamage
+
+        setRadius(player, newRadius)
       },
     },
   ])
