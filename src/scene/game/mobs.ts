@@ -252,6 +252,39 @@ export default async function mobs(scene: Scene) {
     render()
   })
 
+  scene.timer.repeatEvery(60, _ => {
+    const mobIds = scene.state.typeToIds.mob
+    mobIds.forEach((mobId) => {
+      const mobPosition = scene.state.positions.get(mobId)!
+
+      const { playerId } =
+        scene
+          .state
+          .typeToIds
+          .player
+          .filter(pId => {
+            return !scene.state.bublii.get(pId)
+          })
+          .map(pId => {
+            const playerPosition = scene.state.positions.get(pId)!
+            const distance = V.length(V.subtract(mobPosition, playerPosition))
+
+            return { playerId: pId, distance: distance }
+          })
+          .reduce(
+            (previousValue, otherCandidate) => {
+              if (otherCandidate.distance < previousValue.distance) {
+                return otherCandidate
+              }
+
+              return previousValue
+            }
+          )
+
+        targetMap.set(mobId, playerId)
+    })
+  })
+
   // Move towards
   scene.timer.repeatEvery(1, (_time, delta) => {
     const mobIds = scene.state.typeToIds.mob
