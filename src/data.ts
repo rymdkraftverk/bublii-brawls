@@ -4,6 +4,7 @@ import game from './scene/game'
 import mainMenu from './scene/mainMenu'
 import { Sprite } from 'pixi.js'
 import * as V from '~/util/vector2d'
+import type { TextureName } from './type'
 
 export const scenes = {
   game,
@@ -77,6 +78,8 @@ export function purge(state: State, id: EntityId) {
 }
 
 export const sprites: Map<EntityId, Sprite> = new Map()
+
+export const textures: Map<EntityId, TextureName[]> = new Map()
 
 export const state: State = {
   settingsVisible: false,

@@ -7,7 +7,7 @@ import {
 import { type Scene, type TextureName } from '~/type'
 import pause from './pause'
 import controls from './controls'
-import { sprites, state, type EntityId, purge } from '~/data'
+import { sprites, state, type EntityId, purge, textures } from '~/data'
 import { type Sprite } from 'pixi.js'
 import * as snow from './snow'
 import * as snowBall from './snowBall'
@@ -58,6 +58,11 @@ export default async function game(scene: Scene) {
     },
     10,
   )
+
+  textures.set(0, ['player_blue_0-1', 'player_blue_0-2', 'player_blue_0-3'])
+  textures.set(1, ['player_green_0-1', 'player_green_0-2', 'player_green_0-3'])
+  textures.set(2, ['player_purple_0-1', 'player_purple_0-2', 'player_purple_0-3'])
+  textures.set(3, ['player_red_0-1', 'player_red_0-2', 'player_red_0-3'])
 
   const controllerIds = [0, 1, 2, 3]
 
@@ -215,13 +220,7 @@ function createPlayer(
 
   s.anchor = 0.5
   // const s = spritePool.get()
-  const textureMap: Record<number, TextureName[]> = {
-    [0]: ['player_blue_0-1', 'player_blue_0-2', 'player_blue_0-3'],
-    [1]: ['player_green_0-1', 'player_green_0-2', 'player_green_0-3'],
-    [2]: ['player_purple_0-1', 'player_purple_0-2', 'player_purple_0-3'],
-    [3]: ['player_red_0-1', 'player_red_0-2', 'player_red_0-3'],
-  }
-  s.textures = textureMap[controllerId]!.map((x) => scene.textures[x])
+  s.textures = textures.get(controllerId)!.map((x) => scene.textures[x])
   s.animationSpeed = 0.1
   s.play()
   s.position.set(x, y)
