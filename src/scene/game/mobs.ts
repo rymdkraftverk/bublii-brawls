@@ -284,4 +284,4 @@ async function startWave(
   })
 }
 
-export function purgeMob(mobId: EntityId) {}
+export function purgeMob(_mobId: EntityId) {}

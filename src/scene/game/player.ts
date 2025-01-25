@@ -1,5 +1,5 @@
 import type { AnimatedSprite } from 'pixi.js'
-import { sprites, state, type EntityId, type Mass, textures} from '~/data'
+import { sprites, state, type EntityId, type Mass, textures } from '~/data'
 import { type Scene } from '~/type'
 
 // CONFIG
