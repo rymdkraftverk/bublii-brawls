@@ -34,6 +34,7 @@ export const launch = (scene: Scene, from: EntityId, angle: Radian) => {
   state.velocities.set(id, velocity)
   state.radii.set(id, radiusSnowBall)
   state.typeToIds[TYPE].push(id)
+  state.snowBallLaunchers.set(id, from)
 
   const s = sprite(scene.container)
   s.texture = scene.textures['snowball_0-1']

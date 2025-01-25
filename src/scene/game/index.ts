@@ -164,6 +164,15 @@ export default async function game(scene: Scene) {
         purge(scene.state, mobId)
       },
     },
+    {
+      type1: 'snowBall',
+      type2: 'player',
+      onCollision: (snowBallId, playerId) => {
+        const launcherId = state.snowBallLaunchers.get(snowBallId)!
+        if (launcherId === playerId) return
+        purge(scene.state, snowBallId)
+      },
+    },
   ])
 
   mobs(scene)

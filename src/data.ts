@@ -13,6 +13,8 @@ export const scenes = {
 export const keys = ['a', 'w', 's', 'd', ...arrowKeys, 'Space'] as const
 
 export type EntityId = number
+export type PlayerId = EntityId
+export type SnowBallId = EntityId
 
 type Position = V.Vector2d
 
@@ -44,6 +46,7 @@ export type State = {
   }
   snowMasses: Map<EntityId, SnowMass>
   aims: Map<EntityId, Radian>
+  snowBallLaunchers: Map<SnowBallId, PlayerId>
 }
 
 export function purge(state : State, id : EntityId) {
@@ -86,6 +89,7 @@ export const state: State = {
   },
   snowMasses: new Map(),
   aims: new Map(),
+  snowBallLaunchers: new Map(),
 }
 
 export type Type = keyof typeof state.typeToIds
