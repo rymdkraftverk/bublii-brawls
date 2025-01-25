@@ -83,7 +83,6 @@ const mobToHazardMap = new Map<EntityId, EntityId>()
 
 export default async function mobs(scene: Scene) {
   const wave = waves[0]
-  const random = new ParkMiller(getRandomInt())
 
   if (!wave) {
     throw new Error('No wave data!!')
@@ -118,6 +117,7 @@ export default async function mobs(scene: Scene) {
     scene.state.typeToIds.mob.push(mobId)
     const mobPosition = { x: scene.app.screen.width / 2, y: -20 }
     scene.state.positions.set(mobId, mobPosition)
+    scene.state.facings.set(mobId, 'right')
     scene.state.radii.set(mobId, 10)
 
     const poolObject = mobPool.get()
@@ -141,6 +141,7 @@ export default async function mobs(scene: Scene) {
       position.y += 1
     })
 
+    const random = new ParkMiller(getRandomInt())
     const targetId = random.integerInRange(0, 3)
     targetMap.set(mobId, targetId)
     await scene.timer.delay(10)
@@ -165,10 +166,10 @@ export default async function mobs(scene: Scene) {
       hazardSprite.visible = true
 
       scene.timer.repeatEvery(1, () => {
-        const mobFacing = scene.state.facings.get(mobId) ?? 'left'
+        const mobFacing = scene.state.facings.get(mobId)
         const mobPosition = scene.state.positions.get(mobId)
 
-        if (!mobPosition) {
+        if (!mobPosition || !mobFacing) {
           // Mob was purged
           return
         }
@@ -307,6 +308,7 @@ export default async function mobs(scene: Scene) {
         )
 
         const { con } = gfxMap.get(mobId)!
+        const facing = scene.state.facings.get(mobId)
 
         if (targetDistance < 30) {
           scene.state.velocities.set(mobId, { x: 0, y: 0 })
@@ -317,12 +319,12 @@ export default async function mobs(scene: Scene) {
               V.subtract(mobPosition, targetPosition),
             ) > 0
           ) {
-            if (scene.state.facings.get(mobId) === 'left' && con.scale.x < 0) {
+            if (facing === 'left' && con.scale.x < 0) {
               scene.state.facings.set(mobId, 'right')
               con.scale.x *= -1
             }
           } else {
-            if (scene.state.facings.get(mobId) === 'right' && con.scale.x > 0) {
+            if (facing === 'right' && con.scale.x > 0) {
               scene.state.facings.set(mobId, 'left')
               con.scale.x *= -1
             }
@@ -344,13 +346,14 @@ export default async function mobs(scene: Scene) {
         scene.state.velocities.set(mobId, velocity)
 
         if (direction.x < 0) {
-          if (con.scale.x > 0 && scene.state.facings.get(mobId) === 'right') {
+          if (con.scale.x > 0 && facing === 'right') {
             scene.state.facings.set(mobId, 'left')
             con.scale.x *= -1
           }
         }
         if (direction.x > 0) {
-          if (con.scale.x < 0 && scene.state.facings.get(mobId) === 'left') {
+          if (con.scale.x < 0 && facing === 'left') {
+            console.log('RIGHT!')
             scene.state.facings.set(mobId, 'right')
             con.scale.x *= -1
           }
