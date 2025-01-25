@@ -13,8 +13,7 @@ import { type Scene } from '~/type'
 const SPRITE_SCALE_FACTOR = 0.055
 const DENSITY = 1
 const MIN_MASS = 500
-// const MAX_MASS = 1000
-//
+const MAX_MASS = 50000
 
 const SNOW_GROWTH_FACTOR = 5
 
@@ -26,7 +25,7 @@ export const increaseMass = (
   const oldMass = scene.state.masses.get(entityId) ?? 0
 
   // avoid going to zero mass
-  const newMass = Math.max(oldMass + massIncrease, 1)
+  const newMass = Math.min(Math.max(oldMass + massIncrease, 1), MAX_MASS)
   scene.state.masses.set(entityId, newMass)
 
   const newRadius = (newMass / DENSITY) ** 0.5 / Math.PI
