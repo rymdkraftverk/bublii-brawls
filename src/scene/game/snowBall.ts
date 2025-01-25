@@ -1,4 +1,5 @@
 import { sprite } from 'alchemy-engine'
+import { toDegrees } from 'tiny-toolkit'
 import { getNextId, sprites, state, type EntityId, type Radian } from '~/data'
 import type { Scene } from '~/type'
 
@@ -31,6 +32,7 @@ export const launch = (scene: Scene, from: EntityId, angle: Radian) => {
   s.texture = scene.textures['snowball_0-1']
   s.position.set(fromPosition.x, fromPosition.y)
   s.scale.set(snowBallMass)
+  s.angle = toDegrees(angle)
   s.anchor = 0.5
   sprites.set(id, s)
 

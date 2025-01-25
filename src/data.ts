@@ -44,6 +44,7 @@ export type State = {
     mob: EntityId[]
   }
   snowMasses: Map<EntityId, SnowMass>
+  aims: Map<EntityId, Radian>
 }
 
 export const sprites: Map<EntityId, Sprite> = new Map()
@@ -61,6 +62,7 @@ export const state: State = {
     mob: [],
   },
   snowMasses: new Map(),
+  aims: new Map(),
 }
 
 export type Type = keyof typeof state.typeToIds
