@@ -71,5 +71,5 @@ export const TextStyle = {
   },
 } as const
 
-let nextId = 1
+let nextId = 4
 export const getNextId = (): EntityId => nextId++
