@@ -26,6 +26,9 @@ export default function collisions(
         }
 
         for (const id2 of ids2) {
+          // nothing can collide with itself
+          if (id1 == id2) continue
+
           const position2 = scene.state.positions.get(id2)
           const radius2 = scene.state.radii.get(id2)
 

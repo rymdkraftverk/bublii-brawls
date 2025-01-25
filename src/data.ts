@@ -3,6 +3,7 @@ import { arrowKeys } from 'alchemy-engine'
 import game from './scene/game'
 import mainMenu from './scene/mainMenu'
 import { Sprite } from 'pixi.js'
+import * as V from '~/util/vector2d'
 
 export const scenes = {
   game,
@@ -13,15 +14,9 @@ export const keys = ['a', 'w', 's', 'd', ...arrowKeys, 'Space'] as const
 
 export type EntityId = number
 
-type Position = {
-  x: number
-  y: number
-}
+type Position = V.Vector2d
 
-type Velocity = {
-  x: number
-  y: number
-}
+type Velocity = V.Vector2d
 
 export type Radian = number // expected to be between 0 and Math.PI * 2
 
