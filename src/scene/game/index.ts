@@ -83,10 +83,12 @@ export default async function game(scene: Scene) {
   applyPlayerFriction(scene)
 
   // WIP
+  /*
   launchSnowBallFromPlayer(scene, 1)
   repeatEvery(100, (_time, _delta) => {
     launchSnowBallFromPlayer(scene, 0)
   })
+  */
 
   // sound.coin.play()
   music.blue_brawls.loop()

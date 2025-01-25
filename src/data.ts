@@ -47,6 +47,7 @@ export type State = {
   snowMasses: Map<EntityId, SnowMass>
   aims: Map<EntityId, Radian>
   snowBallLaunchers: Map<SnowBallId, PlayerId>
+  throwSnowBallIsOnCooldown: Map<EntityId, Boolean>
 }
 
 export function purge(state: State, id: EntityId) {
@@ -69,6 +70,7 @@ export function purge(state: State, id: EntityId) {
   state.typeToIds.snowBall = state.typeToIds.snowBall.filter((x) => x != id)
   state.snowMasses.delete(id)
   state.aims.delete(id)
+  state.throwSnowBallIsOnCooldown.delete(id)
 }
 
 export const sprites: Map<EntityId, Sprite> = new Map()
@@ -90,6 +92,7 @@ export const state: State = {
   snowMasses: new Map(),
   aims: new Map(),
   snowBallLaunchers: new Map(),
+  throwSnowBallIsOnCooldown: new Map(),
 }
 
 export type Type = keyof typeof state.typeToIds

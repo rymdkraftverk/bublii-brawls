@@ -13,6 +13,8 @@ type Axes = {
   vertical: number
 }
 
+type Trigger = number
+
 type Buttons = {
   [index: number]: boolean
 }
@@ -23,6 +25,8 @@ export type AlchemyGamepad = {
   axes: Axes
   axesRight: Axes
   buttons: Buttons
+  leftTrigger: Trigger
+  rightTrigger: Trigger
 }
 
 type ReturnValue = [
@@ -61,9 +65,14 @@ export function getGamepads(): ReturnValue {
     axesRight.horizontal = g.axes[2] ?? 0
     axesRight.vertical = g.axes[3] ?? 0
 
+    let leftTrigger: Trigger = g.axes[4] ?? 0
+    let rightTrigger: Trigger = g.axes[5] ?? 0
+
     return {
       axes,
       axesRight,
+      leftTrigger,
+      rightTrigger,
       buttons,
       index: g.index,
       id: g.id,
