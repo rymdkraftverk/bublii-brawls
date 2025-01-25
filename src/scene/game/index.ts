@@ -3,6 +3,7 @@ import {
   graphics,
   container as createContainer,
   createObjectPool,
+  animatedSprite,
 } from 'alchemy-engine'
 import { type Scene, type TextureName } from '~/type'
 import pause from './pause'
@@ -212,17 +213,19 @@ function createPlayer(
   const x = 200 + (controllerId - 2) * 100
   const y = 200 + (controllerId - 2) * 100
 
-  const s = sprite(scene.container)
+  const s = animatedSprite(scene.container)
 
   s.anchor = 0.5
   // const s = spritePool.get()
-  const textureMap: Record<number, TextureName> = {
-    [0]: 'player_blue_0-1',
-    [1]: 'player_green_0-1',
-    [2]: 'player_purple_0-1',
-    [3]: 'player_red_0-1',
+  const textureMap: Record<number, TextureName[]> = {
+    [0]: ['player_blue_0-1', 'player_blue_0-2', 'player_blue_0-3'],
+    [1]: ['player_green_0-1', 'player_green_0-2', 'player_green_0-3'],
+    [2]: ['player_purple_0-1', 'player_purple_0-2', 'player_purple_0-3'],
+    [3]: ['player_red_0-1', 'player_red_0-2', 'player_red_0-3'],
   }
-  s.texture = scene.textures[textureMap[controllerId]!]
+  s.textures = textureMap[controllerId]!.map((x) => scene.textures[x])
+  s.animationSpeed = 0.1
+  s.play()
   s.position.set(x, y)
 
   state.positions.set(controllerId, { x, y })
