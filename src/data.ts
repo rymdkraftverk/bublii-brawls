@@ -39,6 +39,7 @@ export type State = {
   typeToIds: {
     snowPatch: EntityId[]
     player: EntityId[]
+    mob: EntityId[]
   }
   snowMasses: Map<EntityId, SnowMass>
 }
@@ -55,6 +56,7 @@ export const state: State = {
   typeToIds: {
     snowPatch: [],
     player: [],
+    mob: [],
   },
   snowMasses: new Map(),
 }
