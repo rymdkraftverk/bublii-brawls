@@ -32,7 +32,6 @@ type Type = 'snowPatch' | 'player'
 export type SnowMass = 0 | 1 | 2 | 3 | 4 | 5
 
 export type State = {
-  gold: number
   settingsVisible: boolean
   positions: Map<EntityId, Position>
   radii: Map<EntityId, Radius>
@@ -48,7 +47,6 @@ export type State = {
 }
 
 export const state: State = {
-  gold: 10,
   settingsVisible: false,
   positions: new Map(),
   radii: new Map(),

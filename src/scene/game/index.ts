@@ -115,10 +115,6 @@ export default async function game(scene: Scene) {
     }
   })
 
-  state.gold = 42
-  repeatEvery(60, () => {
-    state.gold++
-  })
   // sound.coin.play()
   music.blue_brawls.loop()
   music.blue_brawls.play()
