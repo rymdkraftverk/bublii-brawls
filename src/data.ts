@@ -31,22 +31,37 @@ type Type = 'snowPatch' | 'player'
 
 export type SnowMass = 0 | 1 | 2 | 3 | 4 | 5
 
-export const state = {
+export type State = {
+  gold: number
+  settingsVisible: boolean
+  positions: Map<EntityId, Position>
+  radii: Record<EntityId, Radius>
+  velocities: Map<EntityId, Velocity>
+  masses: Map<EntityId, Mass>
+  types: Record<EntityId, Type>
+  typeToIds: {
+    snowPatch: EntityId[]
+    player: EntityId[]
+  }
+  sprites: Record<EntityId, Sprite>
+  snowMasses: Record<EntityId, SnowMass>
+}
+
+export const state: State = {
   gold: 10,
   settingsVisible: false,
-  positions: new Map() as Map<EntityId, Position>,
-  radii: {} as Record<EntityId, Radius>,
-  velocities: new Map() as Map<EntityId, Velocity>,
-  masses: new Map() as Map<EntityId, Mass>,
-  types: {} as Record<EntityId, Type>,
+  positions: new Map(),
+  radii: {},
+  velocities: new Map(),
+  masses: new Map(),
+  types: {},
   typeToIds: {
-    snowPatch: [] as EntityId[],
-    player: [] as EntityId[],
+    snowPatch: [],
+    player: [],
   },
-  sprites: {} as Record<EntityId, Sprite>,
-  snowMasses: {} as Record<EntityId, SnowMass>,
+  sprites: {},
+  snowMasses: {},
 }
-export type State = typeof state
 
 export const TextStyle = {
   MAIN: {
