@@ -40,6 +40,7 @@ export type State = {
     player: EntityId[]
     mob: EntityId[]
     hazard: EntityId[]
+    snowBall: EntityId[]
   }
   snowMasses: Map<EntityId, SnowMass>
   aims: Map<EntityId, Radian>
@@ -59,6 +60,7 @@ export const state: State = {
     player: [],
     mob: [],
     hazard: [],
+    snowBall: [],
   },
   snowMasses: new Map(),
   aims: new Map(),

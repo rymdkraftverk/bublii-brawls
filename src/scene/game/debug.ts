@@ -26,5 +26,6 @@ export default function debug(scene: Scene) {
     debugGraphics.clear()
     debugType('player')
     debugType('hazard')
+    debugType('snowBall')
   })
 }

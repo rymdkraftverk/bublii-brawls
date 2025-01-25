@@ -11,6 +11,8 @@ const PLAYER_RADIUS_REQUIREMENT = 10
 const SNOWBALL_FACTOR = 0.5
 const PLAYER_SHRINK_FACTOR = 1 - SNOWBALL_FACTOR
 
+const TYPE = 'snowBall'
+
 export const launch = (scene: Scene, from: EntityId, angle: Radian) => {
   const playerRadius = state.radii.get(from)!
   if (playerRadius < PLAYER_RADIUS_REQUIREMENT) return
@@ -28,6 +30,7 @@ export const launch = (scene: Scene, from: EntityId, angle: Radian) => {
   state.positions.set(id, fromPosition)
   state.velocities.set(id, velocity)
   state.radii.set(id, snowBallRadius)
+  state.typeToIds[TYPE].push(id)
 
   const s = sprite(scene.container)
   s.texture = scene.textures['snowball_0-1']
