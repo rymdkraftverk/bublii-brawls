@@ -16,6 +16,7 @@ import { applyPlayerFriction } from './system/playerFriction'
 import mobs from './mobs'
 import * as V from '~/util/vector2d'
 import debug from './debug'
+import { setRadius } from './player'
 
 export default async function game(scene: Scene) {
   const {
@@ -126,17 +127,10 @@ export default async function game(scene: Scene) {
 
         if (snowPatchMass && snowPatchMass > 0) {
           const snowMass = snow.munch(snowPatchId)
-          const growth = snowMass * snowMass * 0.001
-
-          // TODO: figure out mass scaling function
-          const playerMass = state.masses.get(playerId)!
           const playerRadius = state.radii.get(playerId)!
-          state.masses.set(playerId, playerMass + growth)
-          state.radii.set(playerId, playerRadius + growth)
+          const grownPlayerRadius = playerRadius + snowMass / 100
 
-          const playerSprite = sprites.get(playerId)!
-          const playerScale = playerSprite.scale.x
-          playerSprite.scale = playerScale + growth
+          setRadius(playerId, grownPlayerRadius)
         }
       },
     },
@@ -207,11 +201,11 @@ function createPlayer(
   s.position.set(x, y)
 
   state.positions.set(controllerId, { x, y })
-  state.radii.set(controllerId, 40)
   state.types.set(controllerId, 'player')
   state.velocities.set(controllerId, { x: 0, y: 0 })
-  state.masses.set(controllerId, 10)
   state.typeToIds.player.push(controllerId)
   // state.sprites[controllerId] = s
   sprites.set(controllerId, s)
+
+  setRadius(controllerId, 20)
 }

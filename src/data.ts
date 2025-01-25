@@ -20,9 +20,9 @@ type Velocity = V.Vector2d
 
 export type Radian = number // expected to be between 0 and Math.PI * 2
 
-type Radius = number
+export type Radius = number
 
-type Mass = number
+export type Mass = number
 
 export type SnowMass = 0 | 1 | 2 | 3 | 4 | 5
 

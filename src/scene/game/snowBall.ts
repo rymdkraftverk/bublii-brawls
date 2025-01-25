@@ -2,17 +2,18 @@ import { sprite } from 'alchemy-engine'
 import { toDegrees } from 'tiny-toolkit'
 import { getNextId, sprites, state, type EntityId, type Radian } from '~/data'
 import type { Scene } from '~/type'
+import { setRadius } from './player'
 
 // CONFIG
 const SPEED = 3
-const PLAYER_MASS_REQUIREMENT = 5
+const PLAYER_RADIUS_REQUIREMENT = 10
 
-const SNOWBALL_FACTOR = 0.1
+const SNOWBALL_FACTOR = 0.5
 const PLAYER_SHRINK_FACTOR = 1 - SNOWBALL_FACTOR
 
 export const launch = (scene: Scene, from: EntityId, angle: Radian) => {
-  const playerMass = state.masses.get(from)!
-  if (playerMass < PLAYER_MASS_REQUIREMENT) return
+  const playerRadius = state.radii.get(from)!
+  if (playerRadius < PLAYER_RADIUS_REQUIREMENT) return
 
   // create snowball
   const id = getNextId()
@@ -22,27 +23,24 @@ export const launch = (scene: Scene, from: EntityId, angle: Radian) => {
     y: SPEED * Math.sin(angle),
   }
 
-  const snowBallMass = playerMass * SNOWBALL_FACTOR
+  const snowBallRadius = playerRadius * SNOWBALL_FACTOR
   const fromPosition = state.positions.get(from)!
   state.positions.set(id, fromPosition)
   state.velocities.set(id, velocity)
-  state.radii.set(id, snowBallMass)
+  state.radii.set(id, snowBallRadius)
 
   const s = sprite(scene.container)
   s.texture = scene.textures['snowball_0-1']
   s.position.set(fromPosition.x, fromPosition.y)
-  s.scale.set(snowBallMass)
+  s.scale.set(snowBallRadius)
   s.angle = toDegrees(angle)
   s.anchor = 0.5
   sprites.set(id, s)
 
   // shrink player
 
-  // TODO: figure out mass scaling function
-  const shrunkPlayerMass = playerMass * PLAYER_SHRINK_FACTOR
-  state.masses.set(from, shrunkPlayerMass)
-  state.radii.set(from, shrunkPlayerMass)
-  const playerSprite = sprites.get(from)!
-  const playerScale = playerSprite.scale.x
-  playerSprite.scale = playerScale * PLAYER_SHRINK_FACTOR
+  const shrunkPlayerRadius = playerRadius * PLAYER_SHRINK_FACTOR
+  console.log({ playerRadius, shrunkPlayerRadius })
+  // TODO whyyounowork
+  setRadius(id, shrunkPlayerRadius)
 }
