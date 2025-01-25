@@ -105,10 +105,11 @@ export default async function game(scene: Scene) {
 
   // WIP
   delaySnowBallFromPlayer(scene, 1, 80)
-
-  for (let i = 1; i < 20; i++) {
-    delaySnowBallFromPlayer(scene, 2, 20 * i)
-  }
+  let autoSnowballCounter = 1
+  repeatEvery(20, (_time, _delta) => {
+    autoSnowballCounter++
+    delaySnowBallFromPlayer(scene, 0, 20 * autoSnowballCounter)
+  })
 
   // sound.coin.play()
   music.blue_brawls.loop()
@@ -140,7 +141,7 @@ export default async function game(scene: Scene) {
 const delaySnowBallFromPlayer = async (
   scene: Scene,
   playerIndex: number,
-  delay: number
+  delay: number,
 ) => {
   await scene.timer.delay(delay)
   const firstPlayer = state.typeToIds['player'].at(playerIndex)!
