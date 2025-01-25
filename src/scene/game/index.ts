@@ -208,4 +208,23 @@ function createPlayer(
   sprites.set(controllerId, s)
 
   setRadius(controllerId, 20)
+
+  // TODO: Facing
+  // scene.timer.repeatEvery(2, () => {
+  //   const velocity = scene.state.velocities.get(controllerId)!
+  //   console.log('scene.timer.repeatEvery ~ velocity:', velocity.x)
+
+  //   if (velocity.x < 0) {
+  //     if (s.scale.x > 0) {
+  //       scene.state.facings.set(controllerId, 'left')
+  //       s.scale.x *= -1
+  //     }
+  //   }
+  //   if (velocity.x > 0) {
+  //     if (s.scale.x < 0) {
+  //       scene.state.facings.set(controllerId, 'right')
+  //       s.scale.x *= -1
+  //     }
+  //   }
+  // })
 }
