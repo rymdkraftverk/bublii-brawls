@@ -241,22 +241,22 @@ export default async function game(scene: Scene) {
         switch (direction) {
           case 'North':
             if (V.dotProduct(oldVelocity, north) > 0) {
-              newVelocity = { x: oldVelocity.x, y: -1 * oldVelocity.y }
+              newVelocity = { x: oldVelocity.x, y: -0.5 * oldVelocity.y }
             }
             break
           case 'East':
             if (V.dotProduct(oldVelocity, east) > 0) {
-              newVelocity = { x: -1 * oldVelocity.x, y: oldVelocity.y }
+              newVelocity = { x: -0.5 * oldVelocity.x, y: oldVelocity.y }
             }
             break
           case 'South':
             if (V.dotProduct(oldVelocity, south) > 0) {
-              newVelocity = { x: oldVelocity.x, y: -1 * oldVelocity.y }
+              newVelocity = { x: oldVelocity.x, y: -0.5 * oldVelocity.y }
             }
             break
           case 'West':
             if (V.dotProduct(oldVelocity, west) > 0) {
-              newVelocity = { x: -1 * oldVelocity.x, y: oldVelocity.y }
+              newVelocity = { x: -0.5 * oldVelocity.x, y: oldVelocity.y }
             }
             break
         }
