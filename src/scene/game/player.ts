@@ -1,12 +1,17 @@
 import { sprites, state, type EntityId, type Radius } from '~/data'
 import { absorbSnowball } from './snowBall'
+import type { Scene } from '~/type'
 
 // CONFIG
 const SPRITE_SCALE_FACTOR = 0.055
 const MIN_RADIUS = 5
 const MAX_RADIUS = 100
 
-export const setRadius = (playerId: EntityId, radius: Radius) => {
+export const setRadius = (
+  _scene: Scene,
+  playerId: EntityId,
+  radius: Radius,
+) => {
   const clampedRadius = clamp(radius, MIN_RADIUS, MAX_RADIUS)
 
   const spriteScale = clampedRadius * SPRITE_SCALE_FACTOR
@@ -18,12 +23,16 @@ export const setRadius = (playerId: EntityId, radius: Radius) => {
   playerSprite.scale = spriteScale
 }
 
-export const heal = (playerId: EntityId, snowballId: EntityId) => {
+export const heal = (
+  scene: Scene,
+  playerId: EntityId,
+  snowballId: EntityId,
+) => {
   const playerRadius = state.radii.get(playerId)!
   const snowballRadius = state.radii.get(snowballId)!
 
   const grownPlayerRadius = absorbSnowball(playerRadius, snowballRadius)
-  setRadius(playerId, grownPlayerRadius)
+  setRadius(scene, playerId, grownPlayerRadius)
 }
 
 const clamp = (value: number, min: number, max: number) =>

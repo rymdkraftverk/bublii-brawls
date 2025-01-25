@@ -111,7 +111,7 @@ export default async function game(scene: Scene) {
           const playerRadius = state.radii.get(playerId)!
           const grownPlayerRadius = playerRadius + snowMass / 100
 
-          setRadius(playerId, grownPlayerRadius)
+          setRadius(scene, playerId, grownPlayerRadius)
         }
       },
     },
@@ -160,7 +160,7 @@ export default async function game(scene: Scene) {
 
         const newRadius = scene.state.radii.get(player)! - fireDamage
 
-        setRadius(player, newRadius)
+        setRadius(scene, player, newRadius)
         const condition = scene.state.conditions.get(player)
 
         if (condition === 'normal') {
@@ -200,7 +200,7 @@ export default async function game(scene: Scene) {
       onCollision: (snowBallId, playerId) => {
         const launcherId = state.snowBallLaunchers.get(snowBallId)!
         if (launcherId === playerId) return
-        heal(playerId, snowBallId)
+        heal(scene, playerId, snowBallId)
         purge(scene.state, snowBallId)
       },
     },
@@ -243,7 +243,7 @@ function createPlayer(
   // state.sprites[controllerId] = s
   sprites.set(controllerId, s)
 
-  setRadius(controllerId, 20)
+  setRadius(scene, controllerId, 20)
 
   // TODO: Facing
   // scene.timer.repeatEvery(2, () => {

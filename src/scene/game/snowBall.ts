@@ -46,7 +46,7 @@ export const launch = (scene: Scene, from: EntityId, angle: Radian) => {
   sprites.set(id, s)
 
   // shrink player
-  setRadius(from, radiusPlayer)
+  setRadius(scene, from, radiusPlayer)
 }
 
 const birthSnowBall = (playerRadius: number, snowBallFactor: number) => {
