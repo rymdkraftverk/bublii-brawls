@@ -30,7 +30,7 @@ export const increaseMass = (
   scene.state.masses.set(entityId, newMass)
 
   const newRadius = (newMass / DENSITY) ** 0.5 / Math.PI
-  const spriteScale = newRadius * SPRITE_SCALE_FACTOR
+  const spriteScale = newRadius * getScaleFactor(scene, entityId)
   scene.state.radii.set(entityId, newRadius)
 
   const playerSprite = sprites.get(entityId)!
@@ -77,4 +77,15 @@ const unBublé = (scene: Scene, playerId: EntityId) => {
 
 export const feed = (playerId: EntityId, snowMass: SnowMass, scene: Scene) => {
   increaseMass(playerId, snowMass * SNOW_GROWTH_FACTOR, scene)
+}
+
+function getScaleFactor(scene: Scene, entityId: EntityId) {
+  switch (scene.state.types.get(entityId)) {
+    case 'player':
+      return 0.055
+    case 'snowBall':
+      return 0.07
+    default:
+      throw('unexpected entity type without scale factor')
+  }
 }

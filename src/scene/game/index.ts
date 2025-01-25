@@ -245,6 +245,7 @@ function createPlayer(
   state.velocities.set(controllerId, { x: 0, y: 0 })
   state.conditions.set(controllerId, 'normal')
   state.typeToIds.player.push(controllerId)
+  state.types.set(controllerId, 'player')
   // state.sprites[controllerId] = s
   sprites.set(controllerId, s)
 

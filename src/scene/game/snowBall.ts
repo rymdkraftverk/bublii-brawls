@@ -50,6 +50,7 @@ export const launch = (scene: Scene, from: EntityId, angle: Radian) => {
   // state.radii.set(id, radiusSnowBall)
   state.typeToIds[TYPE].push(id)
   state.snowBallLaunchers.set(id, from)
+  state.types.set(id, TYPE)
 
   const snowBallMass = playerMass * SNOWBALL_AREA_FACTOR
   increaseMass(id, snowBallMass, scene)

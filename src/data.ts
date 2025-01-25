@@ -43,6 +43,7 @@ export type State = {
   facings: Map<EntityId, Facing>
   hazardToMobType: Map<EntityId, MobType>
   masses: Map<EntityId, Mass>
+  types: Map<EntityId, Type>
   typeToIds: {
     snowPatch: EntityId[]
     player: EntityId[]
@@ -94,6 +95,7 @@ export const state: State = {
   // Currently unused
   hazardToMobType: new Map(),
   masses: new Map(),
+  types: new Map(),
   typeToIds: {
     snowPatch: [],
     player: [],
