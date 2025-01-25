@@ -10,6 +10,7 @@ import { sprites, type EntityId, purge, textures } from '~/data'
 import { type Sprite } from 'pixi.js'
 import * as snow from './snow'
 import collisions from './collisions'
+import { borderPatrol } from './system/borderPatrol'
 import { applyPlayerFriction } from './system/playerFriction'
 import mobs from './mobs'
 import * as V from '~/util/vector2d'
@@ -209,6 +210,45 @@ export default async function game(scene: Scene) {
         purge(scene.state, snowBallId)
       },
     },
+  ])
+
+  borderPatrol(scene, [
+    { entityType: 'player',
+      onTransgression: (playerId, direction) => {
+        const oldVelocity = scene.state.velocities.get(playerId)!
+        let newVelocity = oldVelocity
+
+        const north = { x: 0, y: -1}
+        const east = {x: 1, y: 0}
+        const west = { x: -1, y: 0}
+        const south = { x: 0, y: 1}
+
+        switch (direction) {
+          case 'North':
+            if (V.dotProduct(oldVelocity, north) > 0) {
+              newVelocity = { x: oldVelocity.x, y: -1 * oldVelocity.y }
+            }
+            break
+          case 'East':
+            if (V.dotProduct(oldVelocity, east) > 0) {
+              newVelocity = { x: -1 * oldVelocity.x, y: oldVelocity.y }
+            }
+            break
+          case 'South':
+            if (V.dotProduct(oldVelocity, south) > 0) {
+              newVelocity = { x: oldVelocity.x, y: -1 * oldVelocity.y }
+            }
+            break
+          case 'West':
+            if (V.dotProduct(oldVelocity, west) > 0) {
+              newVelocity = { x: -1 * oldVelocity.x, y: oldVelocity.y }
+            }
+            break
+        }
+
+        scene.state.velocities.set(playerId, newVelocity)
+      }
+    }
   ])
 
   mobs(scene)
