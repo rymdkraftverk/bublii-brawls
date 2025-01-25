@@ -9,6 +9,7 @@ const RADIUS = 4 // CONFIG
 const START_X = 10
 const START_Y = 10
 const DIAMETER = RADIUS * 2
+const START_SNOW_MASS: SnowMass = 5
 const TYPE = 'snowPatch'
 
 export const letIt = (
@@ -28,7 +29,7 @@ const init = (width: number, height: number) => {
       state.positions.set(id, { x, y })
 
       state.radii.set(id, RADIUS)
-      state.snowMasses.set(id, 0)
+      state.snowMasses.set(id, START_SNOW_MASS)
       state.typeToIds[TYPE].push(id)
     }
   }
