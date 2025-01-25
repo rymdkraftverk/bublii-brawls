@@ -102,7 +102,7 @@ async function startWave(
 
   const mobPosition = { x: scene.app.screen.width / 2, y: -20 }
   scene.state.positions.set(mobId, mobPosition)
-  scene.state.radii.set(mobId, 50)
+  scene.state.radii.set(mobId, 10)
 
   const poolObject = mobPool.get()
   const { con, character, weapon, hazardSprite } = poolObject
@@ -162,6 +162,54 @@ async function startWave(
   await scene.timer.delay(60)
 
   speechBubble.destroy()
+
+  const random = new ParkMiller(getRandomInt())
+  const targetId = random.integerInRange(0, 3)
+
+  // Move towards
+  const unsubscribe = scene.timer.repeatEvery(5, (_time, delta) => {
+    // targetPosition should be to the left or to the right of the target
+    const targetPosition = scene.state.positions.get(targetId)!
+    const _mobPosition = scene.state.positions.get(mobId)!
+
+    const leftOfTarget = { ...targetPosition, x: targetPosition.x - 100 }
+    const rightOfTarget = { ...targetPosition, x: targetPosition.x + 100 }
+
+    const leftOfTargetDistance = getDistance(_mobPosition, leftOfTarget)
+    const rightOfTargetDistance = getDistance(_mobPosition, rightOfTarget)
+
+    const targetDistance = Math.min(leftOfTargetDistance, rightOfTargetDistance)
+
+    if (targetDistance < 30) {
+      scene.state.velocities.set(mobId, { x: 0, y: 0 })
+      return
+    }
+
+    const direction = normalize(
+      subtract(
+        _mobPosition,
+        leftOfTargetDistance < rightOfTargetDistance ? leftOfTarget : (
+          rightOfTarget
+        ),
+      ),
+    )
+    // delta here seems to always be 1
+    const velocity = scale(MAXIMUM_SPEED * delta, direction)
+    scene.state.velocities.set(mobId, velocity)
+
+    if (direction.x < 0) {
+      if (con.scale.x > 0) {
+        scene.state.facings.set(mobId, 'left')
+        con.scale.x *= -1
+      }
+    }
+    if (direction.x > 0) {
+      if (con.scale.x < 0) {
+        scene.state.facings.set(mobId, 'right')
+        con.scale.x *= -1
+      }
+    }
+  })
 
   if (wave.type === MobType.FLAMETHROWER) {
     const hazard = getNextId()
@@ -231,58 +279,12 @@ async function startWave(
         purge(scene.state, hazard)
       }
 
+      unsubscribe()
+      purge(scene.state, mobId)
       character.visible = false
       weapon.visible = false
     }
   }
-
-  const random = new ParkMiller(getRandomInt())
-  const targetId = random.integerInRange(0, 3)
-
-  // Move towards
-  scene.timer.repeatEvery(5, (_time, delta) => {
-    // targetPosition should be to the left or to the right of the target
-    const targetPosition = scene.state.positions.get(targetId)!
-    const _mobPosition = scene.state.positions.get(mobId)!
-
-    const leftOfTarget = { ...targetPosition, x: targetPosition.x - 100 }
-    const rightOfTarget = { ...targetPosition, x: targetPosition.x + 100 }
-
-    const leftOfTargetDistance = getDistance(_mobPosition, leftOfTarget)
-    const rightOfTargetDistance = getDistance(_mobPosition, rightOfTarget)
-
-    const targetDistance = Math.min(leftOfTargetDistance, rightOfTargetDistance)
-
-    if (targetDistance < 30) {
-      scene.state.velocities.set(mobId, { x: 0, y: 0 })
-      return
-    }
-
-    const direction = normalize(
-      subtract(
-        _mobPosition,
-        leftOfTargetDistance < rightOfTargetDistance ? leftOfTarget : (
-          rightOfTarget
-        ),
-      ),
-    )
-    // delta here seems to always be 1
-    const velocity = scale(MAXIMUM_SPEED * delta, direction)
-    scene.state.velocities.set(mobId, velocity)
-
-    if (direction.x < 0) {
-      if (con.scale.x > 0) {
-        scene.state.facings.set(mobId, 'left')
-        con.scale.x *= -1
-      }
-    }
-    if (direction.x > 0) {
-      if (con.scale.x < 0) {
-        scene.state.facings.set(mobId, 'right')
-        con.scale.x *= -1
-      }
-    }
-  })
 }
 
 export function purgeMob(_mobId: EntityId) {}
