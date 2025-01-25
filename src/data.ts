@@ -45,6 +45,8 @@ export type State = {
   snowMasses: Map<EntityId, SnowMass>
 }
 
+export const sprites: Map<EntityId, Sprite> = new Map()
+
 export const state: State = {
   settingsVisible: false,
   positions: new Map(),

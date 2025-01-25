@@ -7,7 +7,7 @@ import {
 import { type Scene } from '~/type'
 import pause from './pause'
 import controls from './controls'
-import { type EntityId } from '~/data'
+import { sprites, type EntityId } from '~/data'
 import { type Sprite } from 'pixi.js'
 import * as snow from './snow'
 
@@ -25,7 +25,6 @@ export default async function game(scene: Scene) {
     app,
   } = scene
 
-  const sprites: Map<EntityId, Sprite> = new Map()
   // hacky convenience
   // @ts-expect-error TS2339
   window.scene = scene
