@@ -21,9 +21,15 @@ export default function collisions(
         const position1 = scene.state.positions.get(id1)
         const radius1 = scene.state.radii.get(id1)
 
-        if (!position1 || !radius1) {
+        if (!position1) {
           console.warn(
-            `Collision detection failed for type "${type1}" (was gonna check with "${type2}")`,
+            `Collision detection failed for type "${type1}" (no position) (was gonna check with "${type2}")`,
+          )
+          return
+        }
+        if (!radius1) {
+          console.warn(
+            `Collision detection failed for type "${type1}" (no radius) (was gonna check with "${type2}")`,
           )
           return
         }
@@ -36,9 +42,15 @@ export default function collisions(
           const position2 = scene.state.positions.get(id2)
           const radius2 = scene.state.radii.get(id2)
 
-          if (!position2 || !radius2) {
+          if (!position2) {
             console.warn(
-              `Collision detection failed for type "${type2}" (was gonna check with "${type1}")`,
+              `Collision detection failed for type "${type2}" (no position) (was gonna check with "${type1}")`,
+            )
+            return
+          }
+          if (!radius2) {
+            console.warn(
+              `Collision detection failed for type "${type2}" (no radius) (was gonna check with "${type1}")`,
             )
             return
           }
