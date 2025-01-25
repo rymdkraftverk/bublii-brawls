@@ -111,6 +111,11 @@ export default async function game(scene: Scene) {
           return
         }
 
+        const isBublé = state.bublii.get(playerId) ?? false
+        if (isBublé) {
+          return
+        }
+
         const snowPatchMass = state.snowMasses.get(snowPatchId)
 
         if (snowPatchMass && snowPatchMass > 0) {
