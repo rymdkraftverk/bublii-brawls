@@ -3,7 +3,7 @@ import {
   animatedSprite,
   sprite,
 } from 'alchemy-engine'
-import { type Scene, } from '~/type'
+import { type Scene } from '~/type'
 import pause from './pause'
 import controls from './controls'
 import { sprites, type EntityId, purge, textures } from '~/data'
@@ -241,7 +241,7 @@ function createPlayer(
   // state.sprites[controllerId] = s
   sprites.set(controllerId, s)
 
-  setRadius(scene, controllerId, 20)
+  setRadius(scene, controllerId, 10)
 
   // TODO: Facing
   // scene.timer.repeatEvery(2, () => {
