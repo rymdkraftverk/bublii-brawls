@@ -106,9 +106,9 @@ export default async function game(scene: Scene) {
   })
 
   // WIP
-  delaySnowBallFromPlayer(scene, 1)
+  launchSnowBallFromPlayer(scene, 1)
   repeatEvery(100, (_time, _delta) => {
-    delaySnowBallFromPlayer(scene, 0)
+    launchSnowBallFromPlayer(scene, 0)
   })
 
   // sound.coin.play()
@@ -188,7 +188,7 @@ export default async function game(scene: Scene) {
   mobs(scene)
 }
 
-const delaySnowBallFromPlayer = async (scene: Scene, playerIndex: number) => {
+const launchSnowBallFromPlayer = async (scene: Scene, playerIndex: number) => {
   const firstPlayer = state.typeToIds['player'].at(playerIndex)!
   const angle = state.aims.get(playerIndex) ?? Math.PI * 2
   snowBall.launch(scene, firstPlayer, angle)
