@@ -35,7 +35,6 @@ export type State = {
   velocities: Map<EntityId, Velocity>
   facings: Map<EntityId, Facing>
   masses: Map<EntityId, Mass>
-  types: Map<EntityId, Type>
   typeToIds: {
     snowPatch: EntityId[]
     player: EntityId[]
@@ -55,7 +54,6 @@ export const state: State = {
   velocities: new Map(),
   facings: new Map<EntityId, Facing>(),
   masses: new Map(),
-  types: new Map(),
   typeToIds: {
     snowPatch: [],
     player: [],

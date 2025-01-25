@@ -27,7 +27,6 @@ const init = (width: number, height: number) => {
 
       state.radii.set(id, RADIUS)
       state.snowMasses.set(id, 0)
-      state.types.set(id, TYPE)
       state.typeToIds[TYPE].push(id)
     }
   }

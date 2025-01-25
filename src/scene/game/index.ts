@@ -201,7 +201,6 @@ function createPlayer(
   s.position.set(x, y)
 
   state.positions.set(controllerId, { x, y })
-  state.types.set(controllerId, 'player')
   state.velocities.set(controllerId, { x: 0, y: 0 })
   state.typeToIds.player.push(controllerId)
   // state.sprites[controllerId] = s
