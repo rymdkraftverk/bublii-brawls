@@ -5,7 +5,7 @@ import { getNextId, state, type EntityId, type SnowMass } from '~/data'
 
 type RepeatEvery = TimerInstance['repeatEvery']
 
-const RADIUS = 5 // CONFIG
+const RADIUS = 4 // CONFIG
 const DIAMETER = RADIUS * 2
 const TYPE = 'snowPatch'
 
@@ -38,7 +38,12 @@ const startRender = (container: Container, repeatEvery: RepeatEvery) => {
   snow.zIndex = -99
 
   render(snow)
-  repeatEvery(100, (_time, _delta) => {
+  // Grow snow
+  repeatEvery(100, () => {
+    growSnow()
+  })
+
+  repeatEvery(4, (_time, _delta) => {
     render(snow)
   })
 }
@@ -52,9 +57,6 @@ const render = (snow: Graphics) => {
     const { x, y } = state.positions.get(snowPatch)!
     const snowMass = state.snowMasses.get(snowPatch)!
 
-    const nextSnowMass = getNextSnowMass(snowMass)
-    state.snowMasses.set(snowPatch, nextSnowMass)
-
     const alpha = computeAlpha(snowMass)
 
     snow
@@ -64,6 +66,16 @@ const render = (snow: Graphics) => {
       .fill({ color: 'white', alpha })
 
     // console.log({ x, y, snowPatch, alpha })
+  }
+}
+
+const growSnow = () => {
+  const snowPatches = state.typeToIds['snowPatch']
+
+  for (const snowPatch of snowPatches) {
+    const snowMass = state.snowMasses.get(snowPatch)!
+    const nextSnowMass = getNextSnowMass(snowMass)
+    state.snowMasses.set(snowPatch, nextSnowMass)
   }
 }
 
@@ -78,8 +90,8 @@ const getNextSnowMass = (snowMass: SnowMass): SnowMass => {
   return 5
 }
 
-export const munch = (id: EntityId) => {
-  const snowMass = state.snowMasses.get(id)
-  state.snowMasses.set(id, 0)
+export const munch = (snowMassId: EntityId) => {
+  const snowMass = state.snowMasses.get(snowMassId)
+  state.snowMasses.set(snowMassId, 0)
   return snowMass ?? 0
 }

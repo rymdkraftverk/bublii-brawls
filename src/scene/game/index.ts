@@ -128,7 +128,13 @@ export default async function game(scene: Scene) {
     {
       type1: 'player',
       type2: 'snowPatch',
-      onCollision: (player, snowPatch) => {},
+      onCollision: (_playerId, snowPatchId) => {
+        const snowPatchMass = state.snowMasses.get(snowPatchId)
+
+        if (snowPatchMass && snowPatchMass > 0) {
+          snow.munch(snowPatchId)
+        }
+      },
     },
   ])
 }
@@ -149,6 +155,7 @@ function createPlayer(
   const y = 200 + (controllerId - 2) * 100
 
   const s = sprite(scene.container)
+  s.anchor = 0.5
   // const s = spritePool.get()
   s.texture = scene.textures['blue-1']
   s.position.set(x, y)

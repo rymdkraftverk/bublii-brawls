@@ -34,7 +34,7 @@ export default function collisions(
           }
 
           const distance = getDistance(position1, position2)
-          if (radius1 + radius2 < distance) {
+          if (distance < radius1 + radius2) {
             onCollision(id1, id2)
           }
         }
