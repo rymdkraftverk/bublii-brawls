@@ -31,6 +31,7 @@ export const launch = (scene: Scene, from: EntityId, angleRadian: number) => {
   s.texture = scene.textures['snowball_0-1']
   s.position.set(fromPosition.x, fromPosition.y)
   s.scale.set(snowBallMass)
+  s.anchor = 0.5
   sprites.set(id, s)
 
   // shrink player
