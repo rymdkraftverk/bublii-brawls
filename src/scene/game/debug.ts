@@ -16,10 +16,9 @@ export default function debug(scene: Scene) {
     }
   }
 
-  // ====== START
   scene.timer.repeatEvery(1, () => {
     debugGraphics.clear()
     debugType('player')
+    debugType('mob')
   })
-  // ==== END
 }
