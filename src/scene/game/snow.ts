@@ -25,9 +25,9 @@ const init = (width: number, height: number) => {
       const id = getNextId()
       state.positions.set(id, { x, y })
 
-      state.radii[id] = RADIUS
-      state.snowMasses[id] = 0
-      state.types[id] = TYPE
+      state.radii.set(id, RADIUS)
+      state.snowMasses.set(id, 0)
+      state.types.set(id, TYPE)
       state.typeToIds[TYPE].push(id)
     }
   }
@@ -56,10 +56,10 @@ const render = (snow: Graphics) => {
 
   for (const snowPatch of snowPatches) {
     const { x, y } = state.positions.get(snowPatch)!
-    const snowMass = state.snowMasses[snowPatch]!
+    const snowMass = state.snowMasses.get(snowPatch)!
 
     const nextSnowMass = getNextSnowMass(snowMass)
-    state.snowMasses[snowPatch] = nextSnowMass
+    state.snowMasses.set(snowPatch, nextSnowMass)
 
     const alpha = computeAlpha(snowMass)
 

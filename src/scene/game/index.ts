@@ -147,8 +147,8 @@ function createPlayer(
   s.position.set(x, y)
 
   state.positions.set(controllerId, { x, y })
-  state.radii[controllerId] = 40
-  state.types[controllerId] = 'player'
+  state.radii.set(controllerId, 40)
+  state.types.set(controllerId, 'player')
   state.velocities.set(controllerId, { x: 0, y: 0 })
   state.masses.set(controllerId, 10)
   state.typeToIds.player.push(controllerId)

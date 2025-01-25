@@ -35,32 +35,32 @@ export type State = {
   gold: number
   settingsVisible: boolean
   positions: Map<EntityId, Position>
-  radii: Record<EntityId, Radius>
+  radii: Map<EntityId, Radius>
   velocities: Map<EntityId, Velocity>
   masses: Map<EntityId, Mass>
-  types: Record<EntityId, Type>
+  types: Map<EntityId, Type>
   typeToIds: {
     snowPatch: EntityId[]
     player: EntityId[]
   }
-  sprites: Record<EntityId, Sprite>
-  snowMasses: Record<EntityId, SnowMass>
+  sprites: Map<EntityId, Sprite>
+  snowMasses: Map<EntityId, SnowMass>
 }
 
 export const state: State = {
   gold: 10,
   settingsVisible: false,
   positions: new Map(),
-  radii: {},
+  radii: new Map(),
   velocities: new Map(),
   masses: new Map(),
-  types: {},
+  types: new Map(),
   typeToIds: {
     snowPatch: [],
     player: [],
   },
-  sprites: {},
-  snowMasses: {},
+  sprites: new Map(),
+  snowMasses: new Map(),
 }
 
 export const TextStyle = {
