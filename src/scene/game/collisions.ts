@@ -22,7 +22,9 @@ export default function collisions(
         const radius1 = scene.state.radii.get(id1)
 
         if (!position1 || !radius1) {
-          throw new Error(`Collision detection failed for type "${type1}"`)
+          throw new Error(
+            `Collision detection failed for type "${type1}" (was gonna check with "${type2}")`,
+          )
         }
 
         for (const id2 of ids2) {
