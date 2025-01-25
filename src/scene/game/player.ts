@@ -28,12 +28,14 @@ export const increaseMass = (
   const newMass = Math.min(Math.max(oldMass + massIncrease, MIN_MASS), MAX_MASS)
   scene.state.masses.set(entityId, newMass)
 
-  if (newMass < START_MASS) {
-    bublé(scene, entityId)
-    return
-  }
+  if (scene.state.types.get(entityId) == 'player')  {
+    if (newMass < START_MASS) {
+      bublé(scene, entityId)
+      return
+    }
 
-  unBublé(scene, entityId)
+    unBublé(scene, entityId)
+  }
 
   const newRadius = (newMass / DENSITY) ** 0.5 / Math.PI
   const spriteScale = newRadius * getScaleFactor(scene, entityId)
