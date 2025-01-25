@@ -97,6 +97,7 @@ export default async function game(scene: Scene) {
   applyPlayerFriction(scene)
 
   // sound.coin.play()
+  music.blue_brawls.volume(0.2)
   music.blue_brawls.loop()
   music.blue_brawls.play()
   pause(scene)
