@@ -9,18 +9,17 @@ export function applyPlayerFriction(scene: Scene) {
       const oldVelocity = scene.state.velocities.get(playerId)
       const playerMass = scene.state.masses.get(playerId)
 
-      if(!oldVelocity) return
-      if(!playerMass) return
+      if (!oldVelocity) return
+      if (!playerMass) return
 
-
-      const forceAmplitude = -1 * frictionCoefficient * delta / playerMass
+      const forceAmplitude = (-1 * frictionCoefficient * delta) / playerMass
       const frictionForce = V.scale(forceAmplitude, V.normalize(oldVelocity))
 
       const newVelocity = V.add(oldVelocity, frictionForce)
 
       // check if force is greater than oldVelocity we set velocity to 0
       if (V.dotProduct(oldVelocity, newVelocity) < 0) {
-        scene.state.velocities.set(playerId, {x: 0, y: 0})
+        scene.state.velocities.set(playerId, { x: 0, y: 0 })
       } else {
         scene.state.velocities.set(playerId, newVelocity)
       }
