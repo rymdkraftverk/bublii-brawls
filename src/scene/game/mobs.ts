@@ -209,6 +209,7 @@ async function startWave(
         'explosion_0-7',
       ]
       hazardSprite.textures = explosionTextures.map((x) => scene.textures[x])
+      hazardSprite.scale = 2
       hazardSprite.animationSpeed = 0.1
       hazardSprite.loop = false
       hazardSprite.play()
