@@ -59,7 +59,7 @@ const render = (snow: Graphics) => {
     const alpha = computeAlpha(snowMass)
 
     snow
-      .rect(x - RADIUS, y - RADIUS, DIAMETER, DIAMETER)
+      .circle(x - RADIUS, y - RADIUS, DIAMETER)
       .fill({ color: 'white', alpha })
   }
 }
