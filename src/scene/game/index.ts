@@ -94,6 +94,21 @@ export default async function game(scene: Scene) {
     }
   })
 
+  repeatEvery(60, (_time, _delta) => {
+    const allAreBublé = state.typeToIds['player'].every(playerId => {
+      const isBublé = state.bublii.get(playerId) ?? false
+      return isBublé
+    })
+
+    if (allAreBublé) {
+      scene.container.destroy()
+      console.log({
+        score: state.alchemy.time
+      })
+    }
+  })
+
+
   applyPlayerFriction(scene)
 
   // sound.coin.play()
