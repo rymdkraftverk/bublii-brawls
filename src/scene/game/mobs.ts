@@ -79,6 +79,7 @@ let mobPool: ObjectPool<{
 }>
 
 const targetMap = new Map<EntityId, number>()
+const mobToHazardMap = new Map<EntityId, EntityId>()
 
 export default async function mobs(scene: Scene) {
   const wave = waves[0]
@@ -126,14 +127,7 @@ export default async function mobs(scene: Scene) {
     weapon.position = weaponPositionMap[wave.type]
     weapon.scale = 0.5
 
-    hazardSprite.textures = projectileTextureMap[wave.type].map(
-      (x) => scene.textures[x],
-    )
     hazardSprite.visible = false
-    hazardSprite.position = { x: 15, y: 8 }
-    hazardSprite.animationSpeed = 0.1
-    hazardSprite.play()
-    hazardSprite.anchor.y = 0.5
 
     await scene.timer.repeatUntil(90, () => {
       const position = scene.state.positions.get(mobId)
@@ -146,10 +140,20 @@ export default async function mobs(scene: Scene) {
 
     const targetId = random.integerInRange(0, 3)
     targetMap.set(mobId, targetId)
+    await scene.timer.delay(10)
 
     if (wave.type === MobType.FLAMETHROWER) {
       const hazard = getNextId()
       scene.state.typeToIds.hazard.push(hazard)
+      scene.state.hazardToMobType.set(hazard, wave.type)
+      hazardSprite.textures = projectileTextureMap[wave.type].map(
+        (x) => scene.textures[x],
+      )
+      hazardSprite.position = { x: 15, y: 8 }
+      hazardSprite.animationSpeed = 0.1
+      hazardSprite.play()
+      hazardSprite.anchor.y = 0.5
+
       scene.state.radii.set(hazard, hazardRadiusMap[wave.type])
       scene.state.positions.set(hazard, {
         y: mobPosition.y,
@@ -220,7 +224,7 @@ export default async function mobs(scene: Scene) {
           purge(scene.state, hazard)
         }
 
-        purge(scene.state, mobId)
+        purgeMob(mobId, scene)
         character.visible = false
         weapon.visible = false
       }
@@ -320,7 +324,8 @@ export default async function mobs(scene: Scene) {
   })
 }
 
-export function purgeMob(mobId: EntityId) {
+export function purgeMob(mobId: EntityId, scene: Scene) {
+  purge(scene.state, mobId)
   if (mobPool) {
     const obj = gfxMap.get(mobId)!
     mobPool.release(obj)
@@ -328,5 +333,9 @@ export function purgeMob(mobId: EntityId) {
     obj.character.visible = false
     obj.weapon.visible = false
     obj.hazardSprite.visible = false
+
+    const hazardId = mobToHazardMap.get(mobId)
+    // if (){}
+    // scene.state.hazardToMobType
   }
 }
