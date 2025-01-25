@@ -7,6 +7,7 @@ import {
   text,
 } from 'alchemy-engine'
 import ParkMiller from 'park-miller'
+import { getRandomInt } from 'tiny-toolkit'
 import { getNextId, TextStyle } from '~/data'
 import type { Scene } from '~/type'
 import { normalize, scale, subtract } from '~/util/vector2d'
@@ -87,7 +88,7 @@ export default async function mobs(scene: Scene) {
 
   speechBubble.destroy()
 
-  const random = new ParkMiller(999)
+  const random = new ParkMiller(getRandomInt())
   // Is max here inclusive?
   const targetId = random.integerInRange(0, 3)
 
