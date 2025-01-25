@@ -95,7 +95,7 @@ export default async function game(scene: Scene) {
   })
 
   repeatEvery(60, (_time, _delta) => {
-    const allAreBublé = state.typeToIds['player'].every(playerId => {
+    const allAreBublé = state.typeToIds['player'].every((playerId) => {
       const isBublé = state.bublii.get(playerId) ?? false
       return isBublé
     })
@@ -103,11 +103,10 @@ export default async function game(scene: Scene) {
     if (allAreBublé) {
       scene.container.destroy()
       console.log({
-        score: state.alchemy.time
+        score: state.alchemy.time,
       })
     }
   })
-
 
   applyPlayerFriction(scene)
 
@@ -191,8 +190,7 @@ export default async function game(scene: Scene) {
       type1: 'hazard',
       type2: 'player',
       onCollision: async (_hazard, player) => {
-        // TODO: Dynamic
-        const fireDamage = 100
+        const fireDamage = 500
 
         increaseMass(player, -1 * fireDamage, scene)
         const condition = scene.state.conditions.get(player)
@@ -276,14 +274,14 @@ export default async function game(scene: Scene) {
         }
 
         scene.state.velocities.set(playerId, newVelocity)
-      }
+      },
     },
     {
       entityType: 'snowBall',
       onTransgression: (snowBallId, _direction) => {
         purge(scene.state, snowBallId)
-      }
-    }
+      },
+    },
   ])
 
   mobs(scene)
