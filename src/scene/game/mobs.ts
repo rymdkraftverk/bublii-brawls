@@ -286,7 +286,7 @@ export default async function mobs(scene: Scene) {
     const mobIds = scene.state.typeToIds.mob
     mobIds.forEach((mobId) => {
       const targetId = targetMap.get(mobId)
-      if (targetId) {
+      if (targetId !== undefined) {
         const targetPosition = scene.state.positions.get(targetId)!
         const mobPosition = scene.state.positions.get(mobId)!
 
