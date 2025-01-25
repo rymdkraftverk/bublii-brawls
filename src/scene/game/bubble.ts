@@ -2,8 +2,24 @@ import { getDistance } from 'tiny-toolkit'
 import { normalize, scale, subtract } from '~/util/vector2d'
 import { state, type EntityId } from '~/data'
 import type { Scene } from '~/type'
+import { MIN_MASS, setMass } from './player'
+import { growSnow } from './snow'
 
 const MAXIMUM_SPEED = 3
+
+const exchangeMassForSnowMass = (mass: number) => {
+    return Math.floor(mass / 10000) + 1
+}
+
+const itGoesPop = (scene: Scene, playerId: EntityId) => {
+    const snowmass = exchangeMassForSnowMass(state.masses.get(playerId)!)
+
+    setMass(playerId, MIN_MASS, scene)
+
+    for (let i = 0; i < snowmass; i++) {
+        growSnow()
+    }
+}
 
 export const pop = (scene: Scene, entityId: EntityId) => {
     const condition = state.conditions.get(entityId)
@@ -32,6 +48,7 @@ export const pop = (scene: Scene, entityId: EntityId) => {
         if (Math.abs(targetDistance) < 2) {
             scene.state.velocities.set(entityId, { x: 0, y: 0 })
             unsubscribe()
+            itGoesPop(scene, entityId)
             return
         }
     })

@@ -11,7 +11,7 @@ import { type Scene } from '~/type'
 
 // CONFIG
 const DENSITY = 1
-const MIN_MASS = 500
+export const MIN_MASS = 500
 export const START_MASS = MIN_MASS * 2
 const MAX_MASS = 50000
 

@@ -67,7 +67,7 @@ const render = (snow: Graphics) => {
   }
 }
 
-const growSnow = () => {
+export const growSnow = () => {
   const snowPatches = state.typeToIds['snowPatch']
 
   for (const snowPatch of snowPatches) {
