@@ -11,7 +11,7 @@ import {
 import ParkMiller from 'park-miller'
 import type { AnimatedSprite, Container, Sprite } from 'pixi.js'
 import { getDistance, getRandomInt } from 'tiny-toolkit'
-import { getNextId, TextStyle, type EntityId } from '~/data'
+import { getNextId, purge, TextStyle, type EntityId } from '~/data'
 import type { Scene, TextureName } from '~/type'
 import { normalize, scale, subtract } from '~/util/vector2d'
 
@@ -228,6 +228,7 @@ async function startWave(
       hazardSprite.onComplete = () => {
         con.visible = false
         mobPool.release(poolObject)
+        purge(scene.state, hazard)
       }
 
       character.visible = false
