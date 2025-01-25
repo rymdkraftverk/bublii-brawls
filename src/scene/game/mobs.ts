@@ -94,11 +94,9 @@ async function startWave(scene: Scene, wave: Wave) {
   weapon.position = weaponPositionMap[wave.type]
   weapon.scale = 0.5
 
-  projectile.textures = [
-    scene.textures['flamethrower_flame_0-1'],
-    scene.textures['flamethrower_flame_0-2'],
-    scene.textures['flamethrower_flame_0-3'],
-  ]
+  projectile.textures = projectileTextureMap[wave.type].map(
+    (x) => scene.textures[x],
+  )
   projectile.visible = false
   projectile.position = { x: 15, y: 8 }
   projectile.animationSpeed = 0.1
