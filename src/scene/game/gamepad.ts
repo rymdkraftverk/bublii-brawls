@@ -21,6 +21,7 @@ export type AlchemyGamepad = {
   index: number
   id: string
   axes: Axes
+  axesRight: Axes
   buttons: Buttons
 }
 
@@ -56,7 +57,17 @@ export function getGamepads(): ReturnValue {
     axes.horizontal = g.axes[0] ?? 0
     axes.vertical = g.axes[1] ?? 0
 
-    return { axes, buttons, index: g.index, id: g.id }
+    let axesRight: Axes = { horizontal: 0, vertical: 0 }
+    axesRight.horizontal = g.axes[2] ?? 0
+    axesRight.vertical = g.axes[3] ?? 0
+
+    return {
+      axes,
+      axesRight,
+      buttons,
+      index: g.index,
+      id: g.id,
+    }
   }) as ReturnValue
 
   return returnValue
