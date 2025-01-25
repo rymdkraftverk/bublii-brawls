@@ -37,6 +37,8 @@ export const launch = (scene: Scene, from: EntityId, angle: Radian) => {
   sprites.set(id, s)
 
   // shrink player
+
+  // TODO: figure out mass scaling function
   const shrunkPlayerMass = playerMass * PLAYER_SHRINK_FACTOR
   state.masses.set(from, shrunkPlayerMass)
   state.radii.set(from, shrunkPlayerMass)

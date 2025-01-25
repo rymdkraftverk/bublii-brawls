@@ -125,11 +125,22 @@ export default async function game(scene: Scene) {
     {
       type1: 'player',
       type2: 'snowPatch',
-      onCollision: (_playerId, snowPatchId) => {
+      onCollision: (playerId, snowPatchId) => {
         const snowPatchMass = state.snowMasses.get(snowPatchId)
 
         if (snowPatchMass && snowPatchMass > 0) {
-          snow.munch(snowPatchId)
+          const snowMass = snow.munch(snowPatchId)
+          const growth = snowMass * snowMass * 0.001
+
+          // TODO: figure out mass scaling function
+          const playerMass = state.masses.get(playerId)!
+          const playerRadius = state.radii.get(playerId)!
+          state.masses.set(playerId, playerMass + growth)
+          state.radii.set(playerId, playerRadius + growth)
+
+          const playerSprite = sprites.get(playerId)!
+          const playerScale = playerSprite.scale.x
+          playerSprite.scale = playerScale + growth
         }
       },
     },
