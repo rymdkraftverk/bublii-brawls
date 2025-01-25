@@ -53,6 +53,7 @@ export const state: State = {
   positions: new Map(),
   radii: new Map(),
   velocities: new Map(),
+  facings: new Map<EntityId, Facing>(),
   masses: new Map(),
   types: new Map(),
   typeToIds: {
