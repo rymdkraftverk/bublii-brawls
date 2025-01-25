@@ -116,13 +116,6 @@ export default async function game(scene: Scene) {
   music.blue_brawls.play()
   pause(scene)
 
-  /*
-  controls(scene, 0)
-  // Use this for more players
-  controls(scene, 1)
-  // controls(scene, 2)
-  // controls(scene, 3)
-  */
   collisions(scene, [
     {
       type1: 'player',
