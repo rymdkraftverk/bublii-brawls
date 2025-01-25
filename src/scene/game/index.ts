@@ -144,6 +144,15 @@ export default async function game(scene: Scene) {
 
         scene.state.velocities.set(p1Id, newV1)
         scene.state.velocities.set(p2Id, newV2)
+
+        const radius1 = scene.state.radii.get(p1Id)!
+        const radius2 = scene.state.radii.get(p2Id)!
+        const midPoint = V.scale(0.5, V.add(p1, p2))
+        const newPosition1 = V.add(midPoint, V.scale(radius1, direction))
+        const newPosition2 = V.add(midPoint, V.scale(radius2, V.scale(-1, direction)))
+
+        scene.state.positions.set(p1Id, newPosition1)
+        scene.state.positions.set(p2Id, newPosition2)
       },
     },
     {
