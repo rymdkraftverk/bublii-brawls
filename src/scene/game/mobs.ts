@@ -182,7 +182,6 @@ async function startWave(
     })
   } else if (wave.type === MobType.TNT) {
     await scene.timer.delay(TNT_COUNTDOWN_TIME)
-    console.log('EXPLODE!!')
     hazardSprite.visible = true
     const tntTextures: TextureName[] = [
       'tnt_explode_0-1',
@@ -200,7 +199,19 @@ async function startWave(
     hazardSprite.loop = false
     hazardSprite.play()
     hazardSprite.onComplete = () => {
-      console.log('COMPLETE!')
+      const explosionTextures: TextureName[] = [
+        'explosion_0-1',
+        'explosion_0-2',
+        'explosion_0-3',
+        'explosion_0-4',
+        'explosion_0-5',
+        'explosion_0-6',
+        'explosion_0-7',
+      ]
+      hazardSprite.textures = explosionTextures.map((x) => scene.textures[x])
+      hazardSprite.animationSpeed = 0.1
+      hazardSprite.loop = false
+      hazardSprite.play()
     }
   }
 
