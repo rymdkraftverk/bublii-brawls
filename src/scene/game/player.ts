@@ -3,15 +3,17 @@ import { absorbSnowball } from './snowBall'
 
 // CONFIG
 const SPRITE_SCALE_FACTOR = 0.055
+const MIN_RADIUS = 5
+const MAX_RADIUS = 30
 
 export const setRadius = (playerId: EntityId, radius: Radius) => {
-  const cappedRadius = Math.max(radius, 5)
+  const clampedRadius = clamp(radius, MIN_RADIUS, MAX_RADIUS)
 
-  const spriteScale = cappedRadius * SPRITE_SCALE_FACTOR
-  const mass = cappedRadius
+  const spriteScale = clampedRadius * SPRITE_SCALE_FACTOR
+  const mass = clampedRadius
 
   state.masses.set(playerId, mass)
-  state.radii.set(playerId, cappedRadius)
+  state.radii.set(playerId, clampedRadius)
   const playerSprite = sprites.get(playerId)!
   playerSprite.scale = spriteScale
 }
@@ -23,3 +25,6 @@ export const heal = (playerId: EntityId, snowballId: EntityId) => {
   const grownPlayerRadius = absorbSnowball(playerRadius, snowballRadius)
   setRadius(playerId, grownPlayerRadius)
 }
+
+const clamp = (value: number, min: number, max: number) =>
+  Math.min(Math.max(value, min), max);
