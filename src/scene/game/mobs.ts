@@ -104,7 +104,9 @@ async function startWave(
   scene.state.positions.set(mobId, mobPosition)
   scene.state.radii.set(mobId, 50)
 
-  const { con, character, weapon, hazardSprite } = mobPool.get()
+  const poolObject = mobPool.get()
+  const { con, character, weapon, hazardSprite } = poolObject
+
   character.textures = [
     scene.textures['lizard_green_0-1'],
     scene.textures['lizard_green_0-2'],
@@ -219,10 +221,17 @@ async function startWave(
       ]
       hazardSprite.textures = explosionTextures.map((x) => scene.textures[x])
       hazardSprite.anchor = 0.5
-      hazardSprite.scale = 3
+      hazardSprite.scale = 5
       hazardSprite.animationSpeed = 0.1
       hazardSprite.loop = false
       hazardSprite.play()
+      hazardSprite.onComplete = () => {
+        con.visible = false
+        mobPool.release(poolObject)
+      }
+
+      character.visible = false
+      weapon.visible = false
     }
   }
 
