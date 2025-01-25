@@ -1,7 +1,5 @@
 import {
   sprite,
-  htmlText,
-  sync,
   graphics,
   container as createContainer,
   createObjectPool,
@@ -45,9 +43,6 @@ export default async function game(scene: Scene) {
   const c = createContainer(container)
   c.label = 'container'
   c.position.set(200, 200)
-
-  const _text = htmlText(c, { fontSize: 24, fill: 0xffffff }, 'number 24')
-  _text.label = 'number 24'
 
   const spritePool = createObjectPool(10, () => {
     return sprite(container)
