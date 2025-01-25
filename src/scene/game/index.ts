@@ -103,6 +103,10 @@ export default async function game(scene: Scene) {
       type1: 'player',
       type2: 'snowPatch',
       onCollision: (playerId, snowPatchId) => {
+        if (state.conditions.get(playerId) === 'popping-the-bubble') {
+          return
+        }
+
         const snowPatchMass = state.snowMasses.get(snowPatchId)
 
         if (snowPatchMass && snowPatchMass > 0) {
@@ -213,15 +217,16 @@ export default async function game(scene: Scene) {
   ])
 
   borderPatrol(scene, [
-    { entityType: 'player',
+    {
+      entityType: 'player',
       onTransgression: (playerId, direction) => {
         const oldVelocity = scene.state.velocities.get(playerId)!
         let newVelocity = oldVelocity
 
-        const north = { x: 0, y: -1}
-        const east = {x: 1, y: 0}
-        const west = { x: -1, y: 0}
-        const south = { x: 0, y: 1}
+        const north = { x: 0, y: -1 }
+        const east = { x: 1, y: 0 }
+        const west = { x: -1, y: 0 }
+        const south = { x: 0, y: 1 }
 
         switch (direction) {
           case 'North':
