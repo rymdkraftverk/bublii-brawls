@@ -13,6 +13,7 @@ import * as snow from './snow'
 import * as snowBall from './snowBall'
 import collisions from './collisions'
 import { applyPlayerFriction } from './system/playerFriction'
+import mobs from './mobs'
 
 export default async function game(scene: Scene) {
   const {
@@ -145,6 +146,8 @@ export default async function game(scene: Scene) {
       },
     },
   ])
+
+  mobs(scene)
 }
 
 const delaySnowBallFromPlayer = async (
