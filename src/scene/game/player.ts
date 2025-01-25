@@ -22,8 +22,6 @@ export const increaseMass = (
   massIncrease: Mass,
   scene: Scene,
 ) => {
-  const isBublé = state.bublii.get(entityId) ?? false
-  if (isBublé && massIncrease < 0) return
 
   const oldMass = scene.state.masses.get(entityId) ?? 0
 

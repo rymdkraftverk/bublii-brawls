@@ -83,7 +83,7 @@ export default async function game(scene: Scene) {
 
     for (const [id, velocity] of state.velocities.entries()) {
       const isBublé = state.bublii.get(id) ?? false
-      if(isBublé) continue
+      if (isBublé) continue
 
       const position = state.positions.get(id)!
       const newPosition = {
