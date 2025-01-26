@@ -8,7 +8,7 @@ import {
 } from 'alchemy-engine'
 import ParkMiller from 'park-miller'
 import type { AnimatedSprite, Container, Sprite } from 'pixi.js'
-import { getDistance, getRandomInt } from 'tiny-toolkit'
+import { deNormalizeRange, getDistance, getRandomInt } from 'tiny-toolkit'
 import { getNextId, purge, state, type EntityId } from '~/data'
 import type { Scene, TextureName } from '~/type'
 import { normalize, scale, subtract } from '~/util/vector2d'
@@ -397,16 +397,24 @@ export default async function mobs(scene: Scene) {
   }
 }
 
-export function purgeMob(mobId: EntityId, scene: Scene) {
+export async function purgeMob(mobId: EntityId, scene: Scene) {
   purge(scene.state, mobId)
   if (mobPool) {
     const obj = mobSprites.get(mobId)
 
     if (obj) {
-      mobPool.release(obj)
+      const startScale = obj.con.scale.x
+      await scene.animate.easeOut({
+        duration: 45,
+        onUpdate: (value) => {
+          const getScale = deNormalizeRange(startScale, 0)
+          obj.con.scale = getScale(value)
+        },
+      })
       obj.character.visible = false
       obj.weapon.visible = false
       obj.hazardSprite.visible = false
+      mobPool.release(obj)
       mobSprites.delete(mobId)
     }
 
