@@ -265,6 +265,7 @@ export default async function mobs(scene: Scene, screenShake: any, sound: any) {
         const hazard = getNextId()
         scene.state.typeToIds.hazard.push(hazard)
         scene.state.radii.set(hazard, hazardRadiusMap[wave.type])
+        scene.state.types.set(hazard, 'tnt')
         const _mobPosition = scene.state.positions.get(mobId)
 
         if (!_mobPosition) {
