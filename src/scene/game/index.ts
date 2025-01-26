@@ -2,11 +2,12 @@ import {
   container as createContainer,
   animatedSprite,
   sprite,
+  graphics,
+  text,
 } from 'alchemy-engine'
 import { type Scene } from '~/type'
-import pause from './pause'
 import controls from './controls'
-import { sprites, type EntityId, purge, textures } from '~/data'
+import { sprites, type EntityId, purge, textures, TextStyle } from '~/data'
 import { type Sprite } from 'pixi.js'
 import * as snow from './snow'
 import collisions from './collisions'
@@ -39,11 +40,7 @@ export default async function game(scene: Scene) {
   bg2.zIndex = -9999
   bg2.scale = 0.5
 
-  snow.letIt(
-    app.screen.width - 30,
-    app.screen.height - 30,
-    scene
-  )
+  snow.letIt(app.screen.width - 30, app.screen.height - 30, scene)
 
   const c = createContainer(container)
   c.label = 'container'
@@ -100,10 +97,21 @@ export default async function game(scene: Scene) {
     })
 
     if (allAreBublé) {
-      scene.container.destroy()
-      console.log({
-        score: state.alchemy.time,
-      })
+      const gameOverBackground = createContainer(scene.container)
+      gameOverBackground.position.y = 100
+      const g = graphics(gameOverBackground)
+      g.rect(0, 0, scene.app.screen.width, 60).fill({ color: 0x000000 })
+      const t = text(gameOverBackground, TextStyle.MAIN, 'Game over!')
+      t.position.x = scene.app.screen.width / 2 - t.width / 2
+      t.position.y = 10
+      const score = text(
+        gameOverBackground,
+        TextStyle.MAIN,
+        `Score: ${state.alchemy.time}`,
+      )
+      score.position.x = scene.app.screen.width / 2 - score.width / 2
+      score.position.y = 40
+      scene.state.alchemy.paused = true
     }
   })
 
@@ -113,7 +121,6 @@ export default async function game(scene: Scene) {
   music.blue_brawls.volume(0.2)
   music.blue_brawls.loop()
   music.blue_brawls.play()
-  pause(scene)
 
   collisions(scene, [
     {
@@ -243,12 +250,11 @@ export default async function game(scene: Scene) {
           scene.state.conditions.set(player, 'normal')
         }
 
-
         const newMass = scene.state.masses.get(player)!
         if (newMass < START_MASS) {
           bublé(scene, player)
         }
-      }
+      },
     },
     {
       type1: 'snowBall',
@@ -297,14 +303,20 @@ export default async function game(scene: Scene) {
             if (V.dotProduct(oldVelocity, east) > 0) {
               // newVelocity = { x: -0.2 * oldVelocity.x, y: oldVelocity.y }
               newVelocity = { x: 0, y: 0 }
-              newPosition = { x: scene.app.screen.width - radius - 1, y: oldPosition.y }
+              newPosition = {
+                x: scene.app.screen.width - radius - 1,
+                y: oldPosition.y,
+              }
             }
             break
           case 'South':
             if (V.dotProduct(oldVelocity, south) > 0) {
               // newVelocity = { x: oldVelocity.x, y: -0.2 * oldVelocity.y }
               newVelocity = { x: 0, y: 0 }
-              newPosition = { x: oldPosition.x, y: scene.app.screen.height - radius - 1 }
+              newPosition = {
+                x: oldPosition.x,
+                y: scene.app.screen.height - radius - 1,
+              }
             }
             break
           case 'West':
