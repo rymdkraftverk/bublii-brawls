@@ -58,7 +58,10 @@ export default function controls(scene: Scene, gamepadIndex: number) {
         scene.state.throwSnowBallIsOnCooldown.get(gamepadIndex)
       // console.log({ hasCooldown })
       if (!hasCooldown) {
-        const angle = scene.state.aims.get(gamepadIndex) ?? 0
+        const angle = scene.state.aims.get(gamepadIndex)
+
+        if(!angle) return
+
         snowBall.launch(scene, gamepadIndex, angle)
 
         scene.state.throwSnowBallIsOnCooldown.set(gamepadIndex, true)
