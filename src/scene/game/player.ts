@@ -89,7 +89,7 @@ const unBublé = (scene: Scene, playerId: EntityId) => {
   s.play()
   state.bublii.set(playerId, false)
 
-  scene.sound['coin'].play()
+  scene.sound['SFX_collect&bonus3'].play()
 }
 
 export const feed = (playerId: EntityId, snowMass: SnowMass, scene: Scene) => {

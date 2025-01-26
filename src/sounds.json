@@ -2,7 +2,8 @@
   "sound": {
     "coin": "coin.mp3",
     "summer-day": "summer-day.mp3",
-    "explosion": "explosion.mp3"
+    "explosion": "explosion.mp3",
+    "SFX_collect&bonus3": "SFX_collect&bonus3.wav"
   },
   "music": {
     "coin2": "coin2.mp3",
