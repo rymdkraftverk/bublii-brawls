@@ -18,6 +18,7 @@ import * as V from '~/util/vector2d'
 import debug from './debug'
 import { feed, heal, increaseMass, START_MASS, bublé } from './player'
 import { deNormalizeRange, grid } from 'tiny-toolkit'
+import * as scope from './scope'
 
 export default async function game(scene: Scene) {
   const {
@@ -423,6 +424,8 @@ function createPlayer(
   state.bublii.set(controllerId, false)
   // state.sprites[controllerId] = s
   sprites.set(controllerId, s)
+
+  scope.init(controllerId, scene)
 
   increaseMass(controllerId, START_MASS, scene)
 
