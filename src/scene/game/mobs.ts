@@ -403,11 +403,12 @@ export async function purgeMob(mobId: EntityId, scene: Scene) {
     const obj = mobSprites.get(mobId)
 
     if (obj) {
-      const startScale = obj.con.scale.x
+      const startScaleX = obj.con.scale.x
+      const startScaleY = obj.con.scale.y
       await scene.animate.easeOut({
         duration: 45,
         onUpdate: (value) => {
-          const getScale = deNormalizeRange(startScale, 0)
+          const getScale = deNormalizeRange(startScaleX, 0)
           obj.con.scale = getScale(value)
         },
       })
@@ -415,7 +416,8 @@ export async function purgeMob(mobId: EntityId, scene: Scene) {
       obj.character.visible = false
       obj.weapon.visible = false
       obj.hazardSprite.visible = false
-      obj.con.scale.set(startScale)
+      obj.con.scale.x = startScaleX
+      obj.con.scale.y = startScaleY
       mobPool.release(obj)
       mobSprites.delete(mobId)
     }
