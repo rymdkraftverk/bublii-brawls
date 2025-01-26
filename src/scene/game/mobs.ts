@@ -9,7 +9,7 @@ import {
 import ParkMiller from 'park-miller'
 import type { AnimatedSprite, Container, Sprite } from 'pixi.js'
 import { getDistance, getRandomInt } from 'tiny-toolkit'
-import { getNextId, purge, type EntityId } from '~/data'
+import { getNextId, purge, state, type EntityId } from '~/data'
 import type { Scene, TextureName } from '~/type'
 import { normalize, scale, subtract } from '~/util/vector2d'
 import * as V from '~/util/vector2d'
@@ -284,6 +284,9 @@ export default async function mobs(scene: Scene) {
       const { playerId } = scene.state.typeToIds.player
         .filter((pId) => {
           return !scene.state.bublii.get(pId)
+        })
+        .filter(pId => {
+          return state.conditions.get(pId) !== 'popping-the-bubble'
         })
         .map((pId) => {
           const playerPosition = scene.state.positions.get(pId)!
