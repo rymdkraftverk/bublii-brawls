@@ -23,6 +23,9 @@ const itGoesPop = (scene: Scene, playerId: EntityId) => {
         scene.textures['popping_player_0-4'],
         scene.textures['popping_player_0-5'],
     ]
+    s.onFrameChange = () => {
+        s.scale = s.scale.x + 1
+    }
     s.play()
     s.loop = false
     s.onComplete = async () => {
