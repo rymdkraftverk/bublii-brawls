@@ -46,13 +46,13 @@ export default function collisions(
             console.warn(
               `Collision detection failed for type "${type2}" (no position) (was gonna check with "${type1}")`,
             )
-            return
+            continue
           }
           if (!radius2) {
             console.warn(
               `Collision detection failed for type "${type2}" (no radius) (was gonna check with "${type1}")`,
             )
-            return
+            continue
           }
 
           const distance = getDistance(position1, position2)
