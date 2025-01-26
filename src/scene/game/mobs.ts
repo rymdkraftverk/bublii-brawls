@@ -373,7 +373,6 @@ export default async function mobs(scene: Scene) {
         }
         if (direction.x > 0) {
           if (con.scale.x < 0 && facing === 'left') {
-            console.log('RIGHT!')
             scene.state.facings.set(mobId, 'right')
             con.scale.x *= -1
           }
