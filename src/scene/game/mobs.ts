@@ -107,7 +107,7 @@ export const mobSprites = new Map<
     con: Container
     character: AnimatedSprite
     weapon: Sprite
-    hazardSprite: AnimatedSprite,
+    hazardSprite: AnimatedSprite
     healthbar: Graphics
   }
 >()
@@ -116,7 +116,7 @@ let mobPool: ObjectPool<{
   con: Container
   character: AnimatedSprite
   weapon: Sprite
-  hazardSprite: AnimatedSprite,
+  hazardSprite: AnimatedSprite
   healthbar: Graphics
 }>
 
@@ -132,9 +132,9 @@ export default async function mobs(scene: Scene) {
 
   const createObject = () => {
     const con = container(scene.container)
-    con.visible = true
+    con.visible = false
     const character = animatedSprite(con)
-    character.visible = true
+    character.visible = false
     character.textures = [
       scene.textures['lizard_green_0-1'],
       scene.textures['lizard_green_0-2'],
@@ -144,15 +144,15 @@ export default async function mobs(scene: Scene) {
     character.scale = 0.5
     character.anchor = 0.5
     const weapon = sprite(con)
-    weapon.visible = true
+    weapon.visible = false
     const hazardSprite = animatedSprite(con)
-    hazardSprite.visible = true
+    hazardSprite.visible = false
 
     const width = (FULL_HP + 1) * 10
     const pos = (width / 2) * -1
-    const healthbar = new Graphics();
-    healthbar.rect(pos, -25, width, 5);
-    healthbar.fill(0xb54354);
+    const healthbar = new Graphics()
+    healthbar.rect(pos, -25, width, 5)
+    healthbar.fill(0xb54354)
     con.addChild(healthbar)
 
     return { con, character, weapon, hazardSprite, healthbar }
@@ -472,8 +472,8 @@ export const damageMob = (
   const mobSprite = mobSprites.get(mobId)
   if (mobSprite) {
     mobSprite.healthbar.clear()
-    mobSprite.healthbar.rect(pos, -25, width, 5);
-    mobSprite.healthbar.fill(0xb54354);
+    mobSprite.healthbar.rect(pos, -25, width, 5)
+    mobSprite.healthbar.fill(0xb54354)
   }
 
   return newHp
