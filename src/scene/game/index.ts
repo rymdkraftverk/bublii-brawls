@@ -260,8 +260,11 @@ export default async function game(scene: Scene) {
       type1: 'snowBall',
       type2: 'mob',
       onCollision: async (snowBallId, mobId) => {
+        const mobHp = damageMob(mobId, snowBallId, scene)
         purge(scene.state, snowBallId)
-        const x = damageMob(mobId, snowBallId, scene)
+        if (mobHp === 0) {
+          purgeMob(mobId, scene)
+        }
 
         const condition = scene.state.conditions.get(mobId)
 
@@ -284,11 +287,7 @@ export default async function game(scene: Scene) {
           mobSprite.character.tint = 0xffffff
           scene.state.conditions.set(mobId, 'normal')
         }
-
-        if (x === 0) {
-          purgeMob(mobId, scene)
-        }
-      },
+      }
     },
     {
       type1: 'snowBall',

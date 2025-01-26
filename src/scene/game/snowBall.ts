@@ -6,7 +6,7 @@ import { increaseMass, START_MASS } from './player'
 
 // CONFIG
 const SPEED = 3
-const SNOWBALL_AREA_FACTOR = 0.3
+export const SNOWBALL_AREA_FACTOR = 0.3
 
 export const COOLDOWN = 20
 

@@ -13,7 +13,7 @@ import { type Scene } from '~/type'
 const DENSITY = 1
 export const MIN_MASS = 500
 export const START_MASS = MIN_MASS * 2
-const MAX_MASS = 50000
+export const MAX_MASS = 50000
 
 const SNOW_GROWTH_FACTOR = 5
 

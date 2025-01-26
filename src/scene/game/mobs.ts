@@ -13,11 +13,13 @@ import { getNextId, purge, state, type EntityId } from '~/data'
 import type { Scene, TextureName } from '~/type'
 import { normalize, scale, subtract } from '~/util/vector2d'
 import * as V from '~/util/vector2d'
+import { MAX_MASS, START_MASS } from './player'
+import { SNOWBALL_AREA_FACTOR } from './snowBall'
 
 const MAXIMUM_SPEED = 1.5
 const TNT_COUNTDOWN_TIME = 120
 
-export const FULL_HP = 3
+export const FULL_HP = 5
 
 // This breaks if imported in different file, WTF
 export enum MobType {
@@ -413,14 +415,29 @@ export function purgeMob(mobId: EntityId, scene: Scene) {
 
 export const damageMob = (
   mobId: EntityId,
-  _snowballId: EntityId,
-  scene: Scene,
+  snowballId: EntityId,
+  scene: Scene
 ) => {
-  console.log({ mobId })
   const mobHp = scene.state.mobHps.get(mobId)!
-  // TODO: compute damage from snowball mass
-  const damage = 1
+  const damage = computeDamage(snowballId)
+  console.log({ damage })
   const newHp = Math.max(mobHp - damage, 0)
   scene.state.mobHps.set(mobId, newHp)
   return newHp
+}
+
+const SNOWBALL_MIN_MASS = START_MASS * SNOWBALL_AREA_FACTOR
+const SNOWBALL_MAX_MASS = MAX_MASS * SNOWBALL_AREA_FACTOR
+const computeDamage = (snowballId: EntityId) => {
+  const mass = state.masses.get(snowballId)!
+  return normalizeToHtp(mass)
+}
+
+const MIN_HP = 1
+function normalizeToHtp(
+  value: number,
+): number {
+  return ((
+    value - SNOWBALL_MIN_MASS
+  ) * (FULL_HP - MIN_HP)) / (SNOWBALL_MAX_MASS - SNOWBALL_MIN_MASS) + MIN_HP;
 }
