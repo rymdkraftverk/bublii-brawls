@@ -421,7 +421,7 @@ export const damageMob = (
 ) => {
   const mobHp = scene.state.mobHps.get(mobId)!
   const damage = computeDamage(snowballId)
-  console.log({ damage })
+  // console.log({ damage })
   const newHp = Math.max(mobHp - damage, 0)
   scene.state.mobHps.set(mobId, newHp)
   return newHp
