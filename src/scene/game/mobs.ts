@@ -300,7 +300,7 @@ export default async function mobs(scene: Scene, screenShake: any, sound: any) {
         }
 
         screenShake.add(1)
-        sound.explosion.volume(0.2)
+        sound.explosion.volume(0.1)
         sound.explosion.play()
       }
     }
