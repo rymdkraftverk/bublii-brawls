@@ -16,7 +16,7 @@ import * as V from '~/util/vector2d'
 import { MAX_MASS, START_MASS } from './player'
 import { SNOWBALL_AREA_FACTOR } from './snowBall'
 
-const MAXIMUM_SPEED = 1
+const MAXIMUM_SPEED = 0.5
 const TNT_COUNTDOWN_TIME = 120
 
 export const FULL_HP = 5
