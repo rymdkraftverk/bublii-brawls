@@ -88,6 +88,8 @@ const unBublé = (scene: Scene, playerId: EntityId) => {
   s.textures = textures.get(playerId)!.map((x) => scene.textures[x])
   s.play()
   state.bublii.set(playerId, false)
+
+  scene.sound['coin'].play()
 }
 
 export const feed = (playerId: EntityId, snowMass: SnowMass, scene: Scene) => {
