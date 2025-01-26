@@ -73,11 +73,29 @@ export function purge(state: State, id: EntityId) {
   state.velocities.delete(id)
   state.facings.delete(id)
   state.masses.delete(id)
+
+  const snowPatchIndex = state.typeToIds.snowPatch.indexOf(id)
+  if (snowPatchIndex > -1) state.typeToIds.snowPatch.splice(snowPatchIndex, 1)
+
+  const playerIndex = state.typeToIds.player.indexOf(id)
+  if (playerIndex > -1) state.typeToIds.player.splice(playerIndex, 1)
+
+  const mobIndex = state.typeToIds.mob.indexOf(id)
+  if (mobIndex > -1) state.typeToIds.mob.splice(mobIndex, 1)
+
+  const hazardIndex = state.typeToIds.hazard.indexOf(id)
+  if (hazardIndex > -1) state.typeToIds.hazard.splice(hazardIndex, 1)
+
+  const snowBallIndex = state.typeToIds.snowBall.indexOf(id)
+  if (snowBallIndex > -1) state.typeToIds.snowBall.splice(snowBallIndex, 1)
+
+  /*
   state.typeToIds.snowPatch = state.typeToIds.snowPatch.filter((x) => x !== id)
   state.typeToIds.player = state.typeToIds.player.filter((x) => x !== id)
   state.typeToIds.mob = state.typeToIds.mob.filter((x) => x !== id)
   state.typeToIds.hazard = state.typeToIds.hazard.filter((x) => x !== id)
   state.typeToIds.snowBall = state.typeToIds.snowBall.filter((x) => x !== id)
+  */
   state.snowMasses.delete(id)
   state.aims.delete(id)
   state.throwSnowBallIsOnCooldown.delete(id)
