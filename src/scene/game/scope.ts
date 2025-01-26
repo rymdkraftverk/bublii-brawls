@@ -30,25 +30,18 @@ const render = (g: Graphics, playerId: EntityId) => {
 
   if (!aim) return
 
-  const { x, y } = getCoordinates(
-    playerPosition.x,
-    playerPosition.y,
-    50,
-    aim
-  )
+  const { x, y } = getCoordinates(playerPosition.x, playerPosition.y, 50, aim)
 
-  g
-    .circle(x, y, 3)
-    .fill({ color: '#fc03c6', alpha: 1 })
+  g.circle(x, y, 3).fill({ color: '#fc03c6', alpha: 1 })
 }
 
 const getCoordinates = (
   x: number,
   y: number,
   distance: number,
-  angle: number
+  angle: number,
 ) => {
-  const xB = x + distance * Math.cos(angle);
-  const yB = y + distance * Math.sin(angle);
-  return { x: xB, y: yB };
+  const xB = x + distance * Math.cos(angle)
+  const yB = y + distance * Math.sin(angle)
+  return { x: xB, y: yB }
 }

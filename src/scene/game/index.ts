@@ -219,9 +219,11 @@ export default async function game(scene: Scene) {
           return
         }
 
-        const fireDamage = state.types.get(_hazard) === 'tnt' ? ( 50000 / 7.5 )  : 500
+        const fireDamage =
+          state.types.get(_hazard) === 'tnt' ? 50000 / 7.5 : 500
 
         increaseMass(player, -1 * fireDamage, scene)
+        console.log({ fireDamage })
         const condition = scene.state.conditions.get(player)
 
         if (condition === 'normal') {
