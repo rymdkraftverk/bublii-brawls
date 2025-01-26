@@ -273,6 +273,9 @@ export default async function game(scene: Scene) {
 
           const mobSprite = mobSprites.get(mobId)!
 
+          // this is undefined if the mob is dead
+          if (!mobSprite) return
+
           const animation = scene.animate.sine({
             onUpdate: (value) => {
               const getR = deNormalizeRange(255, 0)
@@ -287,7 +290,7 @@ export default async function game(scene: Scene) {
           mobSprite.character.tint = 0xffffff
           scene.state.conditions.set(mobId, 'normal')
         }
-      }
+      },
     },
     {
       type1: 'snowBall',
