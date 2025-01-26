@@ -7,7 +7,8 @@ const RADIUS = 4 // CONFIG
 const START_X = 10
 const START_Y = 10
 const DIAMETER = RADIUS * 2
-const START_SNOW_MASS: SnowMass = 5
+const START_SNOW_FROM_MASS: SnowMass = 0
+const START_SNOW_TO_MASS: SnowMass = 5
 const TYPE = 'snowPatch'
 
 export const letIt = (
@@ -21,13 +22,15 @@ export const letIt = (
       state.positions.set(id, { x, y })
 
       state.radii.set(id, RADIUS)
-      state.snowMasses.set(id, START_SNOW_MASS)
+      state.snowMasses.set(id, START_SNOW_FROM_MASS)
       state.typeToIds[TYPE].push(id)
     }
   }
 
   const snow = graphics(scene.container)
   snow.zIndex = -99
+
+  fall(START_SNOW_TO_MASS, scene)
 
   render(snow)
   // Grow snow
@@ -38,6 +41,13 @@ export const letIt = (
   scene.timer.repeatEvery(4, (_time, _delta) => {
     render(snow)
   })
+}
+
+const fall = async (layerCount: number, scene: Scene) => {
+  for (let i = 0; i < layerCount; i++) {
+    await scene.timer.delay(20)
+    growSnow()
+  }
 }
 
 const render = (snow: Graphics) => {
