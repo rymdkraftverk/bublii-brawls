@@ -2,7 +2,6 @@ import {
   animatedSprite,
   container,
   createObjectPool,
-  graphics,
   sprite,
   type ObjectPool,
   type Position,
@@ -15,7 +14,7 @@ import { getNextId, purge, state, type EntityId } from '~/data'
 import type { Scene, TextureName } from '~/type'
 import { normalize, scale, subtract } from '~/util/vector2d'
 import * as V from '~/util/vector2d'
-import { heal, MAX_MASS, START_MASS } from './player'
+import { MAX_MASS, START_MASS } from './player'
 import { SNOWBALL_AREA_FACTOR } from './snowBall'
 
 const MAXIMUM_SPEED = 0.5
@@ -289,15 +288,12 @@ export default async function mobs(scene: Scene, screenShake) {
         hazardSprite.animationSpeed = 0.1
         hazardSprite.loop = false
         hazardSprite.play()
+        character.visible = false
+        weapon.visible = false
         hazardSprite.onComplete = () => {
-          con.visible = false
           purgeMob(mobId, scene)
           purge(scene.state, hazard)
         }
-
-        character.visible = false
-        weapon.visible = false
-
         screenShake.add(1)
       }
     }
