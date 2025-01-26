@@ -4,7 +4,7 @@ import * as snowBall from './snowBall'
 import * as bubble from './bubble'
 import { state } from '~/data'
 
-const PLAYER_ACCELERATION = 10
+const PLAYER_ACCELERATION = 5
 
 export default function controls(scene: Scene, gamepadIndex: number) {
   scene.timer.repeatEvery(1, (_time, delta) => {

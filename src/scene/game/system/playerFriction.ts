@@ -2,7 +2,7 @@ import { state } from '~/data'
 import type { Scene } from '~/type'
 import * as V from '~/util/vector2d'
 
-const frictionCoefficient = 40
+const frictionCoefficient = 20
 
 export function applyPlayerFriction(scene: Scene) {
   scene.timer.repeatEvery(1, (_time, delta) => {

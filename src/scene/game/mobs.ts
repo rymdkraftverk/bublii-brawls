@@ -14,7 +14,7 @@ import type { Scene, TextureName } from '~/type'
 import { normalize, scale, subtract } from '~/util/vector2d'
 import * as V from '~/util/vector2d'
 
-const MAXIMUM_SPEED = 3
+const MAXIMUM_SPEED = 1.5
 const TNT_COUNTDOWN_TIME = 120
 
 // This breaks if imported in different file, WTF
