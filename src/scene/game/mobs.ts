@@ -215,8 +215,10 @@ export default async function mobs(scene: Scene, screenShake: any, sound: any) {
       hazardSprite.textures = projectileTextureMap[wave.type].map(
         (x) => scene.textures[x],
       )
+      hazardSprite.anchor = 0
       hazardSprite.position = { x: 15, y: 8 }
       hazardSprite.animationSpeed = 0.1
+      hazardSprite.loop = true
       hazardSprite.play()
       hazardSprite.anchor.y = 0.5
 
@@ -283,7 +285,8 @@ export default async function mobs(scene: Scene, screenShake: any, sound: any) {
           'explosion_0-7',
         ]
         hazardSprite.textures = explosionTextures.map((x) => scene.textures[x])
-        hazardSprite.anchor = 0.5
+        hazardSprite.anchor.x = 0.5
+        hazardSprite.anchor.y = 0.2
         hazardSprite.scale = 5
         hazardSprite.animationSpeed = 0.1
         hazardSprite.loop = false
@@ -293,6 +296,7 @@ export default async function mobs(scene: Scene, screenShake: any, sound: any) {
         hazardSprite.onComplete = () => {
           purgeMob(mobId, scene)
           purge(scene.state, hazard)
+          hazardSprite.loop = true
         }
 
         screenShake.add(1)
