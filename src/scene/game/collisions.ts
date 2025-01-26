@@ -13,11 +13,11 @@ export default function collisions(
   collisionConfigs: CollisionConfig[],
 ) {
   scene.timer.repeatEvery(4, () => {
-    for (const { type1, type2, onCollision } of collisionConfigs) {
+    collisionConfigs.forEach(({ type1, type2, onCollision }) => {
       const ids1 = scene.state.typeToIds[type1]
       const ids2 = scene.state.typeToIds[type2]
 
-      for (const id1 of ids1) {
+      ids1.forEach((id1) => {
         const position1 = scene.state.positions.get(id1)
         const radius1 = scene.state.radii.get(id1)
 
@@ -34,10 +34,10 @@ export default function collisions(
           return
         }
 
-        for (const id2 of ids2) {
+        ids2.forEach((id2) => {
           // we don't want to collide once "in each direction" when checking if
           // players collide with other players
-          if (type1 == type2 && id1 <= id2) continue
+          if (type1 == type2 && id1 <= id2) return
 
           const position2 = scene.state.positions.get(id2)
           const radius2 = scene.state.radii.get(id2)
@@ -46,21 +46,21 @@ export default function collisions(
             console.warn(
               `Collision detection failed for type "${type2}", id "${id2}" (no position) (was gonna check with "${type1}")`,
             )
-            continue
+            return
           }
           if (!radius2) {
             console.warn(
               `Collision detection failed for type "${type2}", id "${id2}" (no radius) (was gonna check with "${type1}")`,
             )
-            continue
+            return
           }
 
           const distance = getDistance(position1, position2)
           if (distance < radius1 + radius2) {
             onCollision(id1, id2)
           }
-        }
-      }
-    }
+        })
+      })
+    })
   })
 }
