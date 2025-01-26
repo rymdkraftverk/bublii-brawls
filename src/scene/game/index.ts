@@ -15,7 +15,7 @@ import { applyPlayerFriction } from './system/playerFriction'
 import mobs, { purgeMob } from './mobs'
 import * as V from '~/util/vector2d'
 import debug from './debug'
-import { feed, heal, increaseMass, START_MASS } from './player'
+import { feed, heal, increaseMass, START_MASS, bublé } from './player'
 import { deNormalizeRange, grid } from 'tiny-toolkit'
 
 export default async function game(scene: Scene) {
@@ -231,7 +231,13 @@ export default async function game(scene: Scene) {
           playerSprite.tint = 0xffffff
           scene.state.conditions.set(player, 'normal')
         }
-      },
+
+
+        const newMass = scene.state.masses.get(player)!
+        if (newMass < START_MASS) {
+          bublé(scene, player)
+        }
+      }
     },
     {
       type1: 'snowBall',

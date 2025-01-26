@@ -21,9 +21,9 @@ export const setMass = (entityId: EntityId, mass: Mass, scene: Scene) => {
   const newMass = Math.min(Math.max(mass, MIN_MASS), MAX_MASS)
   scene.state.masses.set(entityId, newMass)
 
+    /*
   if (scene.state.types.get(entityId) == 'player') {
     const isBublé = state.bublii.get(entityId) ?? false
-
     if (!isBublé && newMass < START_MASS) {
       bublé(scene, entityId)
       return
@@ -31,6 +31,7 @@ export const setMass = (entityId: EntityId, mass: Mass, scene: Scene) => {
       unBublé(scene, entityId)
     }
   }
+    */
 
   const newRadius = (newMass / DENSITY) ** 0.5 / Math.PI
   const spriteScale = newRadius * getScaleFactor(scene, entityId)
@@ -58,9 +59,16 @@ export const heal = (
 ) => {
   const snowBallMass = state.masses.get(snowballId)!
   increaseMass(playerId, snowBallMass, scene)
+
+  const newMass = scene.state.masses.get(playerId)!
+  const isBublé = state.bublii.get(playerId) ?? false
+
+  if (isBublé && newMass > START_MASS) {
+      unBublé(scene, playerId)
+  }
 }
 
-const bublé = (scene: Scene, playerId: EntityId) => {
+export const bublé = (scene: Scene, playerId: EntityId) => {
   const s = sprites.get(playerId)! as AnimatedSprite
   s.loop = true
   s.textures = [
