@@ -294,13 +294,16 @@ export default async function mobs(scene: Scene) {
 
           return { playerId: pId, distance: distance }
         })
-        .reduce((previousValue, otherCandidate) => {
-          if (otherCandidate.distance < previousValue.distance) {
-            return otherCandidate
-          }
+        .reduce(
+          (previousValue, otherCandidate) => {
+            if (otherCandidate.distance < previousValue.distance) {
+              return otherCandidate
+            }
 
-          return previousValue
-        })
+            return previousValue
+          },
+          { playerId: targetMap.get(mobId)!, distance: Number.MAX_VALUE },
+        )
 
       targetMap.set(mobId, playerId)
     })
