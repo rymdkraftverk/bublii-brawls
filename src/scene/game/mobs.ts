@@ -59,7 +59,29 @@ const hazardRadiusMap: Record<MobType, number> = {
 }
 
 type Wave = { type: MobType }
-const waves: Wave[] = [{ type: MobType.FLAMETHROWER }]
+const waves: Wave[] = [
+  { type: MobType.FLAMETHROWER },
+  { type: MobType.FLAMETHROWER },
+  { type: MobType.FLAMETHROWER },
+  { type: MobType.FLAMETHROWER },
+  { type: MobType.FLAMETHROWER },
+  { type: MobType.FLAMETHROWER },
+  { type: MobType.FLAMETHROWER },
+  { type: MobType.FLAMETHROWER },
+  { type: MobType.FLAMETHROWER },
+  { type: MobType.FLAMETHROWER },
+  { type: MobType.FLAMETHROWER },
+  { type: MobType.FLAMETHROWER },
+  { type: MobType.FLAMETHROWER },
+  { type: MobType.FLAMETHROWER },
+  { type: MobType.FLAMETHROWER },
+  { type: MobType.FLAMETHROWER },
+  { type: MobType.FLAMETHROWER },
+  { type: MobType.FLAMETHROWER },
+  { type: MobType.FLAMETHROWER },
+  { type: MobType.FLAMETHROWER },
+  { type: MobType.FLAMETHROWER },
+]
 
 const gfxMap = new Map<
   EntityId,
@@ -236,13 +258,6 @@ export default async function mobs(scene: Scene) {
     }
   }
 
-  createMob(wave)
-  // TODO: Enable for more waves
-  scene.timer.repeatEvery(300, () => {
-    createMob(wave)
-    // startWave(scene, wave)
-  })
-
   function render() {
     for (const mobId of scene.state.typeToIds.mob) {
       const position = scene.state.positions.get(mobId)!
@@ -356,6 +371,11 @@ export default async function mobs(scene: Scene) {
       }
     })
   })
+
+  for await (const [index, wave] of waves.entries()) {
+    createMob(wave)
+    await scene.timer.delay(Math.max(60, 300 - index * 30))
+  }
 }
 
 export function purgeMob(mobId: EntityId, scene: Scene) {

@@ -1,4 +1,4 @@
-import { animatedSprite, sprite } from 'alchemy-engine'
+import { animatedSprite } from 'alchemy-engine'
 import { toDegrees } from 'tiny-toolkit'
 import { getNextId, sprites, state, type EntityId, type Radian } from '~/data'
 import type { Scene, TextureName } from '~/type'
