@@ -16,7 +16,7 @@ import * as V from '~/util/vector2d'
 import { MAX_MASS, START_MASS } from './player'
 import { SNOWBALL_AREA_FACTOR } from './snowBall'
 
-const MAXIMUM_SPEED = 1.5
+const MAXIMUM_SPEED = 1
 const TNT_COUNTDOWN_TIME = 120
 
 export const FULL_HP = 5
@@ -64,31 +64,31 @@ const hazardRadiusMap: Record<MobType, number> = {
 
 type Wave = { type: MobType }
 const waves: Wave[] = [
-  { type: MobType.TNT },
+  // { type: MobType.TNT },
   { type: MobType.FLAMETHROWER },
-  { type: MobType.TNT },
+  // { type: MobType.TNT },
   { type: MobType.FLAMETHROWER },
-  { type: MobType.TNT },
+  // { type: MobType.TNT },
   { type: MobType.FLAMETHROWER },
-  { type: MobType.TNT },
+  // { type: MobType.TNT },
   { type: MobType.FLAMETHROWER },
-  { type: MobType.TNT },
+  // { type: MobType.TNT },
   { type: MobType.FLAMETHROWER },
-  { type: MobType.TNT },
+  // { type: MobType.TNT },
   { type: MobType.FLAMETHROWER },
-  { type: MobType.TNT },
+  // { type: MobType.TNT },
   { type: MobType.FLAMETHROWER },
-  { type: MobType.TNT },
+  // { type: MobType.TNT },
   { type: MobType.FLAMETHROWER },
-  { type: MobType.TNT },
+  // { type: MobType.TNT },
   { type: MobType.FLAMETHROWER },
-  { type: MobType.TNT },
+  // { type: MobType.TNT },
   { type: MobType.FLAMETHROWER },
-  { type: MobType.TNT },
+  // { type: MobType.TNT },
   { type: MobType.FLAMETHROWER },
-  { type: MobType.TNT },
+  // { type: MobType.TNT },
   { type: MobType.FLAMETHROWER },
-  { type: MobType.TNT },
+  // { type: MobType.TNT },
 ]
 
 export const mobSprites = new Map<
@@ -393,7 +393,7 @@ export default async function mobs(scene: Scene) {
 
   for await (const [index, wave] of waves.entries()) {
     createMob(wave)
-    await scene.timer.delay(Math.max(70, 300 - index * 15))
+    await scene.timer.delay(Math.max(120, 500 - index * 10))
   }
 }
 
@@ -417,7 +417,7 @@ export function purgeMob(mobId: EntityId, scene: Scene) {
 export const damageMob = (
   mobId: EntityId,
   snowballId: EntityId,
-  scene: Scene
+  scene: Scene,
 ) => {
   const mobHp = scene.state.mobHps.get(mobId)!
   const damage = computeDamage(snowballId)
@@ -435,10 +435,10 @@ const computeDamage = (snowballId: EntityId) => {
 }
 
 const MIN_HP = 1
-function normalizeToHtp(
-  value: number,
-): number {
-  return ((
-    value - SNOWBALL_MIN_MASS
-  ) * (FULL_HP - MIN_HP)) / (SNOWBALL_MAX_MASS - SNOWBALL_MIN_MASS) + MIN_HP;
+function normalizeToHtp(value: number): number {
+  return (
+    ((value - SNOWBALL_MIN_MASS) * (FULL_HP - MIN_HP)) /
+      (SNOWBALL_MAX_MASS - SNOWBALL_MIN_MASS) +
+    MIN_HP
+  )
 }
