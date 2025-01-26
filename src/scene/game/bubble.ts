@@ -29,6 +29,7 @@ const itGoesPop = (scene: Scene, playerId: EntityId) => {
     s.play()
     s.loop = false
     s.onComplete = async () => {
+        s.onFrameChange = () => { }
         s.visible = false
         await fall(snowmass, scene)
         state.conditions.set(playerId, 'normal')
