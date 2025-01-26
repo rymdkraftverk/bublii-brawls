@@ -59,7 +59,7 @@ const weaponPositionMap: Record<MobType, Position> = {
 }
 
 const hazardRadiusMap: Record<MobType, number> = {
-  [MobType.FLAMETHROWER]: 15,
+  [MobType.FLAMETHROWER]: 20,
   [MobType.TNT]: 100,
   [MobType.MOLOTOV]: 100,
 }
@@ -231,7 +231,7 @@ export default async function mobs(scene: Scene) {
 
         scene.state.positions.set(hazard, {
           y: mobPosition.y + 5,
-          x: mobFacing === 'left' ? mobPosition.x - 60 : mobPosition.x + 60,
+          x: mobFacing === 'left' ? mobPosition.x - 80 : mobPosition.x + 80,
         })
       })
     } else if (wave.type === MobType.TNT) {
