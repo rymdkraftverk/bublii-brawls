@@ -113,6 +113,10 @@ export default async function game(scene: Scene) {
       score.position.x = scene.app.screen.width / 2 - score.width / 2
       score.position.y = 40
       scene.state.alchemy.paused = true
+
+      music.blue_brawls.stop()
+      music.reptile_dysfunction.volume(0.5)
+      music.reptile_dysfunction.play()
     }
   })
 
