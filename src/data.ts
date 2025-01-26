@@ -57,6 +57,7 @@ export type State = {
   snowBallLaunchers: Map<SnowBallId, PlayerId>
   throwSnowBallIsOnCooldown: Map<EntityId, boolean>
   bublii: Map<EntityId, boolean>
+  mobHps: Map<EntityId, number>
 }
 
 export function purge(state: State, id: EntityId) {
@@ -110,6 +111,7 @@ export const state: State = {
   snowBallLaunchers: new Map(),
   throwSnowBallIsOnCooldown: new Map(),
   bublii: new Map(),
+  mobHps: new Map(),
 }
 
 export type Type = keyof typeof state.typeToIds

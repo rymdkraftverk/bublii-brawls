@@ -17,6 +17,8 @@ import * as V from '~/util/vector2d'
 const MAXIMUM_SPEED = 1.5
 const TNT_COUNTDOWN_TIME = 120
 
+export const FULL_HP = 3
+
 // This breaks if imported in different file, WTF
 export enum MobType {
   FLAMETHROWER = 'flamethrower',
@@ -141,6 +143,7 @@ export default async function mobs(scene: Scene) {
     scene.state.positions.set(mobId, mobPosition)
     scene.state.facings.set(mobId, 'right')
     scene.state.radii.set(mobId, 10)
+    scene.state.mobHps.set(mobId, FULL_HP)
 
     const poolObject = mobPool.get()
     const { con, character, weapon, hazardSprite } = poolObject
@@ -390,4 +393,18 @@ export function purgeMob(mobId: EntityId, scene: Scene) {
     purge(scene.state, mobToHazardMap.get(mobId)!)
     gfxMap.delete(mobId)
   }
+}
+
+export const damageMob = (
+  mobId: EntityId,
+  _snowballId: EntityId,
+  scene: Scene
+) => {
+  console.log({ mobId })
+  const mobHp = scene.state.mobHps.get(mobId)!
+  // TODO: compute damage from snowball mass
+  const damage = 1
+  const newHp = Math.max(mobHp - damage, 0)
+  scene.state.mobHps.set(mobId, newHp)
+  return newHp
 }
