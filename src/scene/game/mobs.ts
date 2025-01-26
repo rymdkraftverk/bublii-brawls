@@ -122,7 +122,7 @@ let mobPool: ObjectPool<{
 const targetMap = new Map<EntityId, number>()
 const mobToHazardMap = new Map<EntityId, EntityId>()
 
-export default async function mobs(scene: Scene, screenShake: any) {
+export default async function mobs(scene: Scene, screenShake: any, sound: any) {
   const wave = waves[0]
 
   if (!wave) {
@@ -294,7 +294,10 @@ export default async function mobs(scene: Scene, screenShake: any) {
           purgeMob(mobId, scene)
           purge(scene.state, hazard)
         }
+
         screenShake.add(1)
+        sound.explosion.volume(0.2)
+        sound.explosion.play()
       }
     }
   }
