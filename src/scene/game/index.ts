@@ -42,8 +42,7 @@ export default async function game(scene: Scene) {
   snow.letIt(
     app.screen.width - 30,
     app.screen.height - 30,
-    container,
-    repeatEvery,
+    scene
   )
 
   const c = createContainer(container)

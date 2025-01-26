@@ -1,9 +1,7 @@
 import { graphics } from 'alchemy-engine'
-import type { TimerInstance } from 'alchemy-engine/dist/src/runtime/internal/timer'
-import { Container, Graphics } from 'pixi.js'
+import { Graphics } from 'pixi.js'
 import { getNextId, state, type EntityId, type SnowMass } from '~/data'
-
-type RepeatEvery = TimerInstance['repeatEvery']
+import type { Scene } from '~/type'
 
 const RADIUS = 4 // CONFIG
 const START_X = 10
@@ -15,14 +13,8 @@ const TYPE = 'snowPatch'
 export const letIt = (
   width: number,
   height: number,
-  container: Container,
-  repeatEvery: RepeatEvery,
+  scene: Scene,
 ) => {
-  init(width, height)
-  startRender(container, repeatEvery)
-}
-
-const init = (width: number, height: number) => {
   for (let x = RADIUS + START_X * RADIUS; x < width; x += DIAMETER) {
     for (let y = RADIUS + START_Y * RADIUS; y < height; y += DIAMETER) {
       const id = getNextId()
@@ -33,19 +25,17 @@ const init = (width: number, height: number) => {
       state.typeToIds[TYPE].push(id)
     }
   }
-}
 
-const startRender = (container: Container, repeatEvery: RepeatEvery) => {
-  const snow = graphics(container)
+  const snow = graphics(scene.container)
   snow.zIndex = -99
 
   render(snow)
   // Grow snow
-  repeatEvery(1000, () => {
+  scene.timer.repeatEvery(1000, () => {
     growSnow()
   })
 
-  repeatEvery(4, (_time, _delta) => {
+  scene.timer.repeatEvery(4, (_time, _delta) => {
     render(snow)
   })
 }
