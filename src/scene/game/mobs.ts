@@ -411,9 +411,11 @@ export async function purgeMob(mobId: EntityId, scene: Scene) {
           obj.con.scale = getScale(value)
         },
       })
+
       obj.character.visible = false
       obj.weapon.visible = false
       obj.hazardSprite.visible = false
+      obj.con.scale.set(startScale)
       mobPool.release(obj)
       mobSprites.delete(mobId)
     }
