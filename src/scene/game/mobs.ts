@@ -286,7 +286,7 @@ export default async function mobs(scene: Scene, screenShake: any, sound: any) {
         ]
         hazardSprite.textures = explosionTextures.map((x) => scene.textures[x])
         hazardSprite.anchor.x = 0.5
-        hazardSprite.anchor.y = 0.2
+        hazardSprite.anchor.y = 0.8
         hazardSprite.scale = 5
         hazardSprite.animationSpeed = 0.1
         hazardSprite.loop = false

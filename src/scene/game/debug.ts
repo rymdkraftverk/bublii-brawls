@@ -25,7 +25,7 @@ export default function debug(scene: Scene) {
   scene.timer.repeatEvery(1, () => {
     debugGraphics.clear()
     // debugType('mob')
-    debugType('hazard')
+    // debugType('hazard')
     // debugType('snowBall')
     // debugType('snowPatch')
     // debugType('player')
