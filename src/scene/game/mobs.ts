@@ -256,8 +256,6 @@ export default async function mobs(scene: Scene) {
         hazardSprite.play()
         hazardSprite.onComplete = () => {
           con.visible = false
-          mobPool.release(poolObject)
-          // purge(scene.state, hazard)
           purgeMob(mobId, scene)
         }
 
@@ -393,14 +391,17 @@ export default async function mobs(scene: Scene) {
 export function purgeMob(mobId: EntityId, scene: Scene) {
   purge(scene.state, mobId)
   if (mobPool) {
-    const obj = mobSprites.get(mobId)!
-    mobPool.release(obj)
-    obj.character.visible = false
-    obj.weapon.visible = false
-    obj.hazardSprite.visible = false
+    const obj = mobSprites.get(mobId)
+
+    if (obj) {
+      mobPool.release(obj)
+      obj.character.visible = false
+      obj.weapon.visible = false
+      obj.hazardSprite.visible = false
+      mobSprites.delete(mobId)
+    }
 
     purge(scene.state, mobToHazardMap.get(mobId)!)
-    mobSprites.delete(mobId)
   }
 }
 
