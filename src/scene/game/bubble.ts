@@ -3,7 +3,7 @@ import { normalize, scale, subtract } from '~/util/vector2d'
 import { sprites, state, type EntityId } from '~/data'
 import type { Scene } from '~/type'
 import { MIN_MASS, setMass } from './player'
-import { growSnow } from './snow'
+import { fall } from './snow'
 import type { AnimatedSprite } from 'pixi.js'
 
 const MAXIMUM_SPEED = 3
@@ -28,11 +28,8 @@ const itGoesPop = (scene: Scene, playerId: EntityId) => {
     s.onComplete = async () => {
         state.conditions.set(playerId, 'normal')
         setMass(playerId, MIN_MASS, scene)
+        fall(snowmass, scene)
 
-        for (let i = 0; i < snowmass; i++) {
-            await scene.timer.delay(10)
-            growSnow()
-        }
     }
 }
 

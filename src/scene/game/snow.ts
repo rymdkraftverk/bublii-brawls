@@ -43,7 +43,7 @@ export const letIt = (
   })
 }
 
-const fall = async (layerCount: number, scene: Scene) => {
+export const fall = async (layerCount: number, scene: Scene) => {
   for (let i = 0; i < layerCount; i++) {
     await scene.timer.delay(20)
     growSnow()
