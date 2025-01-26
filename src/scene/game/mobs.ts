@@ -173,11 +173,12 @@ export default async function mobs(scene: Scene) {
     scene.state.mobHps.set(mobId, FULL_HP)
 
     const poolObject = mobPool.get()
-    const { con, character, weapon, hazardSprite } = poolObject
+    const { con, character, weapon, hazardSprite, healthbar } = poolObject
     con.visible = true
     con.scale = 1.5
     character.visible = true
     weapon.visible = true
+    healthbar.visible = true
     mobSprites.set(mobId, poolObject)
     weapon.texture = scene.textures[weaponTextureMap[wave.type]]
     weapon.position = weaponPositionMap[wave.type]
