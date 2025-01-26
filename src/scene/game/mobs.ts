@@ -305,7 +305,7 @@ export default async function mobs(scene: Scene) {
         const { con } = gfxMap.get(mobId)!
         const facing = scene.state.facings.get(mobId)
 
-        if (targetDistance < 30) {
+        if (targetDistance < 15) {
           scene.state.velocities.set(mobId, { x: 0, y: 0 })
 
           if (
