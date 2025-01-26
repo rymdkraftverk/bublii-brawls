@@ -460,6 +460,7 @@ export async function purgeMob(mobId: EntityId, scene: Scene) {
     }
 
     purge(scene.state, mobToHazardMap.get(mobId)!)
+    mobToHazardMap.delete(mobId)
   }
 }
 
