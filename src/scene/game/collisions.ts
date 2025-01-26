@@ -23,13 +23,13 @@ export default function collisions(
 
         if (!position1) {
           console.warn(
-            `Collision detection failed for type "${type1}" (no position) (was gonna check with "${type2}")`,
+            `Collision detection failed for type "${type1}", id "${id1}" (no position) (was gonna check with "${type2}")`,
           )
           return
         }
         if (!radius1) {
           console.warn(
-            `Collision detection failed for type "${type1}" (no radius) (was gonna check with "${type2}")`,
+            `Collision detection failed for type "${type1}", id "${id1}" (no radius) (was gonna check with "${type2}")`,
           )
           return
         }
@@ -44,13 +44,13 @@ export default function collisions(
 
           if (!position2) {
             console.warn(
-              `Collision detection failed for type "${type2}" (no position) (was gonna check with "${type1}")`,
+              `Collision detection failed for type "${type2}", id "${id2}" (no position) (was gonna check with "${type1}")`,
             )
             continue
           }
           if (!radius2) {
             console.warn(
-              `Collision detection failed for type "${type2}" (no radius) (was gonna check with "${type1}")`,
+              `Collision detection failed for type "${type2}", id "${id2}" (no radius) (was gonna check with "${type1}")`,
             )
             continue
           }
