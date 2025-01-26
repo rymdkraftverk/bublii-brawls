@@ -233,7 +233,11 @@ export default async function mobs(scene: Scene) {
         const hazard = getNextId()
         scene.state.typeToIds.hazard.push(hazard)
         scene.state.radii.set(hazard, hazardRadiusMap[wave.type])
-        const _mobPosition = scene.state.positions.get(mobId)!
+        const _mobPosition = scene.state.positions.get(mobId)
+
+        if (!_mobPosition) {
+          return
+        }
         scene.state.positions.set(hazard, {
           y: _mobPosition.y,
           x: _mobPosition.x,
