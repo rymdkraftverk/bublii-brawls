@@ -427,7 +427,7 @@ export default async function mobs(scene: Scene, screenShake: any, sound: any) {
 
   for await (const [index, wave] of waves.entries()) {
     createMob(wave)
-    await scene.timer.delay(Math.max(120, 500 - index * 20))
+    await scene.timer.delay(Math.max(200, 600 - index * 10))
   }
 }
 
