@@ -178,12 +178,14 @@ export default async function mobs(scene: Scene) {
     con.scale = 1.5
     character.visible = true
     weapon.visible = true
+
     const width = (FULL_HP + 1) * 10
     const pos = (width / 2) * -1
     healthbar.clear()
     healthbar.rect(pos, -25, width, 5);
     healthbar.fill(0xb54354);
     healthbar.visible = true
+
     mobSprites.set(mobId, poolObject)
     weapon.texture = scene.textures[weaponTextureMap[wave.type]]
     weapon.position = weaponPositionMap[wave.type]
@@ -446,6 +448,8 @@ export async function purgeMob(mobId: EntityId, scene: Scene) {
       obj.healthbar.visible = false
       obj.con.scale.x = startScaleX
       obj.con.scale.y = startScaleY
+      obj.con.position.x = -99
+      obj.con.position.y = -99
       mobPool.release(obj)
       mobSprites.delete(mobId)
     }
