@@ -45,7 +45,8 @@ export default function controls(scene: Scene, gamepadIndex: number) {
     scene.state.aims.set(gamepadIndex, aim)
 
     if (activeGamepad.rightTrigger > 0.5) {
-      const hasCooldown = scene.state.throwSnowBallIsOnCooldown.get(gamepadIndex)
+      const hasCooldown =
+        scene.state.throwSnowBallIsOnCooldown.get(gamepadIndex)
       // console.log({ hasCooldown })
       if (!hasCooldown) {
         const angle = scene.state.aims.get(gamepadIndex) ?? 0

@@ -182,8 +182,8 @@ export default async function mobs(scene: Scene) {
     const width = (FULL_HP + 1) * 10
     const pos = (width / 2) * -1
     healthbar.clear()
-    healthbar.rect(pos, -25, width, 5);
-    healthbar.fill(0xb54354);
+    healthbar.rect(pos, -25, width, 5)
+    healthbar.fill(0xb54354)
     healthbar.visible = true
 
     mobSprites.set(mobId, poolObject)
