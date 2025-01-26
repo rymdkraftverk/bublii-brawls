@@ -276,7 +276,7 @@ export default async function game(scene: Scene) {
               const tint = { r: getR(value), g: getR(value), b: getR(value) }
               mobSprite.character.tint = tint
             },
-            duration: 45,
+            duration: 15,
           })
 
           await scene.timer.delay(45)
@@ -293,11 +293,26 @@ export default async function game(scene: Scene) {
     {
       type1: 'snowBall',
       type2: 'player',
-      onCollision: (snowBallId, playerId) => {
+      onCollision: async (snowBallId, playerId) => {
         const launcherId = state.snowBallLaunchers.get(snowBallId)!
         if (launcherId === playerId) return
         heal(playerId, snowBallId, scene)
         purge(scene.state, snowBallId)
+
+        const playerSprite = sprites.get(playerId)!
+
+        const animation = scene.animate.sine({
+          onUpdate: (value) => {
+            const getR = deNormalizeRange(150, 255)
+            const tint = { r: getR(value), g: 255, b: 255 }
+            playerSprite.tint = tint
+          },
+          duration: 10,
+        })
+
+        await scene.timer.delay(30)
+        animation.cancel()
+        playerSprite.tint = 0xffffff
       },
     },
   ])
