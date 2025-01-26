@@ -62,31 +62,31 @@ const hazardRadiusMap: Record<MobType, number> = {
 
 type Wave = { type: MobType }
 const waves: Wave[] = [
+  { type: MobType.TNT },
   { type: MobType.FLAMETHROWER },
+  { type: MobType.TNT },
   { type: MobType.FLAMETHROWER },
+  { type: MobType.TNT },
   { type: MobType.FLAMETHROWER },
+  { type: MobType.TNT },
   { type: MobType.FLAMETHROWER },
+  { type: MobType.TNT },
   { type: MobType.FLAMETHROWER },
+  { type: MobType.TNT },
   { type: MobType.FLAMETHROWER },
+  { type: MobType.TNT },
   { type: MobType.FLAMETHROWER },
+  { type: MobType.TNT },
   { type: MobType.FLAMETHROWER },
+  { type: MobType.TNT },
   { type: MobType.FLAMETHROWER },
+  { type: MobType.TNT },
   { type: MobType.FLAMETHROWER },
+  { type: MobType.TNT },
   { type: MobType.FLAMETHROWER },
+  { type: MobType.TNT },
   { type: MobType.FLAMETHROWER },
-  { type: MobType.FLAMETHROWER },
-  { type: MobType.FLAMETHROWER },
-  { type: MobType.FLAMETHROWER },
-  { type: MobType.FLAMETHROWER },
-  { type: MobType.FLAMETHROWER },
-  { type: MobType.FLAMETHROWER },
-  { type: MobType.FLAMETHROWER },
-  { type: MobType.FLAMETHROWER },
-  { type: MobType.FLAMETHROWER },
-  { type: MobType.FLAMETHROWER },
-  { type: MobType.FLAMETHROWER },
-  { type: MobType.FLAMETHROWER },
-  { type: MobType.FLAMETHROWER },
+  { type: MobType.TNT },
 ]
 
 export const mobSprites = new Map<
@@ -161,6 +161,7 @@ export default async function mobs(scene: Scene) {
     weapon.scale = 0.5
 
     hazardSprite.visible = false
+    hazardSprite.scale = 1
 
     await scene.timer.repeatUntil(90, () => {
       const position = scene.state.positions.get(mobId)
@@ -256,10 +257,10 @@ export default async function mobs(scene: Scene) {
         hazardSprite.onComplete = () => {
           con.visible = false
           mobPool.release(poolObject)
-          purge(scene.state, hazard)
+          // purge(scene.state, hazard)
+          purgeMob(mobId, scene)
         }
 
-        purgeMob(mobId, scene)
         character.visible = false
         weapon.visible = false
       }
@@ -286,7 +287,7 @@ export default async function mobs(scene: Scene) {
         .filter((pId) => {
           return !scene.state.bublii.get(pId)
         })
-        .filter(pId => {
+        .filter((pId) => {
           return state.conditions.get(pId) !== 'popping-the-bubble'
         })
         .map((pId) => {
