@@ -115,7 +115,7 @@ export default async function game(scene: Scene) {
       scene.state.alchemy.paused = true
 
       music.blue_brawls.stop()
-      music.reptile_dysfunction.volume(0.5)
+      music.reptile_dysfunction.volume(0.25)
       music.reptile_dysfunction.play()
     }
   })
@@ -123,7 +123,7 @@ export default async function game(scene: Scene) {
   applyPlayerFriction(scene)
 
   // sound.coin.play()
-  music.blue_brawls.volume(0.2)
+  music.blue_brawls.volume(0.5)
   music.blue_brawls.loop()
   music.blue_brawls.play()
 
