@@ -18,6 +18,7 @@ import * as V from '~/util/vector2d'
 import debug from './debug'
 import { feed, heal, increaseMass, START_MASS, bublé } from './player'
 import { deNormalizeRange, grid } from 'tiny-toolkit'
+import { useAutoFullScreen } from '~/util/resize'
 
 export default async function game(scene: Scene) {
   const {
@@ -386,6 +387,7 @@ export default async function game(scene: Scene) {
   mobs(scene)
   // TODO: Remove this before release
   debug(scene)
+  useAutoFullScreen(scene)
 }
 
 const getStartPosition = grid({

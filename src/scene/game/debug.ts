@@ -6,7 +6,6 @@ export default function debug(scene: Scene) {
   const debugGraphics = graphics(scene.container)
   debugGraphics.zIndex = 99999
 
-  // @ts-expect-error
   function debugType(type: Type) {
     for (const id of scene.state.typeToIds[type]) {
       const position = scene.state.positions.get(id)
@@ -26,7 +25,7 @@ export default function debug(scene: Scene) {
   scene.timer.repeatEvery(1, () => {
     debugGraphics.clear()
     // debugType('mob')
-    // debugType('hazard')
+    debugType('hazard')
     // debugType('snowBall')
     // debugType('snowPatch')
     // debugType('player')
