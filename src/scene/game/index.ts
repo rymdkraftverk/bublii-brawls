@@ -23,7 +23,6 @@ import * as scope from './scope'
 export default async function game(scene: Scene) {
   const {
     container,
-    input: { debouncedKey },
     state,
     timer: { repeatEvery },
     sound,
@@ -46,14 +45,6 @@ export default async function game(scene: Scene) {
   const c = createContainer(container)
   c.label = 'container'
   c.position.set(200, 200)
-
-  debouncedKey(
-    'Space',
-    () => {
-      screenShake.add(1)
-    },
-    10,
-  )
 
   textures.set(0, ['player_blue_0-1', 'player_blue_0-2', 'player_blue_0-3'])
   textures.set(1, ['player_green_0-1', 'player_green_0-2', 'player_green_0-3'])
