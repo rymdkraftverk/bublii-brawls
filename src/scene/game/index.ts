@@ -13,7 +13,7 @@ import * as snow from './snow'
 import collisions from './collisions'
 import { borderPatrol } from './system/borderPatrol'
 import { applyPlayerFriction } from './system/playerFriction'
-import mobs, { damageMob, purgeMob } from './mobs'
+import mobs, { damageMob, mobSprites, purgeMob } from './mobs'
 import * as V from '~/util/vector2d'
 import debug from './debug'
 import { feed, heal, increaseMass, START_MASS, bublé } from './player'
@@ -259,9 +259,32 @@ export default async function game(scene: Scene) {
     {
       type1: 'snowBall',
       type2: 'mob',
-      onCollision: (snowBallId, mobId) => {
+      onCollision: async (snowBallId, mobId) => {
         purge(scene.state, snowBallId)
         const x = damageMob(mobId, snowBallId, scene)
+
+        const condition = scene.state.conditions.get(mobId)
+
+        if (condition === 'normal') {
+          scene.state.conditions.set(mobId, 'taking-damage')
+
+          const mobSprite = mobSprites.get(mobId)!
+
+          const animation = scene.animate.sine({
+            onUpdate: (value) => {
+              const getR = deNormalizeRange(255, 0)
+              const tint = { r: getR(value), g: getR(value), b: getR(value) }
+              mobSprite.character.tint = tint
+            },
+            duration: 45,
+          })
+
+          await scene.timer.delay(45)
+          animation.cancel()
+          mobSprite.character.tint = 0xffffff
+          scene.state.conditions.set(mobId, 'normal')
+        }
+
         if (x === 0) {
           purgeMob(mobId, scene)
         }

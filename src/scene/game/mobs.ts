@@ -89,7 +89,7 @@ const waves: Wave[] = [
   { type: MobType.FLAMETHROWER },
 ]
 
-const gfxMap = new Map<
+export const mobSprites = new Map<
   EntityId,
   {
     con: Container
@@ -145,6 +145,7 @@ export default async function mobs(scene: Scene) {
     scene.state.typeToIds.mob.push(mobId)
     const mobPosition = { x: scene.app.screen.width / 2, y: -20 }
     scene.state.positions.set(mobId, mobPosition)
+    scene.state.conditions.set(mobId, 'normal')
     scene.state.facings.set(mobId, 'right')
     scene.state.radii.set(mobId, 10)
     scene.state.mobHps.set(mobId, FULL_HP)
@@ -154,7 +155,7 @@ export default async function mobs(scene: Scene) {
     con.visible = true
     character.visible = true
     weapon.visible = true
-    gfxMap.set(mobId, poolObject)
+    mobSprites.set(mobId, poolObject)
     weapon.texture = scene.textures[weaponTextureMap[wave.type]]
     weapon.position = weaponPositionMap[wave.type]
     weapon.scale = 0.5
@@ -268,7 +269,7 @@ export default async function mobs(scene: Scene) {
   function render() {
     for (const mobId of scene.state.typeToIds.mob) {
       const position = scene.state.positions.get(mobId)!
-      const { con } = gfxMap.get(mobId)!
+      const { con } = mobSprites.get(mobId)!
       con.position = position
     }
   }
@@ -327,7 +328,7 @@ export default async function mobs(scene: Scene) {
           rightOfTargetDistance,
         )
 
-        const { con } = gfxMap.get(mobId)!
+        const { con } = mobSprites.get(mobId)!
         const facing = scene.state.facings.get(mobId)
 
         if (targetDistance < 15) {
@@ -391,14 +392,14 @@ export default async function mobs(scene: Scene) {
 export function purgeMob(mobId: EntityId, scene: Scene) {
   purge(scene.state, mobId)
   if (mobPool) {
-    const obj = gfxMap.get(mobId)!
+    const obj = mobSprites.get(mobId)!
     mobPool.release(obj)
     obj.character.visible = false
     obj.weapon.visible = false
     obj.hazardSprite.visible = false
 
     purge(scene.state, mobToHazardMap.get(mobId)!)
-    gfxMap.delete(mobId)
+    mobSprites.delete(mobId)
   }
 }
 
