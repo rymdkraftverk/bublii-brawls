@@ -29,5 +29,6 @@ export default function debug(scene: Scene) {
     // debugType('hazard')
     // debugType('snowBall')
     // debugType('snowPatch')
+    // debugType('player')
   })
 }
