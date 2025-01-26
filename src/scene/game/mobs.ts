@@ -83,6 +83,10 @@ const waves: Wave[] = [
   { type: MobType.FLAMETHROWER },
   { type: MobType.FLAMETHROWER },
   { type: MobType.FLAMETHROWER },
+  { type: MobType.FLAMETHROWER },
+  { type: MobType.FLAMETHROWER },
+  { type: MobType.FLAMETHROWER },
+  { type: MobType.FLAMETHROWER },
 ]
 
 const gfxMap = new Map<
@@ -377,7 +381,7 @@ export default async function mobs(scene: Scene) {
 
   for await (const [index, wave] of waves.entries()) {
     createMob(wave)
-    await scene.timer.delay(Math.max(60, 300 - index * 30))
+    await scene.timer.delay(Math.max(70, 300 - index * 15))
   }
 }
 
@@ -398,7 +402,7 @@ export function purgeMob(mobId: EntityId, scene: Scene) {
 export const damageMob = (
   mobId: EntityId,
   _snowballId: EntityId,
-  scene: Scene
+  scene: Scene,
 ) => {
   console.log({ mobId })
   const mobHp = scene.state.mobHps.get(mobId)!
