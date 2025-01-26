@@ -151,6 +151,14 @@ export default async function game(scene: Scene) {
           return
         }
 
+        if (state.conditions.get(p1Id) === 'popping-the-bubble') {
+          return
+        }
+
+        if (state.conditions.get(p2Id) === 'popping-the-bubble') {
+          return
+        }
+
         const p1 = scene.state.positions.get(p1Id)
         const p2 = scene.state.positions.get(p2Id)
 
@@ -201,6 +209,10 @@ export default async function game(scene: Scene) {
       onCollision: async (_hazard, player) => {
         let isBublé = state.bublii.get(player) ?? false
         if (isBublé) {
+          return
+        }
+
+        if (state.conditions.get(player) === 'popping-the-bubble') {
           return
         }
 
@@ -278,7 +290,7 @@ export default async function game(scene: Scene) {
             if (V.dotProduct(oldVelocity, north) > 0) {
               // newVelocity = { x: oldVelocity.x, y: -0.2 * oldVelocity.y }
               newVelocity = { x: 0, y: 0 }
-              newPosition = { x: oldPosition.x, y: 0 + radius + 1}
+              newPosition = { x: oldPosition.x, y: 0 + radius + 1 }
             }
             break
           case 'East':
@@ -292,7 +304,7 @@ export default async function game(scene: Scene) {
             if (V.dotProduct(oldVelocity, south) > 0) {
               // newVelocity = { x: oldVelocity.x, y: -0.2 * oldVelocity.y }
               newVelocity = { x: 0, y: 0 }
-              newPosition = { x: oldPosition.x, y: scene.app.screen.height - radius - 1}
+              newPosition = { x: oldPosition.x, y: scene.app.screen.height - radius - 1 }
             }
             break
           case 'West':
