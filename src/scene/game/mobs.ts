@@ -163,6 +163,7 @@ export default async function mobs(scene: Scene) {
     const poolObject = mobPool.get()
     const { con, character, weapon, hazardSprite } = poolObject
     con.visible = true
+    con.scale = 1.5
     character.visible = true
     weapon.visible = true
     mobSprites.set(mobId, poolObject)
