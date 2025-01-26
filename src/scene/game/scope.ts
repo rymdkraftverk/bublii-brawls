@@ -26,7 +26,10 @@ const render = (g: Graphics, playerId: EntityId) => {
   const noScope = condition === 'popping-the-bubble' || isBuble
 
   if (noScope) return
-  const aim = state.aims.get(playerId)!
+  const aim = state.aims.get(playerId)
+
+  if (!aim) return
+
   const { x, y } = getCoordinates(
     playerPosition.x,
     playerPosition.y,

@@ -23,32 +23,34 @@ export default function controls(scene: Scene, gamepadIndex: number) {
       x:
         x +
         (activeGamepad.axes.horizontal * delta * PLAYER_ACCELERATION) /
-          mass ** 0.5,
+        mass ** 0.5,
       y:
         y +
         (activeGamepad.axes.vertical * delta * PLAYER_ACCELERATION) /
-          mass ** 0.5,
+        mass ** 0.5,
     })
 
     if (
       Math.abs(activeGamepad.axes.horizontal) +
-        Math.abs(activeGamepad.axes.vertical) <
+      Math.abs(activeGamepad.axes.vertical) <
       0.2
     ) {
       scene.state.velocities.set(gamepadIndex, { x: 0, y: 0 })
     }
 
+
     if (
-      activeGamepad.axesRight.horizontal < 0.2
-      || activeGamepad.axesRight.vertical < 0.2
+      Math.abs(activeGamepad.axesRight.horizontal) +
+      Math.abs(activeGamepad.axesRight.vertical) > 0.2
     ) {
       const aim = Math.atan2(
         activeGamepad.axesRight.vertical,
         activeGamepad.axesRight.horizontal,
       )
+
       scene.state.aims.set(gamepadIndex, aim)
     } else {
-      // scene.state.aims.delete(gamepadIndex)
+      scene.state.aims.delete(gamepadIndex)
     }
 
     if (activeGamepad.rightTrigger > 0.5) {
