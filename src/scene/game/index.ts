@@ -303,7 +303,8 @@ export default async function game(scene: Scene) {
         purge(scene.state, snowBallId)
 
         const playerSprite = sprites.get(playerId)!
-
+        scene.sound['SFX_powerUp2a'].volume(0.8)
+        scene.sound['SFX_powerUp2a'].play()
         const animation = scene.animate.sine({
           onUpdate: (value) => {
             const getR = deNormalizeRange(150, 255)

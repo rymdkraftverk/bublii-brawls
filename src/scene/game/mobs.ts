@@ -435,7 +435,7 @@ export async function purgeMob(mobId: EntityId, scene: Scene) {
   purge(scene.state, mobId)
   if (mobPool) {
     const obj = mobSprites.get(mobId)
-
+    scene.sound['SFX_wrong&malus4'].play()
     if (obj) {
       const startScaleX = obj.con.scale.x
       const startScaleY = obj.con.scale.y
@@ -468,6 +468,8 @@ export const damageMob = (
   snowballId: EntityId,
   scene: Scene,
 ) => {
+  scene.sound['SFX_hit&damage2'].volume(0.8)
+  scene.sound['SFX_hit&damage2'].play()
   const mobHp = scene.state.mobHps.get(mobId)!
   const damage = computeDamage(snowballId)
   // console.log({ damage })
