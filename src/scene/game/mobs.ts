@@ -122,7 +122,7 @@ let mobPool: ObjectPool<{
 const targetMap = new Map<EntityId, number>()
 const mobToHazardMap = new Map<EntityId, EntityId>()
 
-export default async function mobs(scene: Scene, screenShake) {
+export default async function mobs(scene: Scene, screenShake: any) {
   const wave = waves[0]
 
   if (!wave) {
