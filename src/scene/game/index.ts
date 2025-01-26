@@ -383,7 +383,7 @@ export default async function game(scene: Scene) {
     },
   ])
 
-  mobs(scene)
+  mobs(scene, screenShake)
   // TODO: Remove this before release
   debug(scene)
   // This breaks everything

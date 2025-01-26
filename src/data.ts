@@ -81,6 +81,8 @@ export function purge(state: State, id: EntityId) {
   state.snowMasses.delete(id)
   state.aims.delete(id)
   state.throwSnowBallIsOnCooldown.delete(id)
+  state.bublii.delete(id)
+  state.mobHps.delete(id)
 }
 
 export const sprites: Map<EntityId, Sprite> = new Map()
