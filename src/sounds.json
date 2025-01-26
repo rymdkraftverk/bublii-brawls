@@ -4,9 +4,9 @@
     "summer-day": "summer-day.mp3",
     "explosion": "explosion.mp3",
     "SFX_collect&bonus3": "SFX_collect&bonus3.wav",
-    "SFX_wrong&malus4": "SFX_wrong&malus4.wav",
     "SFX_hit&damage2": "SFX_hit&damage2.wav",
-    "SFX_powerUp2a": "SFX_powerUp2a.wav"
+    "SFX_powerUp2a": "SFX_powerUp2a.wav",
+    "SFX_wrong&malus4": "SFX_wrong&malus4.wav"
   },
   "music": {
     "coin2": "coin2.mp3",

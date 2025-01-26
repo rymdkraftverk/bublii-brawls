@@ -360,8 +360,8 @@ export default async function mobs(scene: Scene, screenShake: any, sound: any) {
         const mobPosition = scene.state.positions.get(mobId)!
 
         // targetPosition should be to the left or to the right of the target
-        const leftOfTarget = { ...targetPosition, x: targetPosition.x - 40 }
-        const rightOfTarget = { ...targetPosition, x: targetPosition.x + 40 }
+        const leftOfTarget = { ...targetPosition, x: targetPosition.x - 80 }
+        const rightOfTarget = { ...targetPosition, x: targetPosition.x + 80 }
 
         const leftOfTargetDistance = getDistance(mobPosition, leftOfTarget)
         const rightOfTargetDistance = getDistance(mobPosition, rightOfTarget)
