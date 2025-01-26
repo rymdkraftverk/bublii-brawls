@@ -38,11 +38,18 @@ export default function controls(scene: Scene, gamepadIndex: number) {
       scene.state.velocities.set(gamepadIndex, { x: 0, y: 0 })
     }
 
-    const aim = Math.atan2(
-      activeGamepad.axesRight.vertical,
-      activeGamepad.axesRight.horizontal,
-    )
-    scene.state.aims.set(gamepadIndex, aim)
+    if (
+      activeGamepad.axesRight.horizontal < 0.2
+      || activeGamepad.axesRight.vertical < 0.2
+    ) {
+      const aim = Math.atan2(
+        activeGamepad.axesRight.vertical,
+        activeGamepad.axesRight.horizontal,
+      )
+      scene.state.aims.set(gamepadIndex, aim)
+    } else {
+      // scene.state.aims.delete(gamepadIndex)
+    }
 
     if (activeGamepad.rightTrigger > 0.5) {
       const hasCooldown =
