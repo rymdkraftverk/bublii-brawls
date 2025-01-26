@@ -263,6 +263,7 @@ export default async function mobs(scene: Scene) {
         hazardSprite.onComplete = () => {
           con.visible = false
           purgeMob(mobId, scene)
+          purge(scene.state, hazard)
         }
 
         character.visible = false
