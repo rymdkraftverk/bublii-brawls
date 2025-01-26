@@ -26,10 +26,12 @@ const itGoesPop = (scene: Scene, playerId: EntityId) => {
     s.play()
     s.loop = false
     s.onComplete = async () => {
+        s.visible = false
+        await fall(snowmass, scene)
         state.conditions.set(playerId, 'normal')
         setMass(playerId, MIN_MASS, scene)
-        fall(snowmass, scene)
         bublé(scene, playerId)
+        s.visible = true
     }
 }
 
