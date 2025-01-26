@@ -30,6 +30,10 @@ export default function controls(scene: Scene, gamepadIndex: number) {
           mass ** 0.5,
     })
 
+    if (Math.abs(activeGamepad.axes.horizontal) + Math.abs(activeGamepad.axes.vertical) < 0.2) {
+      scene.state.velocities.set(gamepadIndex, {x:0, y:0})
+    }
+
     const aim = Math.atan2(
       activeGamepad.axesRight.vertical,
       activeGamepad.axesRight.horizontal,
