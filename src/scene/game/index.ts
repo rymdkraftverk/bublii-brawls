@@ -299,7 +299,7 @@ export default async function game(scene: Scene) {
             if (V.dotProduct(oldVelocity, north) > 0) {
               // newVelocity = { x: oldVelocity.x, y: -0.2 * oldVelocity.y }
               newVelocity = { x: 0, y: 0 }
-              newPosition = { x: oldPosition.x, y: 0 + radius + 1 }
+              newPosition = { x: oldPosition.x, y: 0 + radius + 30 }
             }
             break
           case 'East':
@@ -307,7 +307,7 @@ export default async function game(scene: Scene) {
               // newVelocity = { x: -0.2 * oldVelocity.x, y: oldVelocity.y }
               newVelocity = { x: 0, y: 0 }
               newPosition = {
-                x: scene.app.screen.width - radius - 1,
+                x: scene.app.screen.width - radius - 30,
                 y: oldPosition.y,
               }
             }
@@ -318,7 +318,7 @@ export default async function game(scene: Scene) {
               newVelocity = { x: 0, y: 0 }
               newPosition = {
                 x: oldPosition.x,
-                y: scene.app.screen.height - radius - 1,
+                y: scene.app.screen.height - radius - 30,
               }
             }
             break
@@ -326,7 +326,7 @@ export default async function game(scene: Scene) {
             if (V.dotProduct(oldVelocity, west) > 0) {
               // newVelocity = { x: -0.2 * oldVelocity.x, y: oldVelocity.y }
               newVelocity = { x: 0, y: 0 }
-              newPosition = { x: 0 + radius + 1, y: oldPosition.y }
+              newPosition = { x: 0 + radius + 30, y: oldPosition.y }
             }
             break
         }

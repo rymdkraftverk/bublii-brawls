@@ -31,13 +31,13 @@ export function borderPatrol(
         const radius = scene.state.radii.get(id)!
         const { x, y } = scene.state.positions.get(id)!
 
-        if (y + radius > scene.app.screen.height) {
+        if (y + radius > scene.app.screen.height - 30) {
           onTransgression(id, 'South')
-        } else if (y - radius < 0) {
+        } else if (y - radius < 30) {
           onTransgression(id, 'North')
-        } else if (x + radius > scene.app.screen.width) {
+        } else if (x + radius > scene.app.screen.width - 30) {
           onTransgression(id, 'East')
-        } else if (x - radius < 0) {
+        } else if (x - radius < 30) {
           onTransgression(id, 'West')
         }
       }

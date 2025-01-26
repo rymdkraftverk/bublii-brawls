@@ -11,11 +11,7 @@ const START_SNOW_FROM_MASS: SnowMass = 0
 const START_SNOW_TO_MASS: SnowMass = 5
 const TYPE = 'snowPatch'
 
-export const letIt = (
-  width: number,
-  height: number,
-  scene: Scene,
-) => {
+export const letIt = (width: number, height: number, scene: Scene) => {
   for (let x = RADIUS + START_X * RADIUS; x < width; x += DIAMETER) {
     for (let y = RADIUS + START_Y * RADIUS; y < height; y += DIAMETER) {
       const id = getNextId()
