@@ -2,18 +2,20 @@ import {
   animatedSprite,
   container,
   createObjectPool,
+  graphics,
   sprite,
   type ObjectPool,
   type Position,
 } from 'alchemy-engine'
 import ParkMiller from 'park-miller'
 import type { AnimatedSprite, Container, Sprite } from 'pixi.js'
+import { Graphics } from 'pixi.js'
 import { deNormalizeRange, getDistance, getRandomInt } from 'tiny-toolkit'
 import { getNextId, purge, state, type EntityId } from '~/data'
 import type { Scene, TextureName } from '~/type'
 import { normalize, scale, subtract } from '~/util/vector2d'
 import * as V from '~/util/vector2d'
-import { MAX_MASS, START_MASS } from './player'
+import { heal, MAX_MASS, START_MASS } from './player'
 import { SNOWBALL_AREA_FACTOR } from './snowBall'
 
 const MAXIMUM_SPEED = 0.5
@@ -105,7 +107,8 @@ export const mobSprites = new Map<
     con: Container
     character: AnimatedSprite
     weapon: Sprite
-    hazardSprite: AnimatedSprite
+    hazardSprite: AnimatedSprite,
+    healthbar: Graphics
   }
 >()
 
@@ -113,7 +116,8 @@ let mobPool: ObjectPool<{
   con: Container
   character: AnimatedSprite
   weapon: Sprite
-  hazardSprite: AnimatedSprite
+  hazardSprite: AnimatedSprite,
+  healthbar: Graphics
 }>
 
 const targetMap = new Map<EntityId, number>()
@@ -143,7 +147,15 @@ export default async function mobs(scene: Scene) {
     weapon.visible = true
     const hazardSprite = animatedSprite(con)
     hazardSprite.visible = true
-    return { con, character, weapon, hazardSprite }
+
+    const width = (FULL_HP + 1) * 10
+    const pos = (width / 2) * -1
+    const healthbar = new Graphics();
+    healthbar.rect(pos, -25, width, 5);
+    healthbar.fill(0xb54354);
+    con.addChild(healthbar)
+
+    return { con, character, weapon, hazardSprite, healthbar }
   }
 
   mobPool = createObjectPool(30, createObject)
@@ -425,6 +437,7 @@ export async function purgeMob(mobId: EntityId, scene: Scene) {
       obj.character.visible = false
       obj.weapon.visible = false
       obj.hazardSprite.visible = false
+      obj.healthbar.visible = false
       obj.con.scale.x = startScaleX
       obj.con.scale.y = startScaleY
       mobPool.release(obj)
@@ -445,6 +458,18 @@ export const damageMob = (
   // console.log({ damage })
   const newHp = Math.max(mobHp - damage, 0)
   scene.state.mobHps.set(mobId, newHp)
+
+  const hp = Math.floor(newHp) + 1
+  const width = hp * 10
+  const pos = (width / 2) * -1
+
+  const mobSprite = mobSprites.get(mobId)
+  if (mobSprite) {
+    mobSprite.healthbar.clear()
+    mobSprite.healthbar.rect(pos, -25, width, 5);
+    mobSprite.healthbar.fill(0xb54354);
+  }
+
   return newHp
 }
 
