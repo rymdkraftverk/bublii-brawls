@@ -3,10 +3,11 @@ import { getGamepads } from './gamepad'
 import * as snowBall from './snowBall'
 import * as bubble from './bubble'
 import { state } from '~/data'
+import { createPlayer } from '.'
 
 const PLAYER_ACCELERATION = 1
 
-export default function controls(scene: Scene, gamepadIndex: number) {
+const controls = (scene: Scene, gamepadIndex: number) => {
   scene.timer.repeatEvery(1, (_time, delta) => {
     const gamepads = getGamepads()
 
@@ -82,14 +83,14 @@ async function turnOffCooldownInOneSecond(scene: Scene, gamepadIndex: number) {
 }
 
 export const initScanForControls = (scene: Scene) => {
-  scanForControls()
+  scanForControls(scene)
   scene.timer.repeatEvery(60, (_time, _delta) => {
-    scanForControls()
+    scanForControls(scene)
   })
 }
 
-const scanForControls = () => {
-  const gamepads = navigator.getGamepads().filter(x => !!x)
+const scanForControls = (scene: Scene) => {
+  const gamepads = navigator.getGamepads().filter((x) => !!x)
   const newGamepadCount = gamepads.length
   const oldGamepadCount = state.controllers
   const playerDelta = newGamepadCount - oldGamepadCount
@@ -100,6 +101,10 @@ const scanForControls = () => {
 
   if (playerDelta > 0) {
     console.log(`${playerDelta} PLAYER(S) JOINED`)
+    for (let i = oldGamepadCount; i < newGamepadCount; i++) {
+      createPlayer(i, scene)
+      controls(scene, i)
+    }
   } else {
     console.log(`${Math.abs(playerDelta)} PLAYER(S) LEFT`)
   }

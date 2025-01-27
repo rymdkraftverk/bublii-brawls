@@ -37,7 +37,7 @@ export type Condition = 'normal' | 'taking-damage' | 'popping-the-bubble'
 export type State = {
   settingsVisible: boolean
   isGameOver: boolean
-  controllers: number;
+  controllers: number
   positions: Map<EntityId, Position>
   conditions: Map<EntityId, Condition>
   radii: Map<EntityId, Radius>

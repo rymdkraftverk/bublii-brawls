@@ -6,9 +6,8 @@ import {
   text,
 } from 'alchemy-engine'
 import { type Scene } from '~/type'
-import controls, { initScanForControls } from './controls'
+import { initScanForControls } from './controls'
 import { sprites, type EntityId, purge, textures, TextStyle } from '~/data'
-import { type Sprite } from 'pixi.js'
 import * as snow from './snow'
 import collisions from './collisions'
 import { borderPatrol } from './system/borderPatrol'
@@ -55,14 +54,7 @@ export default async function game(scene: Scene) {
   ])
   textures.set(3, ['player_red_0-1', 'player_red_0-2', 'player_red_0-3'])
 
-  const controllerIds = [0, 1, 2, 3]
-
   initScanForControls(scene)
-  for (const controllerId of controllerIds) {
-    createPlayer(controllerId, scene, sprites)
-
-    controls(scene, controllerId)
-  }
 
   repeatEvery(1, (_time, delta) => {
     for (const [id, entitySprite] of sprites.entries()) {
@@ -397,11 +389,7 @@ const getStartPosition = grid({
   breakAt: 2,
 })
 
-function createPlayer(
-  controllerId: EntityId,
-  scene: Scene,
-  sprites: Map<EntityId, Sprite>,
-) {
+export function createPlayer(controllerId: EntityId, scene: Scene) {
   const state = scene.state
   const { x, y } = getStartPosition(controllerId)
 
