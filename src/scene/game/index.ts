@@ -74,6 +74,11 @@ export default async function game(scene: Scene) {
   })
 
   repeatEvery(60, (_time, _delta) => {
+    const ticks = state.alchemy.time
+
+    // give players ~5 sec to start moving
+    if (ticks < 5 * 60) return
+
     const allAreBublé = state.typeToIds['player'].every((playerId) => {
       const isBublé = state.bublii.get(playerId) ?? false
       return isBublé
