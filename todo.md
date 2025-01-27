@@ -1,0 +1,4 @@
+- allow true full screen
+- deploy on itch
+- let bublé be heard
+- allow 1-4p
