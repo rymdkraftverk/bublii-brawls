@@ -6,10 +6,9 @@ import {
   type ObjectPool,
   type Position,
 } from 'alchemy-engine'
-import ParkMiller from 'park-miller'
 import type { AnimatedSprite, Container, Sprite } from 'pixi.js'
 import { Graphics } from 'pixi.js'
-import { deNormalizeRange, getDistance, getRandomInt } from 'tiny-toolkit'
+import { deNormalizeRange, getDistance } from 'tiny-toolkit'
 import { getNextId, purge, state, type EntityId } from '~/data'
 import type { Scene, TextureName } from '~/type'
 import { normalize, scale, subtract } from '~/util/vector2d'
@@ -202,9 +201,6 @@ export default async function mobs(scene: Scene, screenShake: any, sound: any) {
       position.y += 1
     })
 
-    const random = new ParkMiller(getRandomInt())
-    const targetId = random.integerInRange(0, 3)
-    targetMap.set(mobId, targetId)
     await scene.timer.delay(10)
 
     if (wave.type === MobType.FLAMETHROWER) {
