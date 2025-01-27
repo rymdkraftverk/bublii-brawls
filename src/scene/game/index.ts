@@ -79,26 +79,36 @@ export default async function game(scene: Scene) {
     // give players ~5 sec to start moving
     if (ticks < 5 * 60) return
 
-    const allAreBublé = state.typeToIds['player'].every((playerId) => {
+    const players = state.typeToIds['player']
+    const allAreBublé = players.every((playerId) => {
       const isBublé = state.bublii.get(playerId) ?? false
       return isBublé
     })
 
     if (allAreBublé) {
+      const failedToJoinInTime = players.length === 0
+
+      const textContent =
+        failedToJoinInTime ?
+          'No player connected\nConnect a gamepad and try again'
+        : 'Game over!'
+
       const gameOverBackground = createContainer(scene.container)
       gameOverBackground.position.y = 100
       const g = graphics(gameOverBackground)
       g.rect(0, 0, scene.app.screen.width, 60).fill({ color: 0x000000 })
-      const t = text(gameOverBackground, TextStyle.MAIN, 'Game over!')
+      const t = text(gameOverBackground, TextStyle.MAIN, textContent)
       t.position.x = scene.app.screen.width / 2 - t.width / 2
       t.position.y = 10
-      const score = text(
-        gameOverBackground,
-        TextStyle.MAIN,
-        `Score: ${state.alchemy.time}`,
-      )
-      score.position.x = scene.app.screen.width / 2 - score.width / 2
-      score.position.y = 40
+      if (!failedToJoinInTime) {
+        const score = text(
+          gameOverBackground,
+          TextStyle.MAIN,
+          `Score: ${ticks}`,
+        )
+        score.position.x = scene.app.screen.width / 2 - score.width / 2
+        score.position.y = 40
+      }
       scene.state.alchemy.paused = true
 
       music.blue_brawls.stop()
