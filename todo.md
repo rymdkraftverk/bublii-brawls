@@ -1,5 +1,5 @@
+- test 2-4p
 - allow true full screen
 - deploy on itch
 - let bublé be heard
-- allow 1-4p
 - record a full game with A/V
