@@ -37,6 +37,7 @@ export type Condition = 'normal' | 'taking-damage' | 'popping-the-bubble'
 export type State = {
   settingsVisible: boolean
   isGameOver: boolean
+  controllers: number;
   positions: Map<EntityId, Position>
   conditions: Map<EntityId, Condition>
   radii: Map<EntityId, Radius>
@@ -111,6 +112,7 @@ export const textures: Map<EntityId, TextureName[]> = new Map()
 export const state: State = {
   settingsVisible: false,
   isGameOver: false,
+  controllers: 0,
   positions: new Map(),
   conditions: new Map(),
   radii: new Map(),

@@ -6,7 +6,7 @@ import {
   text,
 } from 'alchemy-engine'
 import { type Scene } from '~/type'
-import controls from './controls'
+import controls, { initScanForControls } from './controls'
 import { sprites, type EntityId, purge, textures, TextStyle } from '~/data'
 import { type Sprite } from 'pixi.js'
 import * as snow from './snow'
@@ -57,6 +57,7 @@ export default async function game(scene: Scene) {
 
   const controllerIds = [0, 1, 2, 3]
 
+  initScanForControls(scene)
   for (const controllerId of controllerIds) {
     createPlayer(controllerId, scene, sprites)
 
