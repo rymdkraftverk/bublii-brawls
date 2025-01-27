@@ -3,7 +3,7 @@ import { getGamepads } from './gamepad'
 import * as snowBall from './snowBall'
 import * as bubble from './bubble'
 import { state } from '~/data'
-import { createPlayer } from '.'
+import { createPlayer } from './player'
 
 const PLAYER_ACCELERATION = 1
 

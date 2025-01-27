@@ -1,4 +1,6 @@
+import { animatedSprite } from 'alchemy-engine'
 import type { AnimatedSprite } from 'pixi.js'
+import { grid } from 'tiny-toolkit'
 import {
   sprites,
   state,
@@ -8,6 +10,7 @@ import {
   type SnowMass,
 } from '~/data'
 import { type Scene } from '~/type'
+import * as scope from './scope'
 
 // CONFIG
 const DENSITY = 1
@@ -105,4 +108,58 @@ function getScaleFactor(scene: Scene, entityId: EntityId) {
     default:
       throw 'unexpected entity type without scale factor'
   }
+}
+
+const getStartPosition = grid({
+  x: 70,
+  y: 70,
+  marginX: 500,
+  marginY: 350,
+  breakAt: 2,
+})
+
+export function createPlayer(controllerId: EntityId, scene: Scene) {
+  const state = scene.state
+  const { x, y } = getStartPosition(controllerId)
+
+  const s = animatedSprite(scene.container)
+
+  s.anchor = 0.5
+  // const s = spritePool.get()
+  s.textures = textures.get(controllerId)!.map((x) => scene.textures[x])
+  s.animationSpeed = 0.1
+  s.play()
+  s.position.set(x, y)
+
+  state.positions.set(controllerId, { x, y })
+  state.velocities.set(controllerId, { x: 0, y: 0 })
+  state.conditions.set(controllerId, 'normal')
+  state.typeToIds.player.push(controllerId)
+  state.types.set(controllerId, 'player')
+  state.bublii.set(controllerId, false)
+  // state.sprites[controllerId] = s
+  sprites.set(controllerId, s)
+
+  scope.init(controllerId, scene)
+
+  increaseMass(controllerId, START_MASS, scene)
+
+  // TODO: Facing
+  // scene.timer.repeatEvery(2, () => {
+  //   const velocity = scene.state.velocities.get(controllerId)!
+  //   console.log('scene.timer.repeatEvery ~ velocity:', velocity.x)
+
+  //   if (velocity.x < 0) {
+  //     if (s.scale.x > 0) {
+  //       scene.state.facings.set(controllerId, 'left')
+  //       s.scale.x *= -1
+  //     }
+  //   }
+  //   if (velocity.x > 0) {
+  //     if (s.scale.x < 0) {
+  //       scene.state.facings.set(controllerId, 'right')
+  //       s.scale.x *= -1
+  //     }
+  //   }
+  // })
 }
