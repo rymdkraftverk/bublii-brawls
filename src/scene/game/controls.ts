@@ -100,12 +100,19 @@ const scanForControls = (scene: Scene) => {
   state.controllers = newGamepadCount
 
   if (playerDelta > 0) {
-    console.log(`${playerDelta} PLAYER(S) JOINED`)
+    console.log(`${playerDelta} controller(s) connected`)
     for (let i = oldGamepadCount; i < newGamepadCount; i++) {
-      createPlayer(i, scene)
-      controls(scene, i)
+      const playedAlreadyInGame = state.typeToIds['player'].includes(i)
+
+      if (playedAlreadyInGame) {
+        console.log(`picking up player ${i}`)
+      } else {
+        console.log(`spawning player ${i}`)
+        createPlayer(i, scene)
+        controls(scene, i)
+      }
     }
   } else {
-    console.log(`${Math.abs(playerDelta)} PLAYER(S) LEFT`)
+    console.log(`${Math.abs(playerDelta)} controller(s) disconnected`)
   }
 }
