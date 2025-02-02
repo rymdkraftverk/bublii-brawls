@@ -1,3 +1,4 @@
 - allow true full screen
 - deploy on itch
 - record a full game with A/V
+- skip heal animation if full mass
