@@ -36,7 +36,11 @@ const controls = (scene: Scene, gamepadIndex: number) => {
         Math.abs(activeGamepad.axes.vertical) <
       0.2
     ) {
-      scene.state.velocities.set(gamepadIndex, { x: 0, y: 0 })
+      const oldVelocity = scene.state.velocities.get(gamepadIndex)!
+      scene.state.velocities.set(gamepadIndex, {
+        x: oldVelocity.x * 0.99,
+        y: oldVelocity.y * 0.99,
+      })
     }
 
     if (
