@@ -1,1 +1,5 @@
-- record a full game with A/V
+- loop music
+- start game on first player interaction
+- count score from game start and not menu start
+- option to start new game after game over
+- smooth stop after letting go of move joystick (not instant)
