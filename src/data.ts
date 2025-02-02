@@ -34,34 +34,6 @@ export type Facing = 'left' | 'right'
 
 export type Condition = 'normal' | 'taking-damage' | 'popping-the-bubble'
 
-export type State = {
-  settingsVisible: boolean
-  gameStarted: boolean
-  controllers: number
-  positions: Map<EntityId, Position>
-  conditions: Map<EntityId, Condition>
-  radii: Map<EntityId, Radius>
-  velocities: Map<EntityId, Velocity>
-  facings: Map<EntityId, Facing>
-  hazardToMobType: Map<EntityId, MobType>
-  masses: Map<EntityId, Mass>
-  types: Map<EntityId, Type>
-  typeToIds: {
-    snowPatch: EntityId[]
-    player: EntityId[]
-    mob: EntityId[]
-    hazard: EntityId[]
-    snowBall: EntityId[]
-    tnt: EntityId[]
-  }
-  snowMasses: Map<EntityId, SnowMass>
-  aims: Map<EntityId, Radian>
-  snowBallLaunchers: Map<SnowBallId, PlayerId>
-  throwSnowBallIsOnCooldown: Map<EntityId, boolean>
-  bublii: Map<EntityId, boolean>
-  mobHps: Map<EntityId, number>
-}
-
 export function purge(state: State, id: EntityId) {
   const sprite = sprites.get(id)
   sprites.delete(id)
@@ -109,6 +81,33 @@ export const sprites: Map<EntityId, Sprite> = new Map()
 
 export const textures: Map<EntityId, TextureName[]> = new Map()
 
+export type State = {
+  settingsVisible: boolean
+  gameStarted: boolean
+  controllers: number
+  positions: Map<EntityId, Position>
+  conditions: Map<EntityId, Condition>
+  radii: Map<EntityId, Radius>
+  velocities: Map<EntityId, Velocity>
+  facings: Map<EntityId, Facing>
+  hazardToMobType: Map<EntityId, MobType>
+  masses: Map<EntityId, Mass>
+  types: Map<EntityId, Type>
+  typeToIds: {
+    snowPatch: EntityId[]
+    player: EntityId[]
+    mob: EntityId[]
+    hazard: EntityId[]
+    snowBall: EntityId[]
+    tnt: EntityId[]
+  }
+  snowMasses: Map<EntityId, SnowMass>
+  aims: Map<EntityId, Radian>
+  snowBallLaunchers: Map<SnowBallId, PlayerId>
+  throwSnowBallIsOnCooldown: Map<EntityId, boolean>
+  bublii: Map<EntityId, boolean>
+  mobHps: Map<EntityId, number>
+}
 export const state: State = {
   settingsVisible: false,
   gameStarted: false,
