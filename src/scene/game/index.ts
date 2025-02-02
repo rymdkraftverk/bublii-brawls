@@ -101,13 +101,7 @@ export default async function game(scene: Scene) {
     })
 
     if (allAreBublé) {
-      const failedToJoinInTime = players.length === 0
-
-      const textContent =
-        failedToJoinInTime ?
-          'No player connected\nConnect a gamepad and try again'
-        : 'Game over!'
-
+      const textContent = 'Game over!'
       const gameOverBackground = createContainer(scene.container)
       gameOverBackground.position.y = 100
       const g = graphics(gameOverBackground)
@@ -115,15 +109,13 @@ export default async function game(scene: Scene) {
       const t = text(gameOverBackground, TextStyle.MAIN, textContent)
       t.position.x = scene.app.screen.width / 2 - t.width / 2
       t.position.y = 10
-      if (!failedToJoinInTime) {
-        const scoreText = text(
-          gameOverBackground,
-          TextStyle.MAIN,
-          `Score: ${score}`,
-        )
-        scoreText.position.x = scene.app.screen.width / 2 - scoreText.width / 2
-        scoreText.position.y = 40
-      }
+      const scoreText = text(
+        gameOverBackground,
+        TextStyle.MAIN,
+        `Score: ${score}`,
+      )
+      scoreText.position.x = scene.app.screen.width / 2 - scoreText.width / 2
+      scoreText.position.y = 40
       scene.state.alchemy.paused = true
 
       music.blue_brawls.stop()
