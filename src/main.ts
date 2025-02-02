@@ -13,40 +13,44 @@ const WINDOW_HEIGHT = window.innerHeight
 
 const resolution = Math.min(
   WINDOW_WIDTH / GAME_WIDTH,
-  WINDOW_HEIGHT / GAME_HEIGHT
+  WINDOW_HEIGHT / GAME_HEIGHT,
 )
 
-const app = new Application()
+async function main() {
+  const app = new Application()
 
-await app.init({
-  width: GAME_WIDTH,
-  height: GAME_HEIGHT,
-  resolution,
-  antialias: true,
-})
+  await app.init({
+    width: GAME_WIDTH,
+    height: GAME_HEIGHT,
+    resolution,
+    antialias: true,
+  })
 
-const spriteSheetPath = './asset/spritesheet/data.json'
-const font = '10pt "Press Start 2P"'
+  const spriteSheetPath = './asset/spritesheet/data.json'
+  const font = '10pt "Press Start 2P"'
 
-createGame({
-  app,
-  state,
-  scene: 'game',
-  scenes,
-  keys,
-  sounds,
-  spriteSheetPath,
-  font,
-  config: {
-    pixelPerfect: true,
-  },
-  panel: [
-    {
-      type: 'string',
-      label: 'test',
-      getValue: () => {
-        return '42'
-      },
+  createGame({
+    app,
+    state,
+    scene: 'game',
+    scenes,
+    keys,
+    sounds,
+    spriteSheetPath,
+    font,
+    config: {
+      pixelPerfect: true,
     },
-  ],
-})
+    panel: [
+      {
+        type: 'string',
+        label: 'test',
+        getValue: () => {
+          return '42'
+        },
+      },
+    ],
+  })
+}
+
+main()

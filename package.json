@@ -31,7 +31,7 @@
     "node": ">=22"
   },
   "dependencies": {
-    "alchemy-engine": "0.1.6",
+    "alchemy-engine": "0.1.7",
     "park-miller": "2.0.0",
     "pixi.js": "8.7.2",
     "tiny-toolkit": "0.3.0",
