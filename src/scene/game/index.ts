@@ -90,11 +90,9 @@ export default async function game(scene: Scene) {
     }
   })
 
-  repeatEvery(60, (_time, _delta) => {
-    const ticks = state.alchemy.time
-
-    // give players ~5 sec to start moving
-    if (ticks < 5 * 60) return
+  repeatEvery(60, (_time, delta) => {
+    state.score += delta
+    const score = state.score
 
     const players = state.typeToIds['player']
     const allAreBublé = players.every((playerId) => {
@@ -118,13 +116,13 @@ export default async function game(scene: Scene) {
       t.position.x = scene.app.screen.width / 2 - t.width / 2
       t.position.y = 10
       if (!failedToJoinInTime) {
-        const score = text(
+        const scoreText = text(
           gameOverBackground,
           TextStyle.MAIN,
-          `Score: ${ticks}`,
+          `Score: ${score}`,
         )
-        score.position.x = scene.app.screen.width / 2 - score.width / 2
-        score.position.y = 40
+        scoreText.position.x = scene.app.screen.width / 2 - scoreText.width / 2
+        scoreText.position.y = 40
       }
       scene.state.alchemy.paused = true
 

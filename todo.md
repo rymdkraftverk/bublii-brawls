@@ -1,5 +1,4 @@
 - loop music
-- count score from game start and not menu start
 - option to start new game after game over
 - smooth stop after letting go of move joystick (not instant)
 - configurable difficulty

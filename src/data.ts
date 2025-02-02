@@ -85,6 +85,7 @@ export type State = {
   settingsVisible: boolean
   gameStarted: boolean
   controllers: number
+  score: number
   positions: Map<EntityId, Position>
   conditions: Map<EntityId, Condition>
   radii: Map<EntityId, Radius>
@@ -112,6 +113,7 @@ export const state: State = {
   settingsVisible: false,
   gameStarted: false,
   controllers: 0,
+  score: 0,
   positions: new Map(),
   conditions: new Map(),
   radii: new Map(),
