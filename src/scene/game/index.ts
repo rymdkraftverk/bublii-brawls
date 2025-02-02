@@ -68,7 +68,8 @@ export default async function game(scene: Scene) {
   sound['SFX_powerUp2a'].volume(0.4)
   sound['SFX_wrong&malus4'].volume(0.4)
 
-  scanForControls(scene)
+  // resolves once first player connects
+  await scanForControls(scene)
 
   repeatEvery(1, (_time, delta) => {
     for (const [id, entitySprite] of sprites.entries()) {

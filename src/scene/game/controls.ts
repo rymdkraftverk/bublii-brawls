@@ -83,12 +83,14 @@ async function turnOffCooldownInOneSecond(scene: Scene, gamepadIndex: number) {
 }
 
 export const scanForControls = (scene: Scene) => {
-  scene.timer.repeatEvery(30, (_time, _delta) => {
-    _scanForControls(scene)
+  return new Promise((resolve) => {
+    scene.timer.repeatEvery(30, (_time, _delta) => {
+      _scanForControls(scene, resolve)
+    })
   })
 }
 
-const _scanForControls = (scene: Scene) => {
+const _scanForControls = (scene: Scene, resolve: (value?: unknown) => void) => {
   const gamepads = navigator.getGamepads().filter((x) => !!x)
   const newGamepadCount = gamepads.length
   const oldGamepadCount = state.controllers
@@ -99,6 +101,11 @@ const _scanForControls = (scene: Scene) => {
   state.controllers = newGamepadCount
 
   if (playerDelta > 0) {
+    if (oldGamepadCount === 0 && !state.gameStarted) {
+      state.gameStarted = true
+      resolve()
+    }
+
     console.log(`${playerDelta} controller(s) connected`)
     for (let i = oldGamepadCount; i < newGamepadCount; i++) {
       const playedAlreadyInGame = state.typeToIds['player'].includes(i)
