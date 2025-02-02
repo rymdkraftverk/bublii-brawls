@@ -1,2 +1,1 @@
-- deploy on itch
 - record a full game with A/V
