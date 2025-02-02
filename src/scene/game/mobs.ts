@@ -434,6 +434,7 @@ export async function purgeMob(mobId: EntityId, scene: Scene) {
   purge(scene.state, mobId)
   if (mobPool) {
     const obj = mobSprites.get(mobId)
+    scene.sound['SFX_wrong&malus4'].volume(0.4)
     scene.sound['SFX_wrong&malus4'].play()
     if (obj) {
       const startScaleX = obj.con.scale.x
