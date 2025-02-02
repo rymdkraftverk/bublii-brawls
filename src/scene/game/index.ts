@@ -389,6 +389,4 @@ export default async function game(scene: Scene) {
   mobs(scene, screenShake, sound)
   // TODO: Remove this before release
   debug(scene)
-  // This breaks everything
-  // useAutoFullScreen(scene)
 }

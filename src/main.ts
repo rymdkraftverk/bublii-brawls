@@ -5,12 +5,23 @@ import { keys, scenes, state } from './data'
 
 import sounds from './sounds.json'
 
+const GAME_WIDTH = 640
+const GAME_HEIGHT = 480
+
+const WINDOW_WIDTH = window.innerWidth
+const WINDOW_HEIGHT = window.innerHeight
+
+const resolution = Math.min(
+  WINDOW_WIDTH / GAME_WIDTH,
+  WINDOW_HEIGHT / GAME_HEIGHT
+)
+
 const app = new Application()
 
 await app.init({
-  width: 640,
-  height: 480,
-  resolution: 2,
+  width: GAME_WIDTH,
+  height: GAME_HEIGHT,
+  resolution,
   antialias: true,
 })
 
