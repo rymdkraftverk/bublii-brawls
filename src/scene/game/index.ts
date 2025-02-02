@@ -14,7 +14,7 @@ import { applyPlayerFriction } from './system/playerFriction'
 import mobs, { damageMob, mobSprites, purgeMob } from './mobs'
 import * as V from '~/util/vector2d'
 import debug from './debug'
-import { feed, heal, increaseMass, START_MASS, bublé } from './player'
+import { feed, heal, increaseMass, START_MASS, MAX_MASS, bublé } from './player'
 import { deNormalizeRange } from 'tiny-toolkit'
 
 export default async function game(scene: Scene) {
@@ -300,6 +300,10 @@ export default async function game(scene: Scene) {
       onCollision: async (snowBallId, playerId) => {
         const launcherId = state.snowBallLaunchers.get(snowBallId)!
         if (launcherId === playerId) return
+
+        const hitPlayerMass = state.masses.get(playerId)!
+        if (hitPlayerMass === MAX_MASS) return
+
         heal(playerId, snowBallId, scene)
         purge(scene.state, snowBallId)
 
