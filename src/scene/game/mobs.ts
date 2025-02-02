@@ -9,7 +9,7 @@ import {
 import type { AnimatedSprite, Container, Sprite } from 'pixi.js'
 import { Graphics } from 'pixi.js'
 import { deNormalizeRange, getDistance } from 'tiny-toolkit'
-import { getNextId, purge, state, type EntityId } from '~/data'
+import { getNextId, purge, state, type EntityId, type PlayerId } from '~/data'
 import type { Scene, TextureName } from '~/type'
 import { normalize, scale, subtract } from '~/util/vector2d'
 import * as V from '~/util/vector2d'
@@ -122,7 +122,7 @@ let mobPool: ObjectPool<{
   healthbar: Graphics
 }>
 
-const targetMap = new Map<EntityId, number>()
+const targetMap = new Map<EntityId, PlayerId>()
 const mobToHazardMap = new Map<EntityId, EntityId>()
 
 export default async function mobs(scene: Scene, screenShake: any, sound: any) {
@@ -345,10 +345,14 @@ export default async function mobs(scene: Scene, screenShake: any, sound: any) {
 
             return previousValue
           },
-          { playerId: targetMap.get(mobId)!, distance: Number.MAX_VALUE },
+          { playerId: -1, distance: Number.MAX_VALUE },
         )
 
-      targetMap.set(mobId, playerId)
+      if (playerId === -1) {
+        targetMap.delete(mobId)
+      } else {
+        targetMap.set(mobId, playerId)
+      }
     })
   })
 
