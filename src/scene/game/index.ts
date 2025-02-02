@@ -63,6 +63,7 @@ export default async function game(scene: Scene) {
   music.blue_brawls.volume(0.5)
   music.reptile_dysfunction.volume(0.25)
   sound.explosion.volume(0.1)
+  sound['summer-day'].volume(1)
   sound['SFX_hit&damage2'].volume(0.4)
   sound['SFX_powerUp2a'].volume(0.4)
   sound['SFX_wrong&malus4'].volume(0.4)
