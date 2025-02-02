@@ -75,12 +75,17 @@ export const bublé = (scene: Scene, playerId: EntityId) => {
 }
 
 const unBublé = (scene: Scene, playerId: EntityId) => {
+  state.bublii.set(playerId, false)
+  scene.sound['SFX_collect&bonus3'].play()
+
+  backToSnow(scene, playerId)
+}
+
+export const backToSnow = (scene: Scene, playerId: EntityId) => {
   const s = sprites.get(playerId)! as AnimatedSprite
   s.textures = textures.get(playerId)!.map((x) => scene.textures[x])
+  s.loop = true
   s.play()
-  state.bublii.set(playerId, false)
-
-  scene.sound['SFX_collect&bonus3'].play()
 }
 
 export const feed = (playerId: EntityId, snowMass: SnowMass, scene: Scene) => {

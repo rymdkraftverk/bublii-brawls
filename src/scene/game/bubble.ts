@@ -2,7 +2,7 @@ import { getDistance } from 'tiny-toolkit'
 import { normalize, scale, subtract } from '~/util/vector2d'
 import { sprites, state, type EntityId } from '~/data'
 import type { Scene } from '~/type'
-import { bublé, MIN_MASS, setMass } from './player'
+import { backToSnow, setMass, START_MASS } from './player'
 import { fall } from './snow'
 import type { AnimatedSprite } from 'pixi.js'
 
@@ -32,9 +32,9 @@ const itGoesPop = (scene: Scene, playerId: EntityId) => {
     s.onFrameChange = () => {}
     s.visible = false
     await fall(snowmass, scene)
+    setMass(playerId, START_MASS, scene)
+    backToSnow(scene, playerId)
     state.conditions.set(playerId, 'normal')
-    setMass(playerId, MIN_MASS, scene)
-    bublé(scene, playerId)
     s.visible = true
   }
 }
