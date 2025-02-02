@@ -14,7 +14,15 @@ import { applyPlayerFriction } from './system/playerFriction'
 import mobs, { damageMob, mobSprites, purgeMob } from './mobs'
 import * as V from '~/util/vector2d'
 import debug from './debug'
-import { feed, heal, increaseMass, START_MASS, MAX_MASS, bublé } from './player'
+import {
+  feed,
+  heal,
+  increaseMass,
+  START_MASS,
+  MAX_MASS,
+  bublé,
+  jumpBack,
+} from './player'
 import { deNormalizeRange } from 'tiny-toolkit'
 
 export default async function game(scene: Scene) {
@@ -149,66 +157,8 @@ export default async function game(scene: Scene) {
       type1: 'player',
       type2: 'player',
       onCollision: (p1Id, p2Id) => {
-        let isBublé = state.bublii.get(p1Id) ?? false
-        if (isBublé) {
-          return
-        }
-
-        isBublé = state.bublii.get(p2Id) ?? false
-        if (isBublé) {
-          return
-        }
-
-        if (state.conditions.get(p1Id) === 'popping-the-bubble') {
-          return
-        }
-
-        if (state.conditions.get(p2Id) === 'popping-the-bubble') {
-          return
-        }
-
-        const p1 = scene.state.positions.get(p1Id)
-        const p2 = scene.state.positions.get(p2Id)
-
-        const v1 = scene.state.velocities.get(p1Id)
-        const v2 = scene.state.velocities.get(p2Id)
-
-        const m1 = scene.state.masses.get(p1Id)
-        const m2 = scene.state.masses.get(p2Id)
-
-        if (!p1 || !p2 || !v1 || !v2 || !m1 || !m2) {
-          console.log(
-            'position, velocity or mass is missing when players collide',
-          )
-          return
-        }
-        if (m1 == 0 || m2 == 0) {
-          console.log('mass is zero in one of colliding players')
-          return
-        }
-
-        // I took these calculations from my asteroids game, don't ask me to
-        // explain it
-        const direction = V.normalize(V.subtract(p2, p1))
-        const a =
-          (2 / (1 / m1 + 1 / m2)) * V.dotProduct(direction, V.subtract(v2, v1))
-        const newV1 = V.subtract(V.scale(a / m1, direction), v1)
-        const newV2 = V.add(V.scale(a / m2, direction), v2)
-
-        scene.state.velocities.set(p1Id, newV1)
-        scene.state.velocities.set(p2Id, newV2)
-
-        const radius1 = scene.state.radii.get(p1Id)!
-        const radius2 = scene.state.radii.get(p2Id)!
-        const midPoint = V.scale(0.5, V.add(p1, p2))
-        const newPosition1 = V.add(midPoint, V.scale(radius1, direction))
-        const newPosition2 = V.add(
-          midPoint,
-          V.scale(radius2, V.scale(-1, direction)),
-        )
-
-        scene.state.positions.set(p1Id, newPosition1)
-        scene.state.positions.set(p2Id, newPosition2)
+        jumpBack(p1Id)
+        jumpBack(p2Id)
       },
     },
     {

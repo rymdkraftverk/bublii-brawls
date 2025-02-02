@@ -1,3 +1,2 @@
 - deploy on itch
 - record a full game with A/V
-- avoid getting pushed if colliding with other snowball standing still

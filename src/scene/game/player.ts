@@ -151,3 +151,17 @@ export function createPlayer(controllerId: EntityId, scene: Scene) {
   //   }
   // })
 }
+
+export const jumpBack = (id: EntityId) => {
+  const oldVelocity = state.velocities.get(id)!
+  const oldPosition = state.positions.get(id)!
+
+  const newVelocity = { x: 0, y: 0 }
+  const newPosition = {
+    x: oldPosition.x - oldVelocity.x * 10,
+    y: oldPosition.y - oldVelocity.y * 10,
+  }
+
+  state.positions.set(id, newPosition)
+  state.velocities.set(id, newVelocity)
+}
