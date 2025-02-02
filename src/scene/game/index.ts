@@ -66,7 +66,7 @@ export default async function game(scene: Scene) {
   sound['summer-day'].volume(1)
   sound['SFX_hit&damage2'].volume(0.4)
   sound['SFX_powerUp2a'].volume(0.4)
-  sound['SFX_wrong&malus4'].volume(0.4)
+  sound['SFX_wrong&malus4'].volume(0.2)
 
   // resolves once first player connects
   await scanForControls(scene)
