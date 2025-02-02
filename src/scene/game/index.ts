@@ -5,7 +5,7 @@ import {
   text,
 } from 'alchemy-engine'
 import { type Scene } from '~/type'
-import { initScanForControls } from './controls'
+import { scanForControls } from './controls'
 import { sprites, purge, textures, TextStyle } from '~/data'
 import * as snow from './snow'
 import collisions from './collisions'
@@ -68,7 +68,7 @@ export default async function game(scene: Scene) {
   sound['SFX_powerUp2a'].volume(0.4)
   sound['SFX_wrong&malus4'].volume(0.4)
 
-  initScanForControls(scene)
+  scanForControls(scene)
 
   repeatEvery(1, (_time, delta) => {
     for (const [id, entitySprite] of sprites.entries()) {

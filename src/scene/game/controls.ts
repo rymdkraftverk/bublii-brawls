@@ -82,14 +82,13 @@ async function turnOffCooldownInOneSecond(scene: Scene, gamepadIndex: number) {
   scene.state.throwSnowBallIsOnCooldown.set(gamepadIndex, false)
 }
 
-export const initScanForControls = (scene: Scene) => {
-  scanForControls(scene)
-  scene.timer.repeatEvery(60, (_time, _delta) => {
-    scanForControls(scene)
+export const scanForControls = (scene: Scene) => {
+  scene.timer.repeatEvery(30, (_time, _delta) => {
+    _scanForControls(scene)
   })
 }
 
-const scanForControls = (scene: Scene) => {
+const _scanForControls = (scene: Scene) => {
   const gamepads = navigator.getGamepads().filter((x) => !!x)
   const newGamepadCount = gamepads.length
   const oldGamepadCount = state.controllers
