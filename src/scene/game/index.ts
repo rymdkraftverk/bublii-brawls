@@ -60,6 +60,13 @@ export default async function game(scene: Scene) {
   ])
   textures.set(3, ['player_red_0-1', 'player_red_0-2', 'player_red_0-3'])
 
+  music.blue_brawls.volume(0.5)
+  music.reptile_dysfunction.volume(0.25)
+  sound.explosion.volume(0.1)
+  sound['SFX_hit&damage2'].volume(0.4)
+  sound['SFX_powerUp2a'].volume(0.4)
+  sound['SFX_wrong&malus4'].volume(0.4)
+
   initScanForControls(scene)
 
   repeatEvery(1, (_time, delta) => {
@@ -120,14 +127,12 @@ export default async function game(scene: Scene) {
       scene.state.alchemy.paused = true
 
       music.blue_brawls.stop()
-      music.reptile_dysfunction.volume(0.25)
       music.reptile_dysfunction.play()
     }
   })
 
   applyPlayerFriction(scene)
 
-  music.blue_brawls.volume(0.5)
   music.blue_brawls.loop()
   music.blue_brawls.play()
 
@@ -258,7 +263,6 @@ export default async function game(scene: Scene) {
         purge(scene.state, snowBallId)
 
         const playerSprite = sprites.get(playerId)!
-        scene.sound['SFX_powerUp2a'].volume(0.4)
         scene.sound['SFX_powerUp2a'].play()
         const animation = scene.animate.sine({
           onUpdate: (value) => {
