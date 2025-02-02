@@ -119,7 +119,6 @@ export default async function game(scene: Scene) {
 
   applyPlayerFriction(scene)
 
-  // sound.coin.play()
   music.blue_brawls.volume(0.5)
   music.blue_brawls.loop()
   music.blue_brawls.play()
@@ -305,7 +304,7 @@ export default async function game(scene: Scene) {
         purge(scene.state, snowBallId)
 
         const playerSprite = sprites.get(playerId)!
-        scene.sound['SFX_powerUp2a'].volume(0.8)
+        scene.sound['SFX_powerUp2a'].volume(0.4)
         scene.sound['SFX_powerUp2a'].play()
         const animation = scene.animate.sine({
           onUpdate: (value) => {

@@ -466,7 +466,7 @@ export const damageMob = (
   snowballId: EntityId,
   scene: Scene,
 ) => {
-  scene.sound['SFX_hit&damage2'].volume(0.8)
+  scene.sound['SFX_hit&damage2'].volume(0.4)
   scene.sound['SFX_hit&damage2'].play()
   const mobHp = scene.state.mobHps.get(mobId)!
   const damage = computeDamage(snowballId)

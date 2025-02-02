@@ -1,4 +1,3 @@
 - allow true full screen
 - deploy on itch
-- let bublé be heard
 - record a full game with A/V
