@@ -131,6 +131,7 @@ export default async function mobs(scene: Scene, screenShake: any, sound: any) {
   const createObject = () => {
     const con = container(scene.container)
     con.visible = false
+    con.position = { x: -999, y: -999 }
     const character = animatedSprite(con)
     character.visible = false
     character.textures = [
@@ -172,7 +173,6 @@ export default async function mobs(scene: Scene, screenShake: any, sound: any) {
 
     const poolObject = mobPool.get()
     const { con, character, weapon, hazardSprite, healthbar } = poolObject
-    con.visible = true
     con.scale = 1.5
     character.visible = true
     weapon.visible = true
@@ -192,6 +192,7 @@ export default async function mobs(scene: Scene, screenShake: any, sound: any) {
     hazardSprite.visible = false
     hazardSprite.scale = 1
 
+    con.visible = true
     await scene.timer.repeatUntil(90, () => {
       const position = scene.state.positions.get(mobId)
       if (!position) {
@@ -310,6 +311,7 @@ export default async function mobs(scene: Scene, screenShake: any, sound: any) {
       con.position = position
     }
   }
+
   scene.timer.repeatEvery(1, () => {
     render()
   })
