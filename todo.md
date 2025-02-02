@@ -1,4 +1,3 @@
-- test 2-4p
 - allow true full screen
 - deploy on itch
 - let bublé be heard
