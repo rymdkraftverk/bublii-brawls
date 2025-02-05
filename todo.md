@@ -1,3 +1,5 @@
 - loop music
+- fix music delayed til first snowball collision
+- set up itch page and make public
 - option to start new game after game over
 - configurable difficulty
