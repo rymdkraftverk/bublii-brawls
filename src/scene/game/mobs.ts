@@ -5,6 +5,7 @@ import {
   sprite,
   type ObjectPool,
   type Position,
+  type ScreenShake,
 } from 'alchemy-engine'
 import type { AnimatedSprite, Container, Sprite } from 'pixi.js'
 import { Graphics } from 'pixi.js'
@@ -125,7 +126,11 @@ let mobPool: ObjectPool<{
 const targetMap = new Map<EntityId, PlayerId>()
 const mobToHazardMap = new Map<EntityId, EntityId>()
 
-export default async function mobs(scene: Scene, screenShake: any, sound: any) {
+export default async function mobs(
+  scene: Scene,
+  screenShake: ScreenShake,
+  sound: any,
+) {
   const wave = waves[0]
 
   if (!wave) {
@@ -310,7 +315,7 @@ export default async function mobs(scene: Scene, screenShake: any, sound: any) {
           hazardSprite.loop = true
         }
 
-        screenShake.add(1)
+        screenShake(1)
         sound.explosion.play()
       }
     }
