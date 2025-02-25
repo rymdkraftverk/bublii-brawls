@@ -16,13 +16,13 @@ const itGoesPop = (scene: Scene, playerId: EntityId) => {
   const snowmass = exchangeMassForSnowMass(state.masses.get(playerId)!)
 
   const s = sprites.get(playerId)! as AnimatedSprite
-  s.textures = [
-    scene.textures['popping_player_0-1'],
-    scene.textures['popping_player_0-2'],
-    scene.textures['popping_player_0-3'],
-    scene.textures['popping_player_0-4'],
-    scene.textures['popping_player_0-5'],
-  ]
+  s.textures = scene.getTextures([
+    'popping_player_0-1',
+    'popping_player_0-2',
+    'popping_player_0-3',
+    'popping_player_0-4',
+    'popping_player_0-5',
+  ])
   s.onFrameChange = () => {
     s.scale = s.scale.x + 1
   }

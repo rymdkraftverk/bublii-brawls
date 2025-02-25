@@ -41,7 +41,7 @@ export default async function game(scene: Scene) {
   window.scene = scene
 
   const screenShake = useScreenShake(container)
-  const bg2 = sprite(container, scene.textures['background-1'])
+  const bg2 = sprite(container, scene.getTexture('background-1'))
   bg2.zIndex = -9999
   bg2.scale = 0.5
 
@@ -116,7 +116,7 @@ export default async function game(scene: Scene) {
       )
       scoreText.position.x = scene.app.screen.width / 2 - scoreText.width / 2
       scoreText.position.y = 40
-      scene.state.alchemy.paused = true
+      scene.internalState.paused = true
 
       music.blue_brawls.stop()
       music.reptile_dysfunction.play()

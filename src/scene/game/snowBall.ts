@@ -1,7 +1,7 @@
 import { animatedSprite } from 'alchemy-engine'
 import { toDegrees } from 'tiny-toolkit'
 import { getNextId, sprites, state, type EntityId, type Radian } from '~/data'
-import type { Scene, TextureName } from '~/type'
+import type { Scene } from '~/type'
 import { increaseMass, START_MASS } from './player'
 
 // CONFIG
@@ -34,9 +34,12 @@ export const launch = (scene: Scene, from: EntityId, angle: Radian) => {
   const fromPosition = state.positions.get(from)!
 
   const s = animatedSprite(scene.container)
-  s.textures = (
-    ['snowball_0-1', 'snowball_0-2', 'snowball_0-3'] satisfies TextureName[]
-  ).map((x) => scene.textures[x])
+
+  s.textures = scene.getTextures([
+    'snowball_0-1',
+    'snowball_0-2',
+    'snowball_0-3',
+  ])
   s.position.set(fromPosition.x, fromPosition.y)
   s.angle = toDegrees(angle)
   s.anchor = 0.5
