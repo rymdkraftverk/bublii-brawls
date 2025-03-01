@@ -1,5 +1,5 @@
-import type { Scene } from '~/type'
-import { type EntityId, type Type } from '~/data'
+import type { Scene } from '~/type.js'
+import { type EntityId, type Type } from '~/data.js'
 
 export type Direction = 'North' | 'East' | 'South' | 'West'
 

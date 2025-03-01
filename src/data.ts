@@ -1,11 +1,11 @@
 import { arrowKeys } from 'alchemy-engine'
-
-import game from './scene/game'
-import mainMenu from './scene/mainMenu'
 import { Sprite } from 'pixi.js'
-import * as V from '~/util/vector2d'
-import type { TextureName } from './type'
-import type { MobType } from './scene/game/mobs'
+
+import game from './scene/game/index.js'
+import mainMenu from './scene/mainMenu.js'
+import * as V from '~/util/vector2d.js'
+import type { TextureName } from './type.js'
+import type { MobType } from './scene/game/mobs.js'
 
 export const scenes = {
   game,

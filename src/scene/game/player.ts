@@ -1,6 +1,7 @@
 import { animatedSprite } from 'alchemy-engine'
 import type { AnimatedSprite } from 'pixi.js'
 import { grid } from 'tiny-toolkit'
+
 import {
   sprites,
   state,
@@ -8,9 +9,9 @@ import {
   type Mass,
   textures,
   type SnowMass,
-} from '~/data'
-import { type Scene } from '~/type'
-import * as scope from './scope'
+} from '~/data.js'
+import { type Scene } from '~/type.js'
+import * as scope from './scope.js'
 
 // CONFIG
 const DENSITY = 1
@@ -62,10 +63,7 @@ export const heal = (
 export const bublé = (scene: Scene, playerId: EntityId) => {
   const s = sprites.get(playerId)! as AnimatedSprite
   s.loop = true
-  s.textures = [
-    scene.textures['buble_head-1'],
-    scene.textures['buble_head_open-1'],
-  ]
+  s.textures = scene.getTextures(['buble_head-1', 'buble_head_open-1'])
   s.scale = 0.1
   s.play()
 
@@ -83,7 +81,7 @@ const unBublé = (scene: Scene, playerId: EntityId) => {
 
 export const backToSnow = (scene: Scene, playerId: EntityId) => {
   const s = sprites.get(playerId)! as AnimatedSprite
-  s.textures = textures.get(playerId)!.map((x) => scene.textures[x])
+  s.textures = scene.getTextures(textures.get(playerId)!)
   s.loop = true
   s.play()
 }
@@ -119,7 +117,7 @@ export function createPlayer(controllerId: EntityId, scene: Scene) {
 
   s.anchor = 0.5
   // const s = spritePool.get()
-  s.textures = textures.get(controllerId)!.map((x) => scene.textures[x])
+  s.textures = scene.getTextures(textures.get(controllerId)!)
   s.animationSpeed = 0.1
   s.play()
   s.position.set(x, y)

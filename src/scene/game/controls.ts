@@ -1,9 +1,9 @@
-import type { Scene } from '~/type'
-import { getGamepads } from './gamepad'
-import * as snowBall from './snowBall'
-import * as bubble from './bubble'
-import { state } from '~/data'
-import { createPlayer } from './player'
+import type { Scene } from '~/type.js'
+import { getGamepads } from './gamepad.js'
+import * as snowBall from './snowBall.js'
+import * as bubble from './bubble.js'
+import { state } from '~/data.js'
+import { createPlayer } from './player.js'
 
 const PLAYER_ACCELERATION = 1
 

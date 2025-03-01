@@ -1,10 +1,11 @@
 import { getDistance } from 'tiny-toolkit'
-import { normalize, scale, subtract } from '~/util/vector2d'
-import { sprites, state, type EntityId } from '~/data'
-import type { Scene } from '~/type'
-import { backToSnow, setMass, START_MASS } from './player'
-import { fall } from './snow'
 import type { AnimatedSprite } from 'pixi.js'
+
+import { normalize, scale, subtract } from '~/util/vector2d.js'
+import { sprites, state, type EntityId } from '~/data.js'
+import type { Scene } from '~/type.js'
+import { backToSnow, setMass, START_MASS } from './player.js'
+import { fall } from './snow.js'
 
 const MAXIMUM_SPEED = 3
 
@@ -16,13 +17,13 @@ const itGoesPop = (scene: Scene, playerId: EntityId) => {
   const snowmass = exchangeMassForSnowMass(state.masses.get(playerId)!)
 
   const s = sprites.get(playerId)! as AnimatedSprite
-  s.textures = [
-    scene.textures['popping_player_0-1'],
-    scene.textures['popping_player_0-2'],
-    scene.textures['popping_player_0-3'],
-    scene.textures['popping_player_0-4'],
-    scene.textures['popping_player_0-5'],
-  ]
+  s.textures = scene.getTextures([
+    'popping_player_0-1',
+    'popping_player_0-2',
+    'popping_player_0-3',
+    'popping_player_0-4',
+    'popping_player_0-5',
+  ])
   s.onFrameChange = () => {
     s.scale = s.scale.x + 1
   }

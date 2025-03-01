@@ -3,17 +3,19 @@ import {
   sprite,
   graphics,
   text,
+  centerPivot,
 } from 'alchemy-engine'
-import { type Scene } from '~/type'
-import { scanForControls } from './controls'
-import { sprites, purge, textures, TextStyle } from '~/data'
-import * as snow from './snow'
-import collisions from './collisions'
-import { borderPatrol } from './system/borderPatrol'
-import { applyPlayerFriction } from './system/playerFriction'
-import mobs, { damageMob, mobSprites, purgeMob } from './mobs'
-import * as V from '~/util/vector2d'
-import debug from './debug'
+import { deNormalizeRange } from 'tiny-toolkit'
+
+import { type Scene } from '~/type.js'
+import { scanForControls } from './controls.js'
+import { sprites, purge, textures, TextStyle } from '~/data.js'
+import * as snow from './snow.js'
+import collisions from './collisions.js'
+import { borderPatrol } from './system/borderPatrol.js'
+import { applyPlayerFriction } from './system/playerFriction.js'
+import mobs, { damageMob, mobSprites, purgeMob } from './mobs.js'
+import * as V from '~/util/vector2d.js'
 import {
   feed,
   heal,
@@ -22,8 +24,7 @@ import {
   MAX_MASS,
   bublé,
   jumpBack,
-} from './player'
-import { deNormalizeRange } from 'tiny-toolkit'
+} from './player.js'
 
 export default async function game(scene: Scene) {
   const {
@@ -40,8 +41,10 @@ export default async function game(scene: Scene) {
   // @ts-expect-error TS2339
   window.scene = scene
 
+  centerPivot(container, app.screen.width, app.screen.height)
+
   const screenShake = useScreenShake(container)
-  const bg2 = sprite(container, scene.textures['background-1'])
+  const bg2 = sprite(container, scene.getTexture('background-1'))
   bg2.zIndex = -9999
   bg2.scale = 0.5
 
@@ -116,7 +119,7 @@ export default async function game(scene: Scene) {
       )
       scoreText.position.x = scene.app.screen.width / 2 - scoreText.width / 2
       scoreText.position.y = 40
-      scene.state.alchemy.paused = true
+      scene.internalState.paused = true
 
       music.blue_brawls.stop()
       music.reptile_dysfunction.play()
@@ -332,6 +335,4 @@ export default async function game(scene: Scene) {
   ])
 
   mobs(scene, screenShake, sound)
-  // TODO: Remove this before release
-  debug(scene)
 }

@@ -5,16 +5,24 @@ import {
   sprite,
   type ObjectPool,
   type Position,
+  type ScreenShake,
 } from 'alchemy-engine'
 import type { AnimatedSprite, Container, Sprite } from 'pixi.js'
 import { Graphics } from 'pixi.js'
 import { deNormalizeRange, getDistance } from 'tiny-toolkit'
-import { getNextId, purge, state, type EntityId, type PlayerId } from '~/data'
-import type { Scene, TextureName } from '~/type'
-import { normalize, scale, subtract } from '~/util/vector2d'
-import * as V from '~/util/vector2d'
-import { MAX_MASS, START_MASS } from './player'
-import { SNOWBALL_AREA_FACTOR } from './snowBall'
+
+import {
+  getNextId,
+  purge,
+  state,
+  type EntityId,
+  type PlayerId,
+} from '~/data.js'
+import type { Scene, TextureName } from '~/type.js'
+import { normalize, scale, subtract } from '~/util/vector2d.js'
+import * as V from '~/util/vector2d.js'
+import { MAX_MASS, START_MASS } from './player.js'
+import { SNOWBALL_AREA_FACTOR } from './snowBall.js'
 
 const MAXIMUM_SPEED = 0.5
 const TNT_COUNTDOWN_TIME = 120
@@ -125,7 +133,11 @@ let mobPool: ObjectPool<{
 const targetMap = new Map<EntityId, PlayerId>()
 const mobToHazardMap = new Map<EntityId, EntityId>()
 
-export default async function mobs(scene: Scene, screenShake: any, sound: any) {
+export default async function mobs(
+  scene: Scene,
+  screenShake: ScreenShake,
+  sound: any,
+) {
   const wave = waves[0]
 
   if (!wave) {
@@ -138,10 +150,10 @@ export default async function mobs(scene: Scene, screenShake: any, sound: any) {
     con.position = { x: -999, y: -999 }
     const character = animatedSprite(con)
     character.visible = false
-    character.textures = [
-      scene.textures['lizard_green_0-1'],
-      scene.textures['lizard_green_0-2'],
-    ]
+    character.textures = scene.getTextures([
+      'lizard_green_0-1',
+      'lizard_green_0-2',
+    ])
     character.animationSpeed = 0.05
     character.play()
     character.scale = 0.5
@@ -189,7 +201,7 @@ export default async function mobs(scene: Scene, screenShake: any, sound: any) {
     healthbar.visible = true
 
     mobSprites.set(mobId, poolObject)
-    weapon.texture = scene.textures[weaponTextureMap[wave.type]]
+    weapon.texture = scene.getTexture(weaponTextureMap[wave.type])
     weapon.position = weaponPositionMap[wave.type]
     weapon.scale = 0.5
 
@@ -197,13 +209,18 @@ export default async function mobs(scene: Scene, screenShake: any, sound: any) {
     hazardSprite.scale = 1
 
     con.visible = true
-    await scene.timer.repeatUntil(90, () => {
-      const position = scene.state.positions.get(mobId)
-      if (!position) {
-        // Mob was purged
-        return
-      }
-      position.y += 1
+
+    await scene.animate.linear({
+      endValue: 90,
+      duration: 90,
+      onUpdate: (y) => {
+        const position = scene.state.positions.get(mobId)
+        if (!position) {
+          // Mob was purged
+          return
+        }
+        position.y = y
+      },
     })
 
     await scene.timer.delay(10)
@@ -213,9 +230,7 @@ export default async function mobs(scene: Scene, screenShake: any, sound: any) {
       scene.state.typeToIds.hazard.push(hazard)
       mobToHazardMap.set(mobId, hazard)
       scene.state.hazardToMobType.set(hazard, wave.type)
-      hazardSprite.textures = projectileTextureMap[wave.type].map(
-        (x) => scene.textures[x],
-      )
+      hazardSprite.textures = scene.getTextures(projectileTextureMap[wave.type])
       hazardSprite.anchor = 0
       hazardSprite.position = { x: 15, y: 8 }
       hazardSprite.animationSpeed = 0.1
@@ -247,7 +262,7 @@ export default async function mobs(scene: Scene, screenShake: any, sound: any) {
     } else if (wave.type === MobType.TNT) {
       await scene.timer.delay(TNT_COUNTDOWN_TIME)
       hazardSprite.visible = true
-      const tntTextures: TextureName[] = [
+      hazardSprite.textures = scene.getTextures([
         'tnt_explode_0-1',
         'tnt_explode_0-2',
         'tnt_explode_0-3',
@@ -257,8 +272,7 @@ export default async function mobs(scene: Scene, screenShake: any, sound: any) {
         'tnt_explode_0-7',
         'tnt_explode_0-8',
         'tnt_explode_0-9',
-      ]
-      hazardSprite.textures = tntTextures.map((x) => scene.textures[x])
+      ])
       hazardSprite.animationSpeed = 0.05
       hazardSprite.loop = false
       hazardSprite.play()
@@ -277,7 +291,7 @@ export default async function mobs(scene: Scene, screenShake: any, sound: any) {
           x: _mobPosition.x,
         })
 
-        const explosionTextures: TextureName[] = [
+        hazardSprite.textures = scene.getTextures([
           'explosion_0-1',
           'explosion_0-2',
           'explosion_0-3',
@@ -285,8 +299,7 @@ export default async function mobs(scene: Scene, screenShake: any, sound: any) {
           'explosion_0-5',
           'explosion_0-6',
           'explosion_0-7',
-        ]
-        hazardSprite.textures = explosionTextures.map((x) => scene.textures[x])
+        ])
         hazardSprite.anchor.x = 0.5
         hazardSprite.anchor.y = 0.8
         hazardSprite.scale = 5
@@ -301,7 +314,7 @@ export default async function mobs(scene: Scene, screenShake: any, sound: any) {
           hazardSprite.loop = true
         }
 
-        screenShake.add(1)
+        screenShake(1)
         sound.explosion.play()
       }
     }

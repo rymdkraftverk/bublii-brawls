@@ -1,7 +1,7 @@
 import { Application, Container } from 'pixi.js'
 import { text, sync, container, graphics, onClick } from 'alchemy-engine'
 
-import { type State, TextStyle } from '~/data'
+import { type State, TextStyle } from '~/data.js'
 
 export default function settings(
   app: Application,

@@ -1,9 +1,10 @@
 import { Application } from 'pixi.js'
 import createGame from 'alchemy-engine'
 
-import { keys, scenes, state } from './data'
+import { keys, scenes, state } from './data.js'
 
-import sounds from './sounds.json'
+// TODO: Add to template
+import sounds from './sounds.json' with { type: 'json' }
 
 const GAME_WIDTH = 640
 const GAME_HEIGHT = 480
