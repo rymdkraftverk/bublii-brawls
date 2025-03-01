@@ -125,8 +125,7 @@ export default async function game(scene: Scene) {
 
   applyPlayerFriction(scene)
 
-  music.blue_brawls.loop()
-  music.blue_brawls.play()
+  music.blue_brawls.loop(true).play()
 
   collisions(scene, [
     {
