@@ -1,6 +1,6 @@
-import { state } from '~/data'
-import type { Scene } from '~/type'
-import * as V from '~/util/vector2d'
+import { state } from '~/data.js'
+import type { Scene } from '~/type.js'
+import * as V from '~/util/vector2d.js'
 
 const frictionCoefficient = 10
 

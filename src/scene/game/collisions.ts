@@ -1,6 +1,7 @@
 import { getDistance } from 'tiny-toolkit'
-import { type EntityId, type Type } from '~/data'
-import type { Scene } from '~/type'
+
+import { type EntityId, type Type } from '~/data.js'
+import type { Scene } from '~/type.js'
 
 type CollisionConfig = {
   type1: Type

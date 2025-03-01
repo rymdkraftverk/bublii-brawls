@@ -10,12 +10,19 @@ import {
 import type { AnimatedSprite, Container, Sprite } from 'pixi.js'
 import { Graphics } from 'pixi.js'
 import { deNormalizeRange, getDistance } from 'tiny-toolkit'
-import { getNextId, purge, state, type EntityId, type PlayerId } from '~/data'
-import type { Scene, TextureName } from '~/type'
-import { normalize, scale, subtract } from '~/util/vector2d'
-import * as V from '~/util/vector2d'
-import { MAX_MASS, START_MASS } from './player'
-import { SNOWBALL_AREA_FACTOR } from './snowBall'
+
+import {
+  getNextId,
+  purge,
+  state,
+  type EntityId,
+  type PlayerId,
+} from '~/data.js'
+import type { Scene, TextureName } from '~/type.js'
+import { normalize, scale, subtract } from '~/util/vector2d.js'
+import * as V from '~/util/vector2d.js'
+import { MAX_MASS, START_MASS } from './player.js'
+import { SNOWBALL_AREA_FACTOR } from './snowBall.js'
 
 const MAXIMUM_SPEED = 0.5
 const TNT_COUNTDOWN_TIME = 120

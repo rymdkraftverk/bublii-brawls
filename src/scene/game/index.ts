@@ -5,16 +5,17 @@ import {
   text,
   centerPivot,
 } from 'alchemy-engine'
-import { type Scene } from '~/type'
-import { scanForControls } from './controls'
-import { sprites, purge, textures, TextStyle } from '~/data'
-import * as snow from './snow'
-import collisions from './collisions'
-import { borderPatrol } from './system/borderPatrol'
-import { applyPlayerFriction } from './system/playerFriction'
-import mobs, { damageMob, mobSprites, purgeMob } from './mobs'
-import * as V from '~/util/vector2d'
-import debug from './debug'
+import { deNormalizeRange } from 'tiny-toolkit'
+
+import { type Scene } from '~/type.js'
+import { scanForControls } from './controls.js'
+import { sprites, purge, textures, TextStyle } from '~/data.js'
+import * as snow from './snow.js'
+import collisions from './collisions.js'
+import { borderPatrol } from './system/borderPatrol.js'
+import { applyPlayerFriction } from './system/playerFriction.js'
+import mobs, { damageMob, mobSprites, purgeMob } from './mobs.js'
+import * as V from '~/util/vector2d.js'
 import {
   feed,
   heal,
@@ -23,8 +24,7 @@ import {
   MAX_MASS,
   bublé,
   jumpBack,
-} from './player'
-import { deNormalizeRange } from 'tiny-toolkit'
+} from './player.js'
 
 export default async function game(scene: Scene) {
   const {
@@ -336,6 +336,4 @@ export default async function game(scene: Scene) {
   ])
 
   mobs(scene, screenShake, sound)
-  // TODO: Remove this before release
-  debug(scene)
 }

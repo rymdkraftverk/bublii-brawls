@@ -1,8 +1,15 @@
 import { animatedSprite } from 'alchemy-engine'
 import { toDegrees } from 'tiny-toolkit'
-import { getNextId, sprites, state, type EntityId, type Radian } from '~/data'
-import type { Scene } from '~/type'
-import { increaseMass, START_MASS } from './player'
+
+import {
+  getNextId,
+  sprites,
+  state,
+  type EntityId,
+  type Radian,
+} from '~/data.js'
+import type { Scene } from '~/type.js'
+import { increaseMass, START_MASS } from './player.js'
 
 // CONFIG
 const SPEED = 3

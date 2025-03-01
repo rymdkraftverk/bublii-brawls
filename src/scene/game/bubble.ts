@@ -1,10 +1,11 @@
 import { getDistance } from 'tiny-toolkit'
-import { normalize, scale, subtract } from '~/util/vector2d'
-import { sprites, state, type EntityId } from '~/data'
-import type { Scene } from '~/type'
-import { backToSnow, setMass, START_MASS } from './player'
-import { fall } from './snow'
 import type { AnimatedSprite } from 'pixi.js'
+
+import { normalize, scale, subtract } from '~/util/vector2d.js'
+import { sprites, state, type EntityId } from '~/data.js'
+import type { Scene } from '~/type.js'
+import { backToSnow, setMass, START_MASS } from './player.js'
+import { fall } from './snow.js'
 
 const MAXIMUM_SPEED = 3
 

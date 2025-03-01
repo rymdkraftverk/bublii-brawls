@@ -1,6 +1,6 @@
 import { graphics } from 'alchemy-engine'
 // import type { Type } from '~/data'
-import type { Scene } from '~/type'
+import type { Scene } from '~/type.js'
 
 export default function debug(scene: Scene) {
   const debugGraphics = graphics(scene.container)

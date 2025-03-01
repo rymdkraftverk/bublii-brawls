@@ -1,7 +1,8 @@
 import { graphics } from 'alchemy-engine'
 import type { Graphics } from 'pixi.js'
-import { state, type EntityId } from '~/data'
-import type { Scene } from '~/type'
+
+import { state, type EntityId } from '~/data.js'
+import type { Scene } from '~/type.js'
 
 export const init = (playerId: EntityId, scene: Scene) => {
   const g = graphics(scene.container)

@@ -1,6 +1,7 @@
 import { animatedSprite } from 'alchemy-engine'
 import type { AnimatedSprite } from 'pixi.js'
 import { grid } from 'tiny-toolkit'
+
 import {
   sprites,
   state,
@@ -8,9 +9,9 @@ import {
   type Mass,
   textures,
   type SnowMass,
-} from '~/data'
-import { type Scene } from '~/type'
-import * as scope from './scope'
+} from '~/data.js'
+import { type Scene } from '~/type.js'
+import * as scope from './scope.js'
 
 // CONFIG
 const DENSITY = 1

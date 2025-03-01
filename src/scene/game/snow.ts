@@ -1,7 +1,8 @@
 import { graphics } from 'alchemy-engine'
 import { Graphics } from 'pixi.js'
-import { getNextId, state, type EntityId, type SnowMass } from '~/data'
-import type { Scene } from '~/type'
+
+import { getNextId, state, type EntityId, type SnowMass } from '~/data.js'
+import type { Scene } from '~/type.js'
 
 const RADIUS = 4 // CONFIG
 const START_X = 10
