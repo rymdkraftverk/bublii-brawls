@@ -209,14 +209,6 @@ export default async function mobs(
     hazardSprite.scale = 1
 
     con.visible = true
-    await scene.timer.repeatUntil(90, () => {
-      const position = scene.state.positions.get(mobId)
-      if (!position) {
-        // Mob was purged
-        return
-      }
-      position.y += 1
-    })
 
     await scene.animate.linear({
       endValue: 90,
