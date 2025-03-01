@@ -3,6 +3,7 @@ import {
   sprite,
   graphics,
   text,
+  centerPivot,
 } from 'alchemy-engine'
 import { type Scene } from '~/type'
 import { scanForControls } from './controls'
@@ -39,6 +40,8 @@ export default async function game(scene: Scene) {
   // hacky convenience
   // @ts-expect-error TS2339
   window.scene = scene
+
+  centerPivot(container, app.screen.width, app.screen.height)
 
   const screenShake = useScreenShake(container)
   const bg2 = sprite(container, scene.getTexture('background-1'))
